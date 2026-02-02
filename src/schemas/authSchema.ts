@@ -13,11 +13,18 @@ export const AuthResponseDataSchema = z.object({
   refreshTokenExpiration: z.string().nullable(),
 });
 
-export const AuthGeneralResponseSchema = z.object({
+export const loginSuccessResponseSchema = z.object({
   isSuccess: z.boolean(),
   message: z.string(),
-  data: z.object(AuthResponseDataSchema).nullable(),
+  data: AuthResponseDataSchema,
 });
+
+export const ErrorResponseSchema = z.object({
+  isSuccess: z.boolean(),
+  message: z.string(),
+  data: z.object(),
+});
+
 
 export const loginSchema = z.object({
   email: z.string(),
@@ -36,6 +43,15 @@ export const registerSchema = z
     rules: z.number(),
   })
   .refine((data) => data.password === data.confirmPassword);
+
+export const registerSuccessSchema = z.object({
+  isSuccess: z.boolean(),
+  message: z.string(),
+  data: z.object({
+    sent: z.string(),
+    expireAt:z.string()
+  })
+  })
 
 export const resetPasswordSchema = z.object({
   email: z.string(),
@@ -57,10 +73,12 @@ export const revokeTokenSchema = z.object({
   token: z.string(),
 });
 
+export type errorT = z.infer<typeof ErrorResponseSchema>;
 export type registerT = z.infer<typeof registerSchema>
+export type registerSuccessT = z.infer<typeof registerSuccessSchema>
 export type loginT = z.infer<typeof loginSchema>
 export type resetPasswordT = z.infer<typeof resetPasswordSchema>
 export type resendOtpT = z.infer<typeof resendOtpSchema>
 export type verifyOtpT = z.infer<typeof verifyOtpSchema>
 export type revokeTokenT = z.infer<typeof revokeTokenSchema>
-export type responseT = z.infer<typeof AuthGeneralResponseSchema>
+export type LoginSuccessT = z.infer<typeof loginSuccessResponseSchema>;

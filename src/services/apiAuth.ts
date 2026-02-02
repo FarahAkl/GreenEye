@@ -1,11 +1,11 @@
 import axios, { isAxiosError } from "axios";
-import { AuthGeneralResponseSchema, type loginT, type registerT, type responseT } from "../schemas/authSchema";
+import { ErrorResponseSchema, loginSuccessResponseSchema, registerSuccessSchema, type loginT, type registerT } from "../schemas/authSchema";
 import axiosInstance from "./axiosInstance";
 
 export const register = async (data: registerT) => {
   try {
     const res = await axiosInstance.post("/api/Authentication/register", data);
-    const validateRes = AuthGeneralResponseSchema.parse(res.data);
+    const validateRes = registerSuccessSchema.parse(res.data);
     return validateRes;
   } catch (err) {
     if (isAxiosError(err)) {
@@ -21,15 +21,15 @@ export const register = async (data: registerT) => {
   }
 };
 
-export const login = async (data: loginT): Promise<responseT> => {
+export const login = async (data: loginT)=> {
   try {
     const res = await axiosInstance.post("/api/Authentication/login", data);
-    const validatedRes = AuthGeneralResponseSchema.parse(res.data);
+    const validatedRes = loginSuccessResponseSchema.parse(res.data);
     return validatedRes;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.data) {
       try {
-        const parsedError = AuthGeneralResponseSchema.parse(
+        const parsedError = ErrorResponseSchema.parse(
           error.response.data,
         );
         throw parsedError;

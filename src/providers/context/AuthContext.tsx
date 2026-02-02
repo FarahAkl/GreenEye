@@ -1,10 +1,14 @@
-import { createContext } from 'react';
-import type { loginT } from '../../schemas/authSchema';
+import { createContext } from "react";
+import type { z } from "zod";
+import { AuthResponseDataSchema } from "../../schemas/authSchema";
 
-interface AuthContextT {
+export type AuthUser = z.infer<typeof AuthResponseDataSchema>;
+
+export interface AuthContextType {
   isAuthenticated: boolean;
-  login: (data:loginT) => void;
+  user: AuthUser | null;
+  setUser: (data: AuthUser) => void;
   logout: () => void;
 }
 
-export const AuthContext = createContext<AuthContextT | null>(null);
+export const AuthContext = createContext<AuthContextType | null>(null);
