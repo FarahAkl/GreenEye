@@ -1,6 +1,7 @@
 import { FaFacebookF, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { LuSend } from "react-icons/lu";
 import ScrollToHash from "./ScrollToHash";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const year = new Date().getFullYear();
@@ -22,17 +23,23 @@ const Footer = () => {
           </li>
 
           <li className="flex gap-4 sm:gap-6">
-            <div className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/20 text-[#F8FCFB]">
+            <Link
+              to={"https://www.facebook.com/share/17xzZxXDMG/"}
+              className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/20 text-[#F8FCFB]"
+            >
               <FaFacebookF size={20} />
-            </div>
+            </Link>
 
             <div className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/20 text-[#F8FCFB]">
               <FaTwitter size={20} />
             </div>
 
-            <div className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/20 text-[#F8FCFB]">
+            <Link
+              to={"https://www.linkedin.com/company/greeneyee/"}
+              className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/20 text-[#F8FCFB]"
+            >
               <FaLinkedin size={20} />
-            </div>
+            </Link>
           </li>
         </ul>
         <div className="grid grid-cols-2 justify-between gap-10 text-center sm:text-start md:gap-0">
