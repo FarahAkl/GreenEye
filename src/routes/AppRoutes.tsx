@@ -13,6 +13,7 @@ import PageNotFound from "../pages/PageNotFound";
 import Profile from "../pages/Profile";
 import Payment from "../pages/Payment";
 import ProtectedRoute from "./ProtectedRoute";
+import Home from "../pages/Home";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
   {
     element: <AppLayout />,
     children: [
+      { path: "/", element: <Home /> },
       { path: "/market", element: <MarketPlace /> },
       { path: "/product/:id", element: <ProductDetails /> },
       {

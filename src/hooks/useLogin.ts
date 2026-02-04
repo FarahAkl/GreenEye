@@ -1,9 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
+import { useAuth } from "./useAuth";
 import { setCookie } from "../utils/TS-Cookie";
 import { login as APILogin } from "../services/apiAuth";
-import toast from "react-hot-toast";
-import { useAuth } from "./useAuth";
 import type { loginT, LoginSuccessT, errorT } from "../schemas/authSchema";
+import toast from "react-hot-toast";
 
 const useLogin = () => {
   const { setUser } = useAuth();
