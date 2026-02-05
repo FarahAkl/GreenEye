@@ -35,7 +35,7 @@ const HeroSec = () => {
   return (
     <section className="relative grid grid-cols-1 bg-[linear-gradient(to_right,#002F20,#009566)] md:grid-cols-2">
       {/* Text Content */}
-      <div className="z-10 flex flex-col items-center gap-3 px-8 pt-24 pb-32 md:items-start md:px-12 lg:px-20 lg:pt-24">
+      <div className="z-10 flex flex-col items-center gap-3 px-8 pt-24 pb-20 md:items-start md:px-12 md:pb-32 lg:px-20 lg:pt-34">
         <h1 className="text-center text-6xl/22 font-bold text-white uppercase md:text-start">
           higher yields lower lost
         </h1>
@@ -56,7 +56,7 @@ const HeroSec = () => {
         <img
           src="/images/plantHologrampng.png"
           alt="Plant Hologram"
-          className="md:absolute inset-0 h-full w-full object-cover"
+          className="inset-0 h-full w-full object-cover md:absolute"
         />
       </div>
     </section>
