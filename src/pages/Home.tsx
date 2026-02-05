@@ -1,5 +1,11 @@
+import HeroSec from "../ui/HeroSec";
+
 const Home = () => {
-  return <></>;
+  return (
+    <>
+      <HeroSec />
+    </>
+  );
 };
 
 export default Home;
