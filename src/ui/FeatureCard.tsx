@@ -10,7 +10,7 @@ interface ITourCardProps {
 const FeatureCard = ({ image, title, description }: ITourCardProps) => {
   return (
     <div className="flex w-full flex-col overflow-hidden rounded-3xl bg-white shadow-[0px_4px_30px_rgba(0,0,0,0.1)] transition duration-300 hover:hover:shadow-[0px_4px_30px_rgba(0,0,0,0.25)]">
-      <div className="relative h-68 w-full overflow-hidden">
+      <div className="relative h-100 w-full overflow-hidden">
         <img
           src={image}
           alt={title}
@@ -22,7 +22,7 @@ const FeatureCard = ({ image, title, description }: ITourCardProps) => {
         <h3 className="text-black-900 text-dark mb-2 line-clamp-2 h-16 text-center text-2xl">
           {title}
         </h3>
-        <p className="text-black-600 mb-4 line-clamp-3 h-20 text-center text-gray-600">
+        <p className="text-black-600  line-clamp-2 h-20 text-center text-gray-600">
           {description}
         </p>
 

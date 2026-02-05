@@ -8,7 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 const NextArrow = ({ onClick }: CustomArrowProps) => (
   <button
     onClick={onClick}
-    className="absolute -bottom-16 right-10 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border-2 border-dark text-dark"
+    className="border-primary text-primary absolute right-10 -bottom-16 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border-2"
   >
     <FaArrowRight />
   </button>
@@ -17,7 +17,7 @@ const NextArrow = ({ onClick }: CustomArrowProps) => (
 const PrevArrow = ({ onClick }: CustomArrowProps) => (
   <button
     onClick={onClick}
-    className="text-dark absolute -bottom-16 left-10 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border-2 border-dark"
+    className="text-primary border-primary absolute -bottom-16 left-10 z-20 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border-2"
   >
     <FaArrowLeft />
   </button>
@@ -30,30 +30,30 @@ const FeatureSec = () => {
       title: "Plant Disease Detection",
       description:
         "Upload a photo and let AI identify plant diseases and suggest treatments",
-      image: "/images/article-img.png",
+      image: "/images/feat-disease.avif",
     },
     {
       title: "Land & Climate Monitoring",
       description:
         "Real time tracking of plant health and weather changes using real satellite and climate data.",
-      image: "/images/article-img.png",
+      image: "/images/feat-monitor.avif",
     },
     {
       title: "Community & Marketplace",
       description:
         "Connect with experts, share knowledge, and access agricultural products in one place",
-      image: "/images/article-img.png",
+      image: "/images/feat-market.avif",
     },
     {
       title: "Smart Crop Recommendations",
       description:
         "Get crop suggestions based on land suitability, climate, and planting season.",
-      image: "/images/article-img.png",
+      image: "/images/feat-recommend.avif",
     },
     {
       title: "Desertification Risk Prediction & Classification",
       description: "Know the severity and future risk of your land",
-      image: "/images/article-img.png",
+      image: "/images/feat-desert.avif",
     },
   ];
 
