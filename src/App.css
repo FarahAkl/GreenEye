@@ -6,3 +6,7 @@
   --color-dark: #002f20;
   --color-bg: #f0f6f2;
 }
+
+.features-slider .slick-list{
+  padding-block: 3rem;
+}
