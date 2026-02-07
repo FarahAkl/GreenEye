@@ -1,3 +1,4 @@
+import AppSec from "../ui/AppSec";
 import ArticleSec from "../ui/ArticleSec";
 import FeatureSec from "../ui/FeatureSec";
 import GreenEyeSec from "../ui/GreenEyeSec";
@@ -15,6 +16,7 @@ const Home = () => {
       <FeatureSec />
       <WhyMattersSec />
       <GreenEyeSec />
+      <AppSec/>
       <MarketSec/>
     </>
   );
