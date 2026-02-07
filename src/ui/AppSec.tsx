@@ -34,7 +34,7 @@ const AppSec = () => {
     },
   ];
   return (
-    <section className="px-8 py-20 shadow-xl md:px-12 lg:px-24">
+    <section className="px-8 py-20 md:px-12 lg:px-24">
       <div className="grid items-center gap-12 lg:grid-cols-2">
         <div className="flex flex-col gap-4">
           <p className="text-dark text-4xl font-bold">The GreenEye App</p>
