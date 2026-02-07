@@ -1,5 +1,6 @@
 import AppSec from "../ui/AppSec";
 import ArticleSec from "../ui/ArticleSec";
+import ChallengesSec from "../ui/ChallengesSec";
 import DifferentsSec from "../ui/DifferentsSec";
 import FeatureSec from "../ui/FeatureSec";
 import GreenEyeSec from "../ui/GreenEyeSec";
@@ -13,6 +14,7 @@ const Home = () => {
     <>
       <HeroSec />
       <ArticleSec />
+      <ChallengesSec/>
       <MeetUsSec />
       <FeatureSec />
       <WhyMattersSec />
