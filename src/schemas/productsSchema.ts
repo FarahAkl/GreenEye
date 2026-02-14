@@ -36,5 +36,24 @@ export const updateProductsRequestSchema = z.object({
   isAvailable: z.boolean(),
 });
 
+export const createProductsRequestSchema = z.object({
+  name: z.string(),
+  description: z.string().optional(),
+  CategoryId: z.number(),
+  Price: z.number(),
+  StockQuantity: z.number(),
+  ProductionDate: z.string().optional(),
+  ExpiryDate: z.string().optional(),
+  ImageFile: z.string().optional(),
+});
+
+export const createProductResponseSchema = z.object({
+  isSuccess: z.boolean(),
+  message: z.string().nullable(),
+  data: z.array(z.any()),
+});
+
 export type productsT = z.infer<typeof productsSchema>;
 export type productsResponseT = z.infer<typeof productsResponseSchema>;
+export type updateProductT = z.infer<typeof updateProductsRequestSchema>;
+export type createProductT = z.infer<typeof createProductsRequestSchema>;

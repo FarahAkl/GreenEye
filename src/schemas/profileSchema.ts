@@ -21,3 +21,4 @@ export const updateProfileRequestSchema = z.object({
 });
 
 export type profileT = z.infer<typeof profileSuccessSchema>;
+export type updateProfileT = z.infer<typeof updateProfileRequestSchema>

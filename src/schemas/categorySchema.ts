@@ -14,5 +14,20 @@ export const categoriesResponseSchema = z.object({
   data: z.array(categorySchema),
 });
 
+export const createCategoryRequestSchema = z.object({
+  Name: z.string(),
+  Description: z.string().optional(),
+  ImageUrl: z.string().optional(),
+});
+
+export const createCategoryResponse = z.object({
+  isSuccess: z.boolean(),
+  message: z.string().nullable(),
+  data: z.array(z.any()),
+});
+
 export type categoryT = z.infer<typeof categorySchema>;
 export type categoriesResponseT = z.infer<typeof categoriesResponseSchema>;
+export type createCategoryRequestT = z.infer<
+  typeof createCategoryRequestSchema
+>;
