@@ -15,13 +15,13 @@ export const AuthResponseDataSchema = z.object({
 
 export const loginSuccessResponseSchema = z.object({
   isSuccess: z.boolean(),
-  message: z.string(),
+  message: z.string().nullable(),
   data: AuthResponseDataSchema,
 });
 
 export const ErrorResponseSchema = z.object({
   isSuccess: z.boolean(),
-  message: z.string(),
+  message: z.string().nullable(),
   data: z.object(),
 });
 
@@ -46,7 +46,7 @@ export const registerSchema = z
 
 export const registerSuccessSchema = z.object({
   isSuccess: z.boolean(),
-  message: z.string(),
+  message: z.string().nullable(),
   data: z.object({
     sent: z.string(),
     expireAt:z.string()
