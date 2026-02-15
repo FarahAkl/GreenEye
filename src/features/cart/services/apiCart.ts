@@ -1,6 +1,6 @@
 import { isAxiosError } from "axios";
-import axiosInstance from "./axiosInstance";
-import { cartResponseSchema, type addItemToCartT, type updateItemInCartT } from "../schemas/cartSchema";
+import axiosInstance from "../../../services/axiosInstance";
+import { cartResponseSchema, type addItemToCartT, type updateItemInCartT } from "../../../schemas/cartSchema";
 
 export const getCart = async () => {
   const res = await axiosInstance.get("/api/marketplace/Cart");

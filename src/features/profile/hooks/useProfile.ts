@@ -4,7 +4,7 @@ import {
   updateProfile as updateProfileApi,
 } from "../services/apiProfile";
 import toast from "react-hot-toast";
-import type { updateProfileT } from "../schemas/profileSchema";
+import type { updateProfileT } from "../../../schemas/profileSchema";
 
 const useProfile = () => {
   const queryClient = useQueryClient();

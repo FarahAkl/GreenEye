@@ -1,7 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
-import { setCookie } from "../utils/TS-Cookie";
+import { setCookie } from "../../../utils/TS-Cookie";
 import { login as APILogin } from "../services/apiAuth";
-import type { loginT, LoginSuccessT, errorT } from "../schemas/authSchema";
+import type {
+  loginT,
+  LoginSuccessT,
+  errorT,
+} from "../../../schemas/authSchema";
 import toast from "react-hot-toast";
 
 const useLogin = () => {
@@ -18,7 +22,7 @@ const useLogin = () => {
         return;
       }
 
-      toast.success(data.message || 'Login Successfully');
+      toast.success(data.message || "Login Successfully");
 
       if (data.data.accessToken) {
         setCookie({

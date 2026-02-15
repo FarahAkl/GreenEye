@@ -1,26 +1,26 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Login from "../pages/Login";
+import Login from "../features/auth/pages/Login";
 import MarketPlace from "../pages/MarketPlace";
 import ProductDetails from "../pages/ProductDetails";
-import Signup from "../pages/Signup";
 import AuthLayout from "../ui/AuthLayout";
 import AppLayout from "../ui/AppLayout";
 import Cart from "../pages/Cart";
-import ResetPassword from "../pages/ResetPassword";
-import ForgetPassword from "../pages/ForgetPassword";
-import OTP from "../pages/OTP";
+import ResetPassword from "../features/auth/pages/ResetPassword";
+import ForgetPassword from "../features/auth/pages/ForgetPassword";
+import OTP from "../features/auth/pages/OTP";
 import PageNotFound from "../pages/PageNotFound";
 import Profile from "../pages/Profile";
 import Payment from "../pages/Payment";
 import ProtectedRoute from "./ProtectedRoute";
 import Home from "../pages/Home";
+import Register from "../features/auth/pages/Register";
 
 const router = createBrowserRouter([
   {
     element: <AuthLayout />,
     children: [
       { path: "/login", element: <Login /> },
-      { path: "/signup", element: <Signup /> },
+      { path: "/signup", element: <Register /> },
       { path: "/reset-password", element: <ResetPassword /> },
       { path: "/forget-password", element: <ForgetPassword /> },
       { path: "/verify-otp", element: <OTP /> },

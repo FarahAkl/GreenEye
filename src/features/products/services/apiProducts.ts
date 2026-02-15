@@ -4,8 +4,8 @@ import {
   createProductsRequestSchema,
   type createProductT,
   type updateProductT,
-} from "../schemas/productsSchema";
-import axiosInstance from "./axiosInstance";
+} from "../../../schemas/productsSchema";
+import axiosInstance from "../../../services/axiosInstance";
 
 export const getProducts = async () => {
   const res = await axiosInstance.get("/api/marketplace/Product");

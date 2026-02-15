@@ -5,8 +5,8 @@ import useLogin from "../hooks/useLogin";
 import { FiMail } from "react-icons/fi";
 import { GoLock } from "react-icons/go";
 import Input from "../ui/Input";
-import SpinnerBtn from "../ui/SpinnerBtn";
-import { loginSchema, type loginT } from "../schemas/authSchema";
+import SpinnerBtn from "../../../ui/SpinnerBtn";
+import { loginSchema, type loginT } from "../../../schemas/authSchema";
 
 const Login = () => {
   const navigate = useNavigate();

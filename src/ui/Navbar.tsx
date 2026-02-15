@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { HiMenu, HiX } from "react-icons/hi";
 import { TiShoppingCart } from "react-icons/ti";
 import { CgProfile } from "react-icons/cg";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../features/auth/hooks/useAuth";
 import useOutsideClick from "../hooks/useOutsideClick";
 import ScrollToHash from "./ScrollToHash";
 import Button from "./Button";

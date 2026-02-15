@@ -1,6 +1,12 @@
 import axios, { isAxiosError } from "axios";
-import { ErrorResponseSchema, loginSuccessResponseSchema, registerSuccessSchema, type loginT, type registerT } from "../schemas/authSchema";
-import axiosInstance from "./axiosInstance";
+import {
+  ErrorResponseSchema,
+  loginSuccessResponseSchema,
+  registerSuccessSchema,
+  type loginT,
+  type registerT,
+} from "../../../schemas/authSchema";
+import axiosInstance from "../../../services/axiosInstance";
 
 export const register = async (data: registerT) => {
   try {
@@ -21,7 +27,7 @@ export const register = async (data: registerT) => {
   }
 };
 
-export const login = async (data: loginT)=> {
+export const login = async (data: loginT) => {
   try {
     const res = await axiosInstance.post("/api/Authentication/login", data);
     const validatedRes = loginSuccessResponseSchema.parse(res.data);
@@ -29,9 +35,7 @@ export const login = async (data: loginT)=> {
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.data) {
       try {
-        const parsedError = ErrorResponseSchema.parse(
-          error.response.data,
-        );
+        const parsedError = ErrorResponseSchema.parse(error.response.data);
         throw parsedError;
       } catch (err) {
         if (isAxiosError(err)) {
@@ -49,4 +53,3 @@ export const login = async (data: loginT)=> {
     throw error;
   }
 };
-

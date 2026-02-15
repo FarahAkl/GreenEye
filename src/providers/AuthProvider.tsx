@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { AuthContext } from "./context/AuthContext";
 // import { logout as APILogout } from "../services/apiAuth";
 import { deleteCookie, getCookie } from "../utils/TS-Cookie";
-import { useProfile } from "../hooks/useProfile";
+import { useProfile } from "../features/profile/hooks/useProfile";
 
 interface ProviderProps {
   children: React.ReactNode;
