@@ -10,7 +10,30 @@ import axiosInstance from "../../../services/axiosInstance";
 
 export const register = async (data: registerT) => {
   try {
-    const res = await axiosInstance.post("/api/Authentication/register", data);
+    const formData = new FormData();
+
+    formData.append("name", data.name);
+    formData.append("email", data.email);
+    formData.append("address", data.address);
+    formData.append("phone", data.phone);
+    formData.append("password", data.password);
+    formData.append("confirmPassword", data.confirmPassword);
+    formData.append("rule", data.rule);
+
+    if (data.imageFile) {
+      formData.append("imageFile", data.imageFile);
+    }
+
+    const res = await axiosInstance.post(
+      "/api/Authentication/register",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      },
+    );
+
     const validateRes = registerSuccessSchema.parse(res.data);
     return validateRes;
   } catch (err) {
@@ -26,6 +49,7 @@ export const register = async (data: registerT) => {
     throw err;
   }
 };
+
 
 export const login = async (data: loginT) => {
   try {

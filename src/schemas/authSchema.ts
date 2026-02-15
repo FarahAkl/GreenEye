@@ -41,15 +41,36 @@ export const loginSchema = z.object({
 
 export const registerSchema = z
   .object({
-    name: z.string().min(3),
-    phone: z.string().regex(/^\d{11}$/),
-    email: z.string(),
-    address: z.string(),
-    password: z.string(),
-    confirmPassword: z.string(),
-    rules: z.number(),
+    name: z.string().nonempty("This field is required").min(3),
+    email: z
+      .string()
+      .nonempty("This field is required")
+      .refine((val) => !val || /\S+@\S+\.\S+/.test(val), {
+        message: "Invalid Email Address",
+      }),
+    address: z.string().nonempty("This field is required"),
+    phone: z
+      .string()
+      .nonempty("This field is required")
+      .regex(/^([0-9\s-+()]*)$/, "Invalid phone number")
+      .min(10, "Phone number is shorter than the minimum length"),
+    password: z
+      .string()
+      .nonempty("This field is required")
+      .min(8, "Password must be at least 8 characters")
+      .max(255, "Password must not exceed 255 characters"),
+    confirmPassword: z
+      .string()
+      .nonempty("This field is required")
+      .min(8, "Password must be at least 8 characters")
+      .max(255, "Password must not exceed 255 characters"),
+    rule: z.string(),
+    imageFile: z.file(),
   })
-  .refine((data) => data.password === data.confirmPassword);
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
 
 export const registerSuccessSchema = z.object({
   isSuccess: z.boolean(),
