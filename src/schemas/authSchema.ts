@@ -22,14 +22,21 @@ export const loginSuccessResponseSchema = z.object({
 export const ErrorResponseSchema = z.object({
   isSuccess: z.boolean(),
   message: z.string().nullable(),
-  data: z.object(),
+  data: z.object().nullable(),
 });
 
-
 export const loginSchema = z.object({
-  email: z.string(),
-  password: z.string().min(8),
-  rememberMe: z.boolean().nullable(),
+  email: z
+    .string()
+    .nonempty("This field is required")
+    .refine((val) => !val || /\S+@\S+\.\S+/.test(val), {
+      message: "Invalid Email Address",
+    }),
+  password: z
+    .string()
+    .nonempty("This field is required")
+    .min(8, "Password must be at least 8 characters"),
+  rememberMe: z.boolean(),
 });
 
 export const registerSchema = z
@@ -49,9 +56,9 @@ export const registerSuccessSchema = z.object({
   message: z.string().nullable(),
   data: z.object({
     sent: z.string(),
-    expireAt:z.string()
-  })
-  })
+    expireAt: z.string(),
+  }),
+});
 
 export const resetPasswordSchema = z.object({
   email: z.string(),
@@ -74,11 +81,11 @@ export const revokeTokenSchema = z.object({
 });
 
 export type errorT = z.infer<typeof ErrorResponseSchema>;
-export type registerT = z.infer<typeof registerSchema>
-export type registerSuccessT = z.infer<typeof registerSuccessSchema>
-export type loginT = z.infer<typeof loginSchema>
-export type resetPasswordT = z.infer<typeof resetPasswordSchema>
-export type resendOtpT = z.infer<typeof resendOtpSchema>
-export type verifyOtpT = z.infer<typeof verifyOtpSchema>
-export type revokeTokenT = z.infer<typeof revokeTokenSchema>
+export type registerT = z.infer<typeof registerSchema>;
+export type registerSuccessT = z.infer<typeof registerSuccessSchema>;
+export type loginT = z.infer<typeof loginSchema>;
+export type resetPasswordT = z.infer<typeof resetPasswordSchema>;
+export type resendOtpT = z.infer<typeof resendOtpSchema>;
+export type verifyOtpT = z.infer<typeof verifyOtpSchema>;
+export type revokeTokenT = z.infer<typeof revokeTokenSchema>;
 export type LoginSuccessT = z.infer<typeof loginSuccessResponseSchema>;

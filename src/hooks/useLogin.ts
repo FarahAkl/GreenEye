@@ -1,13 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
-import { useAuth } from "./useAuth";
 import { setCookie } from "../utils/TS-Cookie";
 import { login as APILogin } from "../services/apiAuth";
 import type { loginT, LoginSuccessT, errorT } from "../schemas/authSchema";
 import toast from "react-hot-toast";
 
 const useLogin = () => {
-  const { setUser } = useAuth();
-
   const { mutate: login, isPending: isLogin } = useMutation<
     LoginSuccessT,
     errorT,
@@ -21,9 +18,7 @@ const useLogin = () => {
         return;
       }
 
-      toast.success(data.message);
-
-      setUser(data.data);
+      toast.success(data.message || 'Login Successfully');
 
       if (data.data.accessToken) {
         setCookie({

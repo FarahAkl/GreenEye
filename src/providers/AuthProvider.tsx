@@ -1,26 +1,45 @@
-import { useState, type ReactNode } from "react";
-import { AuthContext, type AuthUser } from "./context/AuthContext";
-import { deleteCookie } from "../utils/TS-Cookie";
+import React, { useEffect, useState } from "react";
+import { AuthContext } from "./context/AuthContext";
+// import { logout as APILogout } from "../services/apiAuth";
+import { deleteCookie, getCookie } from "../utils/TS-Cookie";
+import { useProfile } from "../hooks/useProfile";
 
-export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<AuthUser | null>(null);
+interface ProviderProps {
+  children: React.ReactNode;
+}
+
+export function AuthProvider({ children }: ProviderProps) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { getProfileError } = useProfile();
 
-  const handleSetUser = (data: AuthUser) => {
-    setUser(data);
+  useEffect(() => {
+    const token = getCookie({ name: "token" });
+    if (token && !getProfileError) {
+      setIsAuthenticated(true);
+    } else if (getProfileError) {
+      deleteCookie({ name: "token" });
+      setIsAuthenticated(false);
+    }
+  }, [getProfileError]);
+
+  const login = () => {
     setIsAuthenticated(true);
   };
 
   const logout = async () => {
-    deleteCookie({ name: "token" });
-    setUser(null);
-    setIsAuthenticated(false);
+    try {
+      // await APILogout();
+    } catch (error) {
+      console.error("Logout failed:", error);
+    } finally {
+      deleteCookie({ name: "token" });
+      setIsAuthenticated(false);
+    }
   };
 
   const value = {
-    user,
     isAuthenticated,
-    setUser: handleSetUser,
+    login,
     logout,
   };
 
