@@ -37,7 +37,7 @@ function Input<T extends FieldValues>({
 
   return (
     <div className={`mb-4 flex flex-col gap-2`}>
-      <label htmlFor={String(name)} className="text-black-700 mb-1">
+      <label htmlFor={String(name)} className="text-gray-700 mb-1">
         {label}
       </label>
 

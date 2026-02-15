@@ -77,14 +77,14 @@ const Login = () => {
         </button>
 
         <div className="flex items-center justify-center gap-2 text-sm">
-          <span className="text-black-600">Your Email Not Verified?</span>
+          <span className="text-gray-600">Your Email Not Verified?</span>
           <Link to="/verify-email" className="text-primary underline">
             Verify Email
           </Link>
         </div>
 
         <div className="flex items-center justify-center gap-2 text-sm">
-          <span className="text-black-600">Don’t have an account?</span>
+          <span className="text-gray-600">Don’t have an account?</span>
           <Link to="/signup" className="text-primary underline">
             Create an account
           </Link>
