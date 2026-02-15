@@ -59,14 +59,6 @@ const Navbar = () => {
           About Us
         </Link>
       </nav>
-      <div className="flex items-center gap-3">
-        <button
-          className="text-3xl md:hidden"
-          onClick={() => setOpen((o) => !o)}
-        >
-          {open ? <HiX /> : <HiMenu />}
-        </button>
-      </div>
 
       <div className="hidden items-center gap-2.5 md:flex">
         {!isAuthenticated && (
@@ -86,17 +78,30 @@ const Navbar = () => {
           </>
         )}
       </div>
-
-      {isAuthenticated && (
-        <div className="flex items-center gap-2">
-          <div className="text-primary" onClick={() => navigate("/cart")}>
-            <TiShoppingCart size={16} />
+      <div className="flex items-center gap-2">
+        {isAuthenticated && (
+          <div className="flex items-center gap-2">
+            <div
+              className="text-dark cursor-pointer"
+              onClick={() => navigate("/cart")}
+            >
+              <TiShoppingCart size={24} />
+            </div>
+            <div
+              className="text-dark cursor-pointer"
+              onClick={() => navigate("/profile")}
+            >
+              <CgProfile size={24} />
+            </div>
           </div>
-          <div className="text-primary" onClick={() => navigate("/cart")}>
-            <CgProfile size={16} />
-          </div>
-        </div>
-      )}
+        )}
+        <button
+          className="text-dark cursor-pointer text-3xl md:hidden"
+          onClick={() => setOpen((o) => !o)}
+        >
+          {open ? <HiX /> : <HiMenu />}
+        </button>
+      </div>
 
       {open && (
         <div
@@ -138,30 +143,28 @@ const Navbar = () => {
             About Us
           </Link>
 
-          <div className="mt-3 flex flex-col gap-3">
-            {!isAuthenticated && (
-              <>
-                <Button
-                  color="secondary"
-                  variant="outline"
-                  onClick={() => {
-                    navigate("/login");
-                    setOpen(false);
-                  }}
-                  btnLabel={"Login"}
-                />
-                <Button
-                  color="secondary"
-                  variant="filled"
-                  onClick={() => {
-                    navigate("/signup");
-                    setOpen(false);
-                  }}
-                  btnLabel={"Sign up"}
-                />
-              </>
-            )}
-          </div>
+          {!isAuthenticated && (
+            <div className="mt-3 flex flex-col gap-3 shadow-2xl">
+              <Button
+                color="secondary"
+                variant="outline"
+                onClick={() => {
+                  navigate("/login");
+                  setOpen(false);
+                }}
+                btnLabel={"Login"}
+              />
+              <Button
+                color="secondary"
+                variant="filled"
+                onClick={() => {
+                  navigate("/signup");
+                  setOpen(false);
+                }}
+                btnLabel={"Sign up"}
+              />
+            </div>
+          )}
         </div>
       )}
     </header>
