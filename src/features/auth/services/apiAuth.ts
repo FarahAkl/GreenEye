@@ -15,13 +15,13 @@ export const register = async (data: registerT) => {
     formData.append("name", data.name);
     formData.append("email", data.email);
     formData.append("address", data.address);
-    formData.append("phone", data.phone);
+    formData.append("phoneNumber", data.phoneNumber);
     formData.append("password", data.password);
     formData.append("confirmPassword", data.confirmPassword);
     formData.append("rule", data.rule);
 
-    if (data.imageFile) {
-      formData.append("imageFile", data.imageFile);
+    if (data.imageFile && data.imageFile.length > 0) {
+      formData.append("imageFile", data.imageFile[0]);
     }
 
     const res = await axiosInstance.post(

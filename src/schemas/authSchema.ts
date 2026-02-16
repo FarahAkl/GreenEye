@@ -49,7 +49,7 @@ export const registerSchema = z
         message: "Invalid Email Address",
       }),
     address: z.string().nonempty("This field is required"),
-    phone: z
+    phoneNumber: z
       .string()
       .nonempty("This field is required")
       .regex(/^([0-9\s-+()]*)$/, "Invalid phone number")
@@ -65,7 +65,9 @@ export const registerSchema = z
       .min(8, "Password must be at least 8 characters")
       .max(255, "Password must not exceed 255 characters"),
     rule: z.string(),
-    imageFile: z.file(),
+    imageFile: z
+      .instanceof(FileList)
+      .refine((files) => files.length > 0, "Image is required"),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
@@ -103,6 +105,7 @@ export const revokeTokenSchema = z.object({
 
 export type errorT = z.infer<typeof ErrorResponseSchema>;
 export type registerT = z.infer<typeof registerSchema>;
+export type RegisterFormValues = z.input<typeof registerSchema>;
 export type registerSuccessT = z.infer<typeof registerSuccessSchema>;
 export type loginT = z.infer<typeof loginSchema>;
 export type resetPasswordT = z.infer<typeof resetPasswordSchema>;
