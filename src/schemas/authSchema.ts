@@ -78,7 +78,7 @@ export const registerSuccessSchema = z.object({
   isSuccess: z.boolean(),
   message: z.string().nullable(),
   data: z.object({
-    sent: z.string(),
+    sent: z.boolean(),
     expireAt: z.string(),
   }),
 });
@@ -90,17 +90,17 @@ export const resetPasswordSchema = z.object({
 
 export const resendOtpSchema = z.object({
   email: z.string(),
-  type: z.number(),
+  type: z.string(),
 });
 
 export const verifyOtpSchema = z.object({
-  email: z.string(),
-  code: z.string(),
-  type: z.number(),
+  email: z.string().nonempty("This field is required"),
+  code: z.string().nonempty("This field is required"),
+  type: z.string(),
 });
 
 export const revokeTokenSchema = z.object({
-  token: z.string(),
+  token: z.string(), //refresh token
 });
 
 export type errorT = z.infer<typeof ErrorResponseSchema>;
