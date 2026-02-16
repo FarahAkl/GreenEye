@@ -15,7 +15,7 @@ export const useOTP = ({ from }: IProps) => {
     mutationFn: (data: verifyOtpT) => veriftOTPapi(data),
 
     onSuccess: (data, variables: verifyOtpT) => {
-      toast.success(data.message);
+      toast.success(data.message || "Email Verified Successfully");
 
       const redirectUrl = sessionStorage.getItem("redirectAfterLogin");
 
@@ -38,5 +38,3 @@ export const useOTP = ({ from }: IProps) => {
 
   return { verifyOTP, isValidating };
 };
-
-

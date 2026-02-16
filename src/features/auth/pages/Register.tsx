@@ -1,22 +1,14 @@
 import { useForm } from "react-hook-form";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FiMail } from "react-icons/fi";
 import { GoLock } from "react-icons/go";
 import Input from "../ui/Input";
 import SpinnerBtn from "../../../ui/SpinnerBtn";
-import {
-  registerSchema,
-  type registerT,
-} from "../../../schemas/authSchema";
+import { registerSchema, type registerT } from "../../../schemas/authSchema";
 import useSignUp from "../hooks/useRegister";
 
 const Register = () => {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-
-  const redirectTo = searchParams.get("redirect") || "/";
-
   const {
     register,
     handleSubmit,
@@ -38,12 +30,7 @@ const Register = () => {
   const { mutateSignup, isPendingSignup } = useSignUp();
 
   const onSubmit = (data: registerT) => {
-    console.log(data);
-    mutateSignup(data, {
-      onSuccess: () => {
-        navigate(redirectTo, { replace: true });
-      },
-    });
+    mutateSignup(data);
   };
 
   return (
