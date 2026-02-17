@@ -103,10 +103,15 @@ export const revokeTokenSchema = z.object({
   token: z.string(), //refresh token
 });
 
+export const forgetPasswordSchema = z.object({
+  email: z.string().nonempty("This field is required"),
+});
+
 export type errorT = z.infer<typeof ErrorResponseSchema>;
 export type registerT = z.infer<typeof registerSchema>;
 export type RegisterFormValues = z.input<typeof registerSchema>;
 export type registerSuccessT = z.infer<typeof registerSuccessSchema>;
+export type forgetPasswordT = z.infer<typeof forgetPasswordSchema>;
 export type loginT = z.infer<typeof loginSchema>;
 export type resetPasswordT = z.infer<typeof resetPasswordSchema>;
 export type resendOtpT = z.infer<typeof resendOtpSchema>;
