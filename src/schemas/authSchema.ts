@@ -10,14 +10,14 @@ export const AuthResponseDataSchema = z.object({
   roles: z.array(z.string()),
   accessToken: z.string().nullable(),
   expiresIn: z.string().nullable(),
-  refreshToken:z.string().nullable(),
+  refreshToken: z.string().nullable(),
   refreshTokenExpiration: z.string().nullable(),
 });
 
 export const loginSuccessResponseSchema = z.object({
   isSuccess: z.boolean(),
   message: z.string().nullable(),
-  data: AuthResponseDataSchema,
+  data: AuthResponseDataSchema.nullable(),
 });
 
 export const ErrorResponseSchema = z.object({
@@ -78,10 +78,12 @@ export const registerSchema = z
 export const registerSuccessSchema = z.object({
   isSuccess: z.boolean(),
   message: z.string().nullable(),
-  data: z.object({
-    sent: z.boolean(),
-    expireAt: z.string(),
-  }),
+  data: z
+    .object({
+      sent: z.boolean(),
+      expireAt: z.string(),
+    })
+    .nullable(),
 });
 
 export const resetPasswordSchema = z.object({

@@ -13,7 +13,7 @@ import SpinnerBtn from "../../../ui/SpinnerBtn";
 
 const ResetPassword = () => {
   const location = useLocation();
-  const prevData = location.state.data;
+  const email = location.state?.email;
   const {
     register,
     handleSubmit,
@@ -21,7 +21,7 @@ const ResetPassword = () => {
   } = useForm<resetPasswordT>({
     resolver: zodResolver(resetPasswordSchema),
     defaultValues: {
-      email: prevData.email,
+      email: email || "",
       newPassword: "",
     },
   });
@@ -29,25 +29,26 @@ const ResetPassword = () => {
   const { resetPassword, isReseting } = useResetPassword();
 
   const onSubmit = (data: resetPasswordT) => {
-    const resetData = { ...prevData, ...data };
-    resetPassword(resetData);
+    resetPassword(data);
   };
 
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
+        <div className="hidden">
+          <Input
+            label={"Email"}
+            placeholder={"Email"}
+            type="text"
+            prefix={<GoLock size={18} />}
+            register={register}
+            name="email"
+            error={errors.email?.message}
+          />
+        </div>
         <Input
-          label={"Email"}
-          placeholder={"Email"}
-          type="text"
-          prefix={<GoLock size={18} />}
-          register={register}
-          name="email"
-          error={errors.email?.message}
-        />
-        <Input
-          label={"Password"}
-          placeholder={"Password"}
+          label={"New Password"}
+          placeholder={"New Password"}
           type="password"
           prefix={<GoLock size={18} />}
           register={register}

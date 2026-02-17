@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import OTPInput from "../ui/OTPInput";
 import { verifyOtpSchema, type verifyOtpT } from "../../../schemas/authSchema";
@@ -10,7 +10,6 @@ import useResendOTP from "../hooks/useResendOTP";
 
 const OTP = () => {
   const location = useLocation();
-  const navigate = useNavigate();
   const email = location.state?.email;
   const from = location.state?.from;
 
@@ -23,7 +22,7 @@ const OTP = () => {
     defaultValues: {
       email: email ?? "",
       code: "",
-      type: "EmailVerification",
+      type: from === "forget-password" ? "ResetPassword" : "EmailVerification",
     },
   });
 
@@ -32,14 +31,7 @@ const OTP = () => {
   const { resendOtp } = useResendOTP();
 
   const onSubmit = (data: verifyOtpT) => {
-    console.log(errors);
-    if (from === "forget-password") {
-      navigate("/reset-password", {
-        state: {
-          data: data,
-        },
-      });
-    } else verifyOTP(data);
+    verifyOTP(data);
   };
 
   return (
@@ -66,7 +58,15 @@ const OTP = () => {
         <button
           type="button"
           onClick={() => {
-            resendOtp({ data: { email, type: "EmailVerification" } });
+            resendOtp({
+              data: {
+                email,
+                type:
+                  from === "forget-password"
+                    ? "ResetPassword"
+                    : "EmailVerification",
+              },
+            });
           }}
           className="text-primary underline"
         >
