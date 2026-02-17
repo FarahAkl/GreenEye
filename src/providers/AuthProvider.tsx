@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { AuthContext } from "./context/AuthContext";
-// import { logout as APILogout } from "../services/apiAuth";
 import { deleteCookie, getCookie } from "../utils/TS-Cookie";
-import { useProfile } from "../features/profile/hooks/useProfile";
+import { logout as logoutapi } from "../features/auth/services/apiAuth";
 
 interface ProviderProps {
   children: React.ReactNode;
@@ -10,17 +9,13 @@ interface ProviderProps {
 
 export function AuthProvider({ children }: ProviderProps) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const { getProfileError } = useProfile();
 
   useEffect(() => {
     const token = getCookie({ name: "token" });
-    if (token && !getProfileError) {
+    if (token) {
       setIsAuthenticated(true);
-    } else if (getProfileError) {
-      deleteCookie({ name: "token" });
-      setIsAuthenticated(false);
     }
-  }, [getProfileError]);
+  }, []);
 
   const login = () => {
     setIsAuthenticated(true);
@@ -28,7 +23,7 @@ export function AuthProvider({ children }: ProviderProps) {
 
   const logout = async () => {
     try {
-      // await APILogout();
+      await logoutapi();
     } catch (error) {
       console.error("Logout failed:", error);
     } finally {

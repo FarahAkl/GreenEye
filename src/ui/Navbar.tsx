@@ -7,6 +7,7 @@ import { useAuth } from "../features/auth/hooks/useAuth";
 import useOutsideClick from "../hooks/useOutsideClick";
 import ScrollToHash from "./ScrollToHash";
 import Button from "./Button";
+import { logout } from "../features/auth/services/apiAuth";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -93,6 +94,7 @@ const Navbar = () => {
             >
               <CgProfile size={24} />
             </div>
+            <button onClick={logout}>logout</button>
           </div>
         )}
         <button

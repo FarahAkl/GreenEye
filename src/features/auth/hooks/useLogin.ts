@@ -1,19 +1,14 @@
 import { useMutation } from "@tanstack/react-query";
 import { setCookie } from "../../../utils/TS-Cookie";
 import { login as APILogin } from "../services/apiAuth";
-import type {
-  loginT,
-  LoginSuccessT,
-  errorT,
-} from "../../../schemas/authSchema";
+import type { loginT } from "../../../schemas/authSchema";
 import toast from "react-hot-toast";
+import { useAuth } from "./useAuth";
 
 const useLogin = () => {
-  const { mutate: login, isPending: isLogin } = useMutation<
-    LoginSuccessT,
-    errorT,
-    loginT
-  >({
+  const { login: authLogin } = useAuth();
+  
+  const { mutate: login, isPending: isLogin } = useMutation({
     mutationFn: (data: loginT) => APILogin(data),
 
     onSuccess: (data) => {
@@ -21,6 +16,7 @@ const useLogin = () => {
         toast.error(data.message);
         return;
       }
+      authLogin();
 
       toast.success(data.message || "Login Successfully");
 
@@ -29,6 +25,13 @@ const useLogin = () => {
           name: "token",
           value: data.data.accessToken,
           days: 14,
+        });
+      }
+      if (data.data.refreshToken) {
+        setCookie({
+          name: "refreshToken",
+          value: data.data.refreshToken,
+          days: 7,
         });
       }
     },

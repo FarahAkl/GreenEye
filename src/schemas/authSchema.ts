@@ -10,6 +10,7 @@ export const AuthResponseDataSchema = z.object({
   roles: z.array(z.string()),
   accessToken: z.string().nullable(),
   expiresIn: z.string().nullable(),
+  refreshToken:z.string().nullable(),
   refreshTokenExpiration: z.string().nullable(),
 });
 
