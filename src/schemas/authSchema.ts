@@ -84,8 +84,23 @@ export const registerSuccessSchema = z.object({
 });
 
 export const resetPasswordSchema = z.object({
-  email: z.string(),
-  password: z.string(),
+  email: z
+    .string()
+    .nonempty("This field is required")
+    .refine((val) => !val || /\S+@\S+\.\S+/.test(val), {
+      message: "Invalid Email Address",
+    }),
+  newPassword: z
+    .string()
+    .nonempty("This field is required")
+    .min(8, "Password must be at least 8 characters")
+    .max(255, "Password must not exceed 255 characters"),
+});
+
+export const resetPasswordSuccessSchema = z.object({
+  isSuccess: z.boolean(),
+  message: z.string().nullable(),
+  data: z.string().nullable(),
 });
 
 export const resendOtpSchema = z.object({
