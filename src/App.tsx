@@ -2,6 +2,8 @@ import AppRoutes from "./routes/AppRoutes";
 import { AuthProvider } from "./providers/AuthProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -15,11 +17,15 @@ const queryClient = new QueryClient({
   },
 });
 
+const stripePromise = loadStripe(""); // Publishable Key
+
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <AppRoutes />
+        <Elements stripe={stripePromise}>
+          <AppRoutes />
+        </Elements>
       </AuthProvider>
       <Toaster
         position="top-center"

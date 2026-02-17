@@ -10,10 +10,10 @@ import ForgetPassword from "../features/auth/pages/ForgetPassword";
 import OTP from "../features/auth/pages/OTP";
 import PageNotFound from "../pages/PageNotFound";
 import Profile from "../pages/Profile";
-import Payment from "../pages/Payment";
 import ProtectedRoute from "./ProtectedRoute";
 import Home from "../pages/Home";
 import Register from "../features/auth/pages/Register";
+import Checkout from "../pages/Checkout";
 
 const router = createBrowserRouter([
   {
@@ -38,7 +38,7 @@ const router = createBrowserRouter([
         children: [
           { path: "/cart", element: <Cart /> },
           { path: "/profile", element: <Profile /> },
-          { path: "/payment", element: <Payment /> },
+          { path: "/checkout", element: <Checkout /> },
         ],
       },
     ],
