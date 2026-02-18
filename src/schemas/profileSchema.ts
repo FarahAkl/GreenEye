@@ -14,11 +14,16 @@ export const profileSuccessSchema = z.object({
 });
 
 export const updateProfileRequestSchema = z.object({
-  Name: z.string(),
-  Address: z.string(),
-  PhoneNumber: z.string(),
-  NewImage: z.string(),
+  name: z.string().nonempty("This field is required"),
+  address: z.string().nonempty("This field is required"),
+  phoneNumber: z.string().nonempty("This field is required"),
+  newImage: z.any().optional(),
 });
 
 export type profileT = z.infer<typeof profileSuccessSchema>;
-export type updateProfileT = z.infer<typeof updateProfileRequestSchema>
+export type updateProfileT = {
+  name: string;
+  address: string;
+  phoneNumber: string;
+  newImage?: File;
+};

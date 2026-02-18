@@ -9,14 +9,30 @@ export const getProfile = async () => {
 
 export const updateProfile = async (data: updateProfileT) => {
   try {
-    const res = await axiosInstance.put("/api/Profile/update", data);
+    const formData = new FormData();
+
+    formData.append("name", data.name);
+    formData.append("address", data.address);
+    formData.append("phoneNumber", data.phoneNumber);
+
+    if (data.newImage) {
+      formData.append("newImage", data.newImage);
+    }
+
+    const res = await axiosInstance.put("/api/Profile/update", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
     return res.data;
   } catch (err) {
     if (isAxiosError(err)) {
       throw new Error(
-        err.response?.data?.message || "Failed to update profile",
+        err.response?.data?.message || "Failed to update profile"
       );
     }
     throw err;
   }
 };
+
