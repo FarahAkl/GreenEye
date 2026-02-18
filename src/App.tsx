@@ -17,7 +17,7 @@ const queryClient = new QueryClient({
   },
 });
 
-const stripePromise = loadStripe(""); // Publishable Key
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 const App = () => {
   return (
