@@ -13,7 +13,8 @@ export const forgetPassword = async (data: forgetPasswordT) => {
   const validatedRequest = forgetPasswordSchema.parse(data);
   try {
     const res = await axiosInstance.post(
-      `/api/Authentication/forget-password?email=${validatedRequest.email}`,
+      `/api/Authentication/forget-password`,
+      validatedRequest,
     );
     const validatedRes = registerSuccessSchema.parse(res.data);
     return validatedRes;
