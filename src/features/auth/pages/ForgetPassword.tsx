@@ -24,9 +24,11 @@ const ForgetPassword = () => {
 
   return (
     <>
+      <p className="text-dark mt-3 mb-6 text-3xl font-medium">
+        Forget Password
+      </p>
       <form className="mt-8" onSubmit={handleSubmit(onSubmit)}>
         <Input
-          label={"Email"}
           placeholder={"Email"}
           type="email"
           prefix={<FiMail size={18} />}

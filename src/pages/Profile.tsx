@@ -67,7 +67,6 @@ const Profile = () => {
         <form ref={formRef} onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
             <Input
-              label={"Name"}
               type="text"
               disabled={!isEditing}
               prefix={<FaRegUser size={18} />}
@@ -75,7 +74,6 @@ const Profile = () => {
               name="name"
             />
             <Input
-              label={"Email"}
               placeholder={"Email"}
               type="text"
               disabled
@@ -84,7 +82,6 @@ const Profile = () => {
               name="email"
             />
             <Input
-              label={"Phone"}
               placeholder={"Phone"}
               type="text"
               disabled={!isEditing}
@@ -95,7 +92,6 @@ const Profile = () => {
             <div className="grid grid-cols-1 sm:grid-cols-3 sm:gap-4">
               <div className="sm:col-span-2">
                 <Input
-                  label={"Address"}
                   placeholder={"Address"}
                   type="text"
                   disabled={!isEditing}

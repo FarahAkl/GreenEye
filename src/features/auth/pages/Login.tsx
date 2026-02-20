@@ -39,9 +39,11 @@ const Login = () => {
 
   return (
     <>
+      <p className="text-dark mt-3 mb-10 text-center text-4xl font-medium">
+        Login
+      </p>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
         <Input
-          label={"Email"}
           placeholder={"Email"}
           type="email"
           prefix={<FiMail size={18} />}
@@ -50,7 +52,6 @@ const Login = () => {
           error={errors.email?.message}
         />
         <Input
-          label={"Password"}
           placeholder={"Password"}
           type="password"
           prefix={<GoLock size={18} />}
@@ -64,7 +65,7 @@ const Login = () => {
             <input type="checkbox" id="remember" {...register("rememberMe")} />
             <label htmlFor="remember">Remember Me</label>
           </div>
-          <Link to="/forget-password" className="text-primary underline">
+          <Link to="/forget-password" className="text-primary">
             Forget Password?
           </Link>
         </div>
@@ -77,16 +78,9 @@ const Login = () => {
         </button>
 
         <div className="flex items-center justify-center gap-2 text-sm">
-          <span className="text-gray-600">Your Email Not Verified?</span>
-          <Link to="/verify-email" className="text-primary underline">
-            Verify Email
-          </Link>
-        </div>
-
-        <div className="flex items-center justify-center gap-2 text-sm">
           <span className="text-gray-600">Don’t have an account?</span>
-          <Link to="/signup" className="text-primary underline">
-            Create an account
+          <Link to="/signup" className="text-primary">
+            SignUp
           </Link>
         </div>
       </form>

@@ -10,6 +10,7 @@ import {
   type resetPasswordT,
 } from "../../../schemas/authSchema";
 import SpinnerBtn from "../../../ui/SpinnerBtn";
+import { FaEnvelope } from "react-icons/fa";
 
 const ResetPassword = () => {
   const location = useLocation();
@@ -34,20 +35,21 @@ const ResetPassword = () => {
 
   return (
     <>
+      <p className="text-dark mt-3 mb-6 text-3xl font-medium">
+        Reset Password
+      </p>
       <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
         <div className="hidden">
           <Input
-            label={"Email"}
             placeholder={"Email"}
             type="text"
-            prefix={<GoLock size={18} />}
+            prefix={<FaEnvelope size={18} />}
             register={register}
             name="email"
             error={errors.email?.message}
           />
         </div>
         <Input
-          label={"New Password"}
           placeholder={"New Password"}
           type="password"
           prefix={<GoLock size={18} />}

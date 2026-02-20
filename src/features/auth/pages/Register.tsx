@@ -1,12 +1,13 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FiMail } from "react-icons/fi";
-import { GoLock } from "react-icons/go";
+import { FiMail, FiPhone } from "react-icons/fi";
+import { GoLocation, GoLock, GoPerson } from "react-icons/go";
 import Input from "../ui/Input";
 import SpinnerBtn from "../../../ui/SpinnerBtn";
 import { registerSchema, type registerT } from "../../../schemas/authSchema";
 import useSignUp from "../hooks/useRegister";
+import { CgImage, CgUser } from "react-icons/cg";
 
 const Register = () => {
   const {
@@ -35,9 +36,22 @@ const Register = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
+      <p className="text-dark mt-3 mb-10 text-center text-4xl font-medium">
+        SignUp
+      </p>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="grid grid-cols-1 gap-3 sm:grid-cols-2"
+      >
         <Input
-          label={"Email"}
+          placeholder={"Name"}
+          type="text"
+          prefix={<GoPerson size={18} />}
+          register={register}
+          name="name"
+          error={errors.name?.message}
+        />
+        <Input
           placeholder={"Email"}
           type="email"
           prefix={<FiMail size={18} />}
@@ -46,34 +60,22 @@ const Register = () => {
           error={errors.email?.message}
         />
         <Input
-          label={"Name"}
-          placeholder={"Name"}
-          type="text"
-          prefix={<FiMail size={18} />}
-          register={register}
-          name="name"
-          error={errors.name?.message}
-        />
-        <Input
-          label={"Address"}
-          placeholder={"Address"}
-          type="text"
-          prefix={<FiMail size={18} />}
-          register={register}
-          name="address"
-          error={errors.address?.message}
-        />
-        <Input
-          label={"Phone"}
           placeholder={"Phone"}
           type="text"
-          prefix={<FiMail size={18} />}
+          prefix={<FiPhone size={18} />}
           register={register}
           name="phoneNumber"
           error={errors.phoneNumber?.message}
         />
         <Input
-          label={"Password"}
+          placeholder={"Address"}
+          type="text"
+          prefix={<GoLocation size={18} />}
+          register={register}
+          name="address"
+          error={errors.address?.message}
+        />
+        <Input
           placeholder={"Password"}
           type="password"
           prefix={<GoLock size={18} />}
@@ -82,7 +84,6 @@ const Register = () => {
           error={errors.password?.message}
         />
         <Input
-          label={"Confirm Password"}
           placeholder={"Confirm Password"}
           type="password"
           prefix={<GoLock size={18} />}
@@ -92,38 +93,35 @@ const Register = () => {
         />
 
         <Input
-          label={"Image"}
           placeholder={"Image"}
           type="file"
-          prefix={<GoLock size={18} />}
+          prefix={<CgImage size={18} />}
           register={register}
           name="imageFile"
           error={errors.imageFile?.message}
         />
 
         <Input
-          label={"Rule"}
           placeholder={"Rule"}
           type="text"
-          prefix={<GoLock size={18} />}
+          prefix={<CgUser size={18} />}
           register={register}
           name="rule"
           error={errors.rule?.message}
         />
 
-        <button
-          type="submit"
-          className="bg-primary mt-5 mb-2 h-12 w-full cursor-pointer rounded-2xl px-5 text-sm font-medium text-white transition-all duration-300 hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          {isPendingSignup ? <SpinnerBtn /> : "Sign up"}
-        </button>
-
-        <div className="flex items-center justify-center gap-2 text-sm">
-          <span className="text-gray-600">You have an account?</span>
-          <Link to="/login" className="text-primary underline">
-            Login
-          </Link>
-        </div>
+          <div className="flex items-center justify-center gap-2 text-sm">
+            <span className="text-gray-600">Have an account?</span>
+            <Link to="/login" className="text-primary underline">
+              Login
+            </Link>
+          </div>
+          <button
+            type="submit"
+            className="bg-primary mt-5 mb-2 h-12 w-full cursor-pointer rounded-2xl px-5 text-sm font-medium text-white transition-all duration-300 hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {isPendingSignup ? <SpinnerBtn /> : "Sign up"}
+          </button>
       </form>
     </>
   );

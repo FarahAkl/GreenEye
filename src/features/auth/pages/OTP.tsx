@@ -7,6 +7,7 @@ import { verifyOtpSchema, type verifyOtpT } from "../../../schemas/authSchema";
 import SpinnerBtn from "../../../ui/SpinnerBtn";
 import { useOTP } from "../hooks/useOTP";
 import useResendOTP from "../hooks/useResendOTP";
+import { GoLocation } from "react-icons/go";
 
 const OTP = () => {
   const location = useLocation();
@@ -35,26 +36,39 @@ const OTP = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="my-8">
-        <OTPInput
-          length={6}
-          setOtp={(otpArr) => setValue("code", otpArr.join(""))}
-        />
-        {errors.code && (
-          <p className="my-3 text-sm text-red-500">{errors.code.message}</p>
-        )}
+    <>
+      <div className="mb-8">
+        <div className="mb-4 flex items-center gap-3 text-dark">
+          <GoLocation size={26}/>
+          <h1 className="text-dark text-3xl font-semibold">Verify OTP</h1>
+        </div>
+
+        <p className="max-w-sm leading-relaxed text-gray-600">
+          Please enter the verification code sent to your email. If you don’t
+          see it, check your spam folder.
+        </p>
       </div>
 
-      <button
-        type="submit"
-        className="bg-primary mt-5 mb-2 h-12 w-full cursor-pointer rounded-2xl px-5 text-sm font-medium text-white transition-all duration-300 hover:brightness-110"
-      >
-        {isValidating ? <SpinnerBtn /> : "Continue"}
-      </button>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="my-8">
+          <OTPInput
+            length={6}
+            setOtp={(otpArr) => setValue("code", otpArr.join(""))}
+          />
+          {errors.code && (
+            <p className="my-3 text-sm text-red-500">{errors.code.message}</p>
+          )}
+        </div>
 
+        <button
+          type="submit"
+          className="bg-primary mt-5 mb-2 h-12 w-full cursor-pointer rounded-2xl px-5 text-sm font-medium text-white transition-all duration-300 hover:brightness-110"
+        >
+          {isValidating ? <SpinnerBtn /> : "Continue"}
+        </button>
+      </form>
       <div className="my-2 flex w-full justify-center gap-1 text-center text-sm">
-        <span>Didn’t recieve a code?</span>
+        <span className="text-gray-600">Not in inbox or spam folder?</span>
         <button
           type="button"
           onClick={() => {
@@ -68,12 +82,12 @@ const OTP = () => {
               },
             });
           }}
-          className="text-primary underline"
+          className="text-primary"
         >
-          Resend OTP
+          Resend
         </button>
       </div>
-    </form>
+    </>
   );
 };
 

@@ -8,7 +8,6 @@ import type {
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
 interface InputProps<T extends FieldValues> {
-  label: string;
   name: Path<T>;
   placeholder?: string;
   register?: UseFormRegister<T>;
@@ -21,7 +20,6 @@ interface InputProps<T extends FieldValues> {
 }
 
 function Input<T extends FieldValues>({
-  label,
   name,
   placeholder,
   register,
@@ -37,9 +35,6 @@ function Input<T extends FieldValues>({
 
   return (
     <div className={`mb-4 flex flex-col gap-2`}>
-      <label htmlFor={String(name)} className="text-gray-700 mb-1">
-        {label}
-      </label>
 
       <div
         className={`border-gray-300 ${error ? "border-2 border-red-600" : ""} ${disabled ? "bg-gray-50 text-gray-400" : ""} focus-within:border-primary focus-within:ring-primary flex items-center rounded-2xl border px-3 py-2.5 focus-within:ring-1`}
