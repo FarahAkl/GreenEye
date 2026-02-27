@@ -18,7 +18,7 @@ const Navbar = () => {
   useOutsideClick(mobileMenuRef, () => setOpen(false));
 
   return (
-    <header className="flex h-18 w-full items-center justify-between px-8 shadow-sm md:px-12 lg:px-24">
+    <header className="fixed z-1000 flex h-18 w-full items-center justify-between bg-white px-8 shadow-sm md:px-12 lg:px-24">
       <div className="flex items-center gap-1" onClick={() => navigate("/")}>
         <img src="/images/logo.png" alt="logo" className="h-12" />
         <div className="hidden text-lg font-bold lg:flex">

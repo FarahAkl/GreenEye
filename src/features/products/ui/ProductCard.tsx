@@ -1,10 +1,13 @@
 import { FaStar } from "react-icons/fa";
 import type { productsT } from "../../../schemas/productsSchema";
 import { CgAdd } from "react-icons/cg";
+import { useNavigate } from "react-router-dom";
 
 const ProductCard = (product: productsT) => {
-    const BASE_URL = import.meta.env.VITE_BASE_URL
-    const {
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
+  const navigate = useNavigate();
+  const {
+    id,
     name,
     price,
     primaryImageUrl: image,
@@ -13,7 +16,7 @@ const ProductCard = (product: productsT) => {
     reviewCount,
   } = product;
   return (
-    <div className="w-80 overflow-hidden rounded-2xl bg-white shadow-md">
+    <div className="w-80 overflow-hidden rounded-2xl border border-gray-300 bg-white shadow-md">
       {/* Image Section */}
       <div className="relative">
         <img
@@ -24,7 +27,7 @@ const ProductCard = (product: productsT) => {
       </div>
 
       {/* Content Section */}
-      <div className="space-y-2 p-4">
+      <div className="space-y-2 p-4" onClick={() => navigate(`/product/${id}`)}>
         <h3 className="text-dark text-lg font-semibold">{name}</h3>
         <p className="text-sm text-gray-500">{categoryName}</p>
 
@@ -44,8 +47,10 @@ const ProductCard = (product: productsT) => {
           </div>
 
           <button
-            onClick={() => {}}
-            className="bg-dark/20 text-dark rounded-full p-3 transition hover:bg-green-200"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+            className="bg-dark/20 text-dark hover:bg-dark/35 rounded-full p-3 transition"
           >
             <CgAdd className="h-5 w-5" />
           </button>
