@@ -15,7 +15,7 @@ export const cartResponseSchema = z.object({
   isSuccess: z.boolean(),
   message: z.string().nullable(),
   data: z.object({
-    id: z.number,
+    id: z.number(),
     items: z.array(itemSchema),
     totalPrice: z.number(),
     totalItems: z.number(),

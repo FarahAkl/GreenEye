@@ -42,13 +42,13 @@ const MarketPlace = () => {
     );
   return (
     <div className="flex flex-col">
-      <section className="relative h-130 w-full overflow-hidden">
+      <section className="relative h-130 w-full px-16 overflow-hidden">
         <img
           src="/images/marketBg.webp"
           alt="Marketplace background"
           className="absolute inset-0 h-full w-full object-cover object-center"
         />
-        <div className="relative z-10 flex h-full flex-col items-center justify-center gap-4 text-white">
+        <div className="relative z-10 flex h-full flex-col text-center items-center justify-center gap-4 text-white">
           {/* Title */}
           <p className="text-5xl font-bold text-[#004630]">
             Smart Shop ,Smart Harvest
@@ -56,7 +56,7 @@ const MarketPlace = () => {
 
           <div className="w-full max-w-xl rounded-lg bg-white py-2.5">
             <form onSubmit={handleSubmit(onSearchSubmit)}>
-              <div className="flex flex-wrap items-center gap-5 rounded-lg px-4 text-gray-400">
+              <div className="flex items-center gap-5 rounded-lg px-4 text-gray-400">
                 <input
                   type="text"
                   {...register("search")}
@@ -90,7 +90,7 @@ const MarketPlace = () => {
           </div>
         </div>
       </section>
-      <div className="mx-20 my-24 grid grid-cols-4 gap-5">
+      <div className="mx-14 my-24 grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {products.data.map((product: productsT) => (
           <div key={product.id}>
             <ProductCard {...product} />

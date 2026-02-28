@@ -2,9 +2,11 @@ import { FaStar } from "react-icons/fa";
 import type { productsT } from "../../../schemas/productsSchema";
 import { CgAdd } from "react-icons/cg";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../../cart/hooks/useCart";
 
 const ProductCard = (product: productsT) => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
+  const { addItemToCart } = useCart();
   const navigate = useNavigate();
   const {
     id,
@@ -16,7 +18,7 @@ const ProductCard = (product: productsT) => {
     reviewCount,
   } = product;
   return (
-    <div className="w-80 overflow-hidden rounded-2xl border border-gray-300 bg-white shadow-md">
+    <div className="max-w-80 overflow-hidden rounded-2xl border border-gray-300 bg-white shadow-md">
       {/* Image Section */}
       <div className="relative">
         <img
@@ -49,6 +51,7 @@ const ProductCard = (product: productsT) => {
           <button
             onClick={(e) => {
               e.stopPropagation();
+              addItemToCart({ productId: id, quantity: 1 });
             }}
             className="bg-dark/20 text-dark hover:bg-dark/35 rounded-full p-3 transition"
           >
