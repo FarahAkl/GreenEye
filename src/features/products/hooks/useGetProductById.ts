@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getCategoryById } from "../../../services/apiCategory";
+import { getProductById } from "../services/apiProducts";
 
 export const useGetProductById = (id: string) => {
   const {
@@ -9,7 +9,7 @@ export const useGetProductById = (id: string) => {
     error,
   } = useQuery({
     queryKey: ["productDetails", id],
-    queryFn: () => getCategoryById(id),
+    queryFn: () => getProductById(id),
     staleTime: 1000 * 60 * 5,
   });
 
