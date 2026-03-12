@@ -8,13 +8,13 @@ interface ProviderProps {
 }
 
 export function AuthProvider({ children }: ProviderProps) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
+    return !!getCookie({ name: "token" });
+  });
 
   useEffect(() => {
     const token = getCookie({ name: "token" });
-    if (token) {
-      setIsAuthenticated(true);
-    }
+    setIsAuthenticated(!!token);
   }, []);
 
   const login = () => {
@@ -24,8 +24,6 @@ export function AuthProvider({ children }: ProviderProps) {
   const logout = async () => {
     try {
       await logoutapi();
-    } catch (error) {
-      console.error("Logout failed:", error);
     } finally {
       deleteCookie({ name: "token" });
       setIsAuthenticated(false);

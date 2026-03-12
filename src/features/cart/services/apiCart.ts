@@ -34,7 +34,7 @@ export const addItemToCart = async (data: addItemToCartT) => {
   }
 };
 
-export const updateProduct = async ({
+export const updateProductQuantity = async ({
   cartItemId,
   data,
 }: {
