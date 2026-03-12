@@ -96,7 +96,7 @@ const ProductDetails = () => {
           <div className="h-100 overflow-hidden rounded-2xl">
             <img
               src={
-                !primaryImageUrl
+                primaryImageUrl
                   ? `${BASE_URL}${primaryImageUrl}`
                   : "/images/productDefault.jpg"
               }
