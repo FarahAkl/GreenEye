@@ -8,31 +8,14 @@ import {
 } from "../../../schemas/authSchema";
 import axiosInstance from "../../../services/axiosInstance";
 import { deleteCookie, getCookie } from "../../../utils/TS-Cookie";
+import { objectToFormData } from "../../../utils/objectToFormData";
 
 export const register = async (data: registerT) => {
   try {
-    const formData = new FormData();
-
-    formData.append("name", data.name);
-    formData.append("email", data.email);
-    formData.append("address", data.address);
-    formData.append("phoneNumber", data.phoneNumber);
-    formData.append("password", data.password);
-    formData.append("confirmPassword", data.confirmPassword);
-    formData.append("rule", data.rule);
-
-    if (data.imageFile && data.imageFile.length > 0) {
-      formData.append("imageFile", data.imageFile[0]);
-    }
-
+    const formData = objectToFormData(data);
     const res = await axiosInstance.post(
       "/api/Authentication/register",
       formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      },
     );
 
     const validateRes = registerSuccessSchema.parse(res.data);
@@ -50,7 +33,6 @@ export const register = async (data: registerT) => {
     throw err;
   }
 };
-
 
 export const login = async (data: loginT) => {
   try {
@@ -83,7 +65,9 @@ export const logout = async () => {
   const refreshToken = getCookie({ name: "refreshToken" });
 
   try {
-    await axiosInstance.post(`/api/Authentication/revoke-token?token=${refreshToken}`);
+    await axiosInstance.post(
+      `/api/Authentication/revoke-token?token=${refreshToken}`,
+    );
   } finally {
     deleteCookie({ name: "token" });
     deleteCookie({ name: "refreshToken" });
