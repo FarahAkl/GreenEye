@@ -35,18 +35,20 @@ const router = createBrowserRouter([
       { path: "/marketplace", element: <MarketPlace /> },
       { path: "/products", element: <Products /> },
       { path: "/product/:id", element: <ProductDetails /> },
+      { path: "*", element: <PageNotFound /> },
       {
         element: <ProtectedRoute />,
         children: [
           { path: "/cart", element: <Cart /> },
           { path: "/profile", element: <Profile /> },
           { path: "/checkout", element: <Checkout /> },
+          { path: "/supplier-dashboard" },
+          { path: "/admin-dashboard" },
         ],
       },
     ],
   },
 
-  { path: "*", element: <PageNotFound /> },
 ]);
 
 const AppRoutes = () => {
