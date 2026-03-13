@@ -37,11 +37,11 @@ const CartItem = ({ item }: { item: itemT }) => {
   }, [debouncedQty]);
 
   return (
-    <div className="relative flex items-center gap-4 rounded-2xl bg-white p-1 shadow-sm ring-1 ring-gray-100">
-      <div className="h-full w-58 shrink-0 overflow-hidden rounded-xl">
+    <div className="relative flex flex-col sm:items-center gap-4 rounded-2xl bg-white p-5 sm:p-1 shadow-sm ring-1 ring-gray-100 sm:flex-row">
+      <div className="h-68 sm:h-full w-full sm:w-58 shrink-0 overflow-hidden rounded-xl">
         <img
           src={
-            productImage
+            !productImage
               ? `${BASE_URL}${productImage}`
               : "/images/productDefault.jpg"
           }
@@ -79,17 +79,16 @@ const CartItem = ({ item }: { item: itemT }) => {
             {unitPrice * watchedQty} EGP
           </p>
         </div>
-      </div>
-
-      <div className="flex flex-col items-end gap-3 p-3">
-        <button
-          onClick={() => deleteItemInCart(String(id))}
-          disabled={isDeleting}
-          className="text-red-400 transition hover:text-red-600 disabled:opacity-50"
-          aria-label="Remove item"
-        >
-          <IoTrashOutline size={24} />
-        </button>
+        <div className="absolute right-5">
+          <button
+            onClick={() => deleteItemInCart(String(id))}
+            disabled={isDeleting}
+            className="text-red-400 transition hover:text-red-600 disabled:opacity-50"
+            aria-label="Remove item"
+          >
+            <IoTrashOutline size={24} />
+          </button>
+        </div>
       </div>
     </div>
   );

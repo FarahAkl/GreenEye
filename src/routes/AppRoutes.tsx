@@ -14,6 +14,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import Home from "../pages/Home";
 import Register from "../features/auth/pages/Register";
 import Checkout from "../pages/Checkout";
+import Products from "../pages/Products";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "/marketplace", element: <MarketPlace /> },
+      { path: "/products", element: <Products /> },
       { path: "/product/:id", element: <ProductDetails /> },
       {
         element: <ProtectedRoute />,
