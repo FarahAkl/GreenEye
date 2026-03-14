@@ -43,13 +43,13 @@ const Navbar = () => {
           Home
         </Link>
         <Link
-          to={"/#marketplace"}
+          to={"/marketplace"}
           className="hover:text-dark transition duration-75 outline-none"
         >
           MarketPlace
         </Link>
         <Link
-          to={"/#products"}
+          to={"/products"}
           className="hover:text-dark transition duration-75 outline-none"
         >
           Products
@@ -132,14 +132,14 @@ const Navbar = () => {
             Home
           </Link>
           <Link
-            to={"/#marketplace"}
+            to={"/marketplace"}
             className="py-2 outline-none"
             onClick={() => setOpen(false)}
           >
             MarketPlace
           </Link>
           <Link
-            to={"/#products"}
+            to={"/products"}
             className="py-2 outline-none"
             onClick={() => setOpen(false)}
           >
