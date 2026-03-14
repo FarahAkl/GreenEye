@@ -1,40 +1,33 @@
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import { useProducts } from "../features/products/hooks/useProducts";
-import ProductCard from "../features/products/ui/ProductCard";
-import type { productsT } from "../schemas/productsSchema";
-import Spinner from "../ui/Spinner";
-import { useForm, useWatch } from "react-hook-form";
-import { IoSearch } from "react-icons/io5";
 import { useCategory } from "../hooks/useCategory";
+import type { productsT } from "../schemas/productsSchema";
 import type { categoryT } from "../schemas/categorySchema";
-import Button from "../ui/Button";
 import { MdKeyboardArrowRight } from "react-icons/md";
+import ProductCard from "../features/products/ui/ProductCard";
+import { IoSearch } from "react-icons/io5";
+import Spinner from "../ui/Spinner";
+import Button from "../ui/Button";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
 const MarketPlace = () => {
   const { products, isFetchingProducts } = useProducts();
-  const [searchParams, setSearchParams] = useSearchParams();
   const { categories } = useCategory();
+  const navigate = useNavigate();
 
-  const { register, handleSubmit, control, setValue } = useForm({
-    defaultValues: {
-      search: searchParams.get("search") || "",
-    },
+  const { register, handleSubmit } = useForm({
+    defaultValues: { search: "" },
   });
-
-  const searchValue = useWatch({
-    control,
-    name: "search",
-  });
-
-  const handleClearSearch = () => {
-    setValue("search", "");
-    setSearchParams({});
-  };
 
   const onSearchSubmit = ({ search }: { search: string }) => {
-    setSearchParams({ search });
+    if (search.trim())
+      navigate(`/products?search=${encodeURIComponent(search)}`);
+  };
+
+  const handleCategoryClick = (categoryId: number) => {
+    navigate(`/products?categoryId=${categoryId}`);
   };
 
   if (isFetchingProducts)
@@ -43,90 +36,90 @@ const MarketPlace = () => {
         <Spinner />
       </div>
     );
+
   return (
     <div className="flex flex-col">
-      <section className="relative h-130 w-full overflow-hidden px-16">
+      {/* Hero / Search */}
+      <section className="relative min-h-80 w-full overflow-hidden px-4 sm:h-110 sm:px-8 md:h-130 md:px-16">
         <img
           src="/images/marketBg.webp"
           alt="Marketplace background"
           className="absolute inset-0 h-full w-full object-cover object-center"
         />
-        <div className="relative z-10 flex h-full flex-col items-center justify-center gap-4 text-center text-white">
-          {/* Title */}
-          <p className="text-5xl font-bold text-[#004630]">
-            Smart Shop ,Smart Harvest
+        <div className="relative z-10 flex h-full flex-col items-center justify-center gap-4 py-12 text-center text-white sm:py-0">
+          <p className="text-2xl leading-tight font-bold text-dark sm:text-4xl md:text-5xl">
+            Smart Shop, Smart Harvest
           </p>
 
-          <div className="w-full max-w-xl rounded-lg bg-white py-2.5">
-            <form onSubmit={handleSubmit(onSearchSubmit)}>
-              <div className="flex items-center gap-5 rounded-lg px-4 text-gray-400">
-                <input
-                  type="text"
-                  {...register("search")}
-                  placeholder={"What are you searching for?"}
-                  className="flex-1 outline-none"
-                />
-                {searchValue && (
-                  <button
-                    type="button"
-                    onClick={handleClearSearch}
-                    className="hover:text-black-700 text-gray-400 transition"
-                    aria-label="Clear search"
-                  >
-                    ✕
-                  </button>
-                )}
-                <button>
-                  <IoSearch size={18} />
-                </button>
-              </div>
-            </form>
-          </div>
-          <div className="flex gap-3">
+          <form
+            onSubmit={handleSubmit(onSearchSubmit)}
+            className="w-full max-w-xs rounded-lg bg-white px-4 py-2.5 sm:max-w-md md:max-w-xl"
+          >
+            <div className="flex items-center gap-3 text-gray-400">
+              <input
+                type="text"
+                {...register("search")}
+                placeholder="What are you searching for?"
+                className="min-w-0 flex-1 text-sm text-gray-700 outline-none placeholder:text-gray-400"
+              />
+              <button type="submit" className="shrink-0">
+                <IoSearch size={18} />
+              </button>
+            </div>
+          </form>
+
+          <div className="flex flex-wrap justify-center gap-2 px-4">
             {categories?.data?.map((category: categoryT) => (
               <Button
-                className="h-fit rounded-full! border border-teal-700 px-5 py-2! font-semibold"
                 key={category.id}
+                onClick={() => handleCategoryClick(category.id)}
+                className="h-fit rounded-full! border border-teal-700 px-4 py-1.5! text-sm font-semibold"
                 btnLabel={category.name}
               />
             ))}
           </div>
         </div>
       </section>
-      <section className="px-16 py-10">
+
+      {/* Categories grid */}
+      <section className="px-4 py-10 sm:px-8 md:px-16">
         <p className="text-dark mb-6 text-2xl">Search By Categories</p>
-        <div className="flex w-full flex-wrap items-center gap-5">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
           {categories?.data.map((category: categoryT) => (
             <div
               key={category.id}
-              className="flex w-52 flex-col items-center justify-center rounded-2xl border border-gray-400 bg-white py-5 shadow-md"
+              onClick={() => handleCategoryClick(category.id)}
+              className="flex cursor-pointer flex-col items-center justify-center rounded-2xl border border-gray-200 bg-white py-5 shadow-sm transition hover:shadow-md"
             >
-              <div className="h-24 w-24 overflow-hidden">
+              <div className="h-16 w-16 overflow-hidden sm:h-20 sm:w-20 md:h-24 md:w-24">
                 <img
                   src={`${BASE_URL}${category.imageUrl}`}
                   alt={category.name}
                   className="w-full object-cover"
                 />
               </div>
-              <p className="text-dark mt-4 text-sm font-semibold">
+              <p className="text-dark mt-3 px-2 text-center text-xs font-semibold sm:text-sm">
                 {category.name}
               </p>
             </div>
           ))}
         </div>
       </section>
-      <div className="flex items-center justify-between px-16">
-        <p className="text-dark text-2xl">Discover Products</p>
-        <Link to={""} className="text-primary flex items-center gap-0.5">
+
+      {/* Products preview */}
+      <div className="flex items-center justify-between px-4 sm:px-8 md:px-16">
+        <p className="text-dark text-xl sm:text-2xl">Discover Products</p>
+        <Link
+          to={"/products"}
+          className="text-primary flex items-center gap-0.5 text-sm sm:text-base"
+        >
           <p>View All</p>
           <MdKeyboardArrowRight size={20} />
         </Link>
       </div>
-      <div className="mx-14 my-10 grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {products.data.map((product: productsT) => (
-          <div key={product.id}>
-            <ProductCard {...product} />
-          </div>
+      <div className="mx-4 my-10 grid grid-cols-1 gap-5 sm:mx-8 sm:grid-cols-2 md:mx-14 md:grid-cols-3 lg:grid-cols-4">
+        {products?.data?.slice(0, 8).map((product: productsT) => (
+          <ProductCard key={product.id} {...product} />
         ))}
       </div>
     </div>
