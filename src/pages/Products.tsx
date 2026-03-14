@@ -1,5 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 import { useProducts } from "../features/products/hooks/useProducts";
+import { useProductsByCategory } from "../features/products/hooks/useProductsByCategory";
+import { useProductsBySearch } from "../features/products/hooks/useProductsBySearch";
 import { useCategory } from "../hooks/useCategory";
 import ProductCard from "../features/products/ui/ProductCard";
 import type { productsT } from "../schemas/productsSchema";
@@ -14,6 +16,10 @@ const Products = () => {
   const categoryId = searchParams.get("categoryId") || "";
 
   const { products, isFetchingProducts } = useProducts();
+  const { categoryProducts, isFetchingCategoryProducts } =
+    useProductsByCategory(categoryId);
+  const { searchProducts, isFetchingSearchProducts } =
+    useProductsBySearch(searchQuery);
   const { categories } = useCategory();
 
   const { register, handleSubmit, control, setValue } = useForm({
@@ -32,26 +38,26 @@ const Products = () => {
   };
 
   const handleCategoryClick = (id: number) => {
+    setValue("search", "");
     setSearchParams({ categoryId: String(id) });
   };
 
-  const displayedProducts: productsT[] = (products?.data ?? []).filter(
-    (p: productsT) => {
-      const matchesSearch = searchQuery
-        ? p.name.toLowerCase().includes(searchQuery.toLowerCase())
-        : true;
-      const matchesCategory = categoryId
-        ? String(p.categoryId) === categoryId
-        : true;
-      return matchesSearch && matchesCategory;
-    },
-  );
+  const isLoading =
+    isFetchingProducts ||
+    (!!categoryId && isFetchingCategoryProducts) ||
+    (!!searchQuery && isFetchingSearchProducts);
+
+  const displayedProducts: productsT[] = searchQuery
+    ? (searchProducts?.data ?? [])
+    : categoryId
+      ? (categoryProducts?.data ?? [])
+      : (products?.data ?? []);
 
   const activeCategory = categories?.data?.find(
     (c: categoryT) => String(c.id) === categoryId,
   );
 
-  if (isFetchingProducts)
+  if (isLoading)
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -59,8 +65,13 @@ const Products = () => {
     );
 
   return (
-    <div className="flex flex-col gap-8 px-4 py-20 sm:px-8 md:px-16">
+    <div className="relative flex flex-col gap-8 px-4 py-20 sm:px-8 md:px-16">
       {/* Search bar */}
+      <img
+        src="/images/productsBg.png"
+        alt=""
+        className="absolute inset-0 -z-1000 h-full w-full object-cover opacity-6"
+      />
       <form
         onSubmit={handleSubmit(onSearchSubmit)}
         className="mx-auto w-full max-w-xl rounded-xl bg-white px-4 py-3 shadow-sm ring-1 ring-gray-200"
@@ -92,7 +103,7 @@ const Products = () => {
         <button
           onClick={() => setSearchParams({})}
           className={`rounded-full border px-4 py-1.5 text-sm font-semibold transition ${
-            !categoryId
+            !categoryId && !searchQuery
               ? "border-teal-700 bg-teal-700 text-white"
               : "border-gray-300 text-gray-600 hover:border-teal-700"
           }`}
