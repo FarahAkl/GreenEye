@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useLogin from "../hooks/useLogin";
 import { FiMail } from "react-icons/fi";
@@ -10,9 +10,9 @@ import { loginSchema, type loginT } from "../../../schemas/authSchema";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  // const [searchParams] = useSearchParams();
 
-  const redirectTo = searchParams.get("redirect") || "/";
+  // const redirectTo = searchParams.get("redirect") ;
 
   const {
     register,
@@ -31,8 +31,11 @@ const Login = () => {
 
   const onSubmit = async (data: loginT) => {
     login(data, {
+      // onSuccess: () => {
+      //   navigate(redirectTo || -1, { replace: true });
+      // },
       onSuccess: () => {
-        navigate(redirectTo, { replace: true });
+        navigate(-1);
       },
     });
   };
