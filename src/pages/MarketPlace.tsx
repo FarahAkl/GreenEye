@@ -118,7 +118,7 @@ const MarketPlace = () => {
         </Link>
       </div>
       <div className="mx-4 my-10 grid grid-cols-1 gap-5 sm:mx-8 sm:grid-cols-2 md:mx-14 md:grid-cols-3 lg:grid-cols-4">
-        {products?.data?.slice(0, 8).map((product: productsT) => (
+        {products?.data?.data.map((product: productsT) => (
           <ProductCard key={product.id} {...product} />
         ))}
       </div>

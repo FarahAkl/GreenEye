@@ -18,23 +18,26 @@ const ProductCard = (product: productsT) => {
     reviewCount,
   } = product;
   return (
-    <div className="max-w-80 overflow-hidden rounded-2xl border border-gray-300 bg-white shadow-md">
+    <div className="flex h-full max-w-80 flex-col overflow-hidden rounded-2xl border border-gray-300 bg-white shadow-md">
       {/* Image Section */}
-      <div className="relative">
+      <div className="relative h-56">
         <img
           src={`${BASE_URL}${image}`}
           alt={name}
-          className="h-56 w-full object-cover"
+          className="h-full w-full object-cover"
         />
       </div>
 
       {/* Content Section */}
-      <div className="space-y-2 p-4" onClick={() => navigate(`/product/${id}`)}>
-        <h3 className="text-dark text-lg font-semibold">{name}</h3>
-        <p className="text-sm text-gray-500">{categoryName}</p>
+      <div
+        className="flex flex-1 cursor-pointer flex-col gap-2 p-4"
+        onClick={() => navigate(`/product/${id}`)}
+      >
+        <h3 className="text-dark min-h-14 text-lg font-semibold">{name}</h3>
+        <p className="min-h-5 text-sm text-gray-500">{categoryName}</p>
 
         {/* Rating */}
-        <div className="flex items-center gap-2">
+        <div className="min-h-5 flex items-center gap-2">
           <FaStar className="h-4 w-4 fill-yellow-500 text-yellow-500" />
           <span className="text-sm text-gray-700">
             {averageRating} ({reviewCount} reviews)
@@ -42,7 +45,7 @@ const ProductCard = (product: productsT) => {
         </div>
 
         {/* Price + Add Button */}
-        <div className="flex items-center justify-between pt-2">
+        <div className="mt-auto flex items-center justify-between pt-2">
           <div className="text-dark text-xl font-semibold">
             {price} EGP{" "}
             <span className="text-sm font-normal text-gray-500">/ unit</span>

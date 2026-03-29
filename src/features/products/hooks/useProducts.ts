@@ -1,15 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import { getProducts } from "../services/apiProducts";
+import { getProducts, type paginationParamsT } from "../services/apiProducts";
+import type { productsResponseT } from "../../../schemas/productsSchema";
 
-export const useProducts = () => {
+export const useProducts = (params?: paginationParamsT) => {
   const {
     data: products,
     isPending: isFetchingProducts,
     isError,
     error,
-  } = useQuery({
-    queryKey: ["products"],
-    queryFn: getProducts,
+  } = useQuery<productsResponseT, Error>({
+    queryKey: ["products", params?.pageNumber ?? 1, params?.pageSize ?? 10],
+    queryFn: () => getProducts(params),
     staleTime: 1000 * 60 * 5,
   });
 

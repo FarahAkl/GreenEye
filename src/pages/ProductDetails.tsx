@@ -5,7 +5,7 @@ import { FaStar } from "react-icons/fa";
 import Counter from "../ui/Counter";
 import Button from "../ui/Button";
 import { IoCartOutline } from "react-icons/io5";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCart } from "../features/cart/hooks/useCart";
 import {
@@ -14,6 +14,10 @@ import {
 } from "../schemas/cartSchema";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
+const formatApiDate = (value?: string | null) => {
+  if (!value) return "N/A";
+  return value.split("T")[0];
+};
 
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -39,7 +43,7 @@ const ProductDetails = () => {
     averageRating,
   } = productData;
 
-  const { control, handleSubmit, watch } = useForm<addItemToCartT>({
+  const { control, handleSubmit } = useForm<addItemToCartT>({
     resolver: zodResolver(addItemToCartSchema),
     defaultValues: {
       productId: Number(productId),
@@ -47,7 +51,7 @@ const ProductDetails = () => {
     },
   });
 
-  const quantity = watch("quantity");
+  const quantity = useWatch({ control, name: "quantity" }) ?? 1;
 
   const onSubmit = (data: addItemToCartT) => {
     addItemToCart(data);
@@ -168,15 +172,13 @@ const ProductDetails = () => {
         <p className="text-dark text-3xl">Product details</p>
         <p className="text-dark my-3 text-2xl">Description</p>
         <p className="text-lg text-gray-600">{description}</p>
-        <div className="flex items-center gap-5">
-          <p className="text-dark my-3 text-2xl">Production Date:</p>
-          <p className="text-lg text-gray-600">
-            {productionDate.split("T")[0]}
-          </p>
+        <div className="flex my-3 items-center gap-5">
+          <p className="text-dark text-2xl">Production Date:</p>
+          <p className="text-lg text-gray-600">{formatApiDate(productionDate)}</p>
         </div>
-        <div className="flex items-center gap-5">
-          <p className="text-dark my-3 text-2xl">Expiry Date:</p>
-          <p className="text-lg text-gray-600">{expiryDate.split("T")[0]}</p>
+        <div className="flex items-center my-3 gap-5">
+          <p className="text-dark text-2xl">Expiry Date:</p>
+          <p className="text-lg text-gray-600">{formatApiDate(expiryDate)}</p>
         </div>
       </div>
     </div>

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useProducts } from "../features/products/hooks/useProducts";
 import { useProductsByCategory } from "../features/products/hooks/useProductsByCategory";
@@ -6,20 +7,27 @@ import { useCategory } from "../hooks/useCategory";
 import ProductCard from "../features/products/ui/ProductCard";
 import type { productsT } from "../schemas/productsSchema";
 import type { categoryT } from "../schemas/categorySchema";
-import Spinner from "../ui/Spinner";
 import { useForm, useWatch } from "react-hook-form";
+import Spinner from "../ui/Spinner";
 import { IoSearch } from "react-icons/io5";
 
 const Products = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = searchParams.get("search") || "";
   const categoryId = searchParams.get("categoryId") || "";
+  const pageNumber = Math.max(1, Number(searchParams.get("page")) || 1);
+  const pageSize = 10;
 
-  const { products, isFetchingProducts } = useProducts();
+  const { products, isFetchingProducts } = useProducts({ pageNumber, pageSize });
   const { categoryProducts, isFetchingCategoryProducts } =
-    useProductsByCategory(categoryId);
+    useProductsByCategory(categoryId, { pageNumber, pageSize });
   const { searchProducts, isFetchingSearchProducts } =
-    useProductsBySearch(searchQuery);
+    useProductsBySearch({
+      query: searchQuery,
+      categoryId: categoryId,
+      pageNumber,
+      pageSize,
+    });
   const { categories } = useCategory();
 
   const { register, handleSubmit, control, setValue } = useForm({
@@ -28,18 +36,46 @@ const Products = () => {
 
   const searchValue = useWatch({ control, name: "search" });
 
+  useEffect(() => {
+    setValue("search", searchQuery);
+  }, [searchQuery, setValue]);
+
+  const updateParams = (params: {
+    search?: string;
+    categoryId?: string;
+    page?: number;
+  }) => {
+    const next = new URLSearchParams();
+    if (params.search) next.set("search", params.search);
+    if (params.categoryId) next.set("categoryId", params.categoryId);
+    next.set("page", String(params.page ?? 1));
+    setSearchParams(next);
+  };
+
   const onSearchSubmit = ({ search }: { search: string }) => {
-    setSearchParams(search.trim() ? { search } : {});
+    const normalizedSearch = search.trim();
+    updateParams({
+      search: normalizedSearch || undefined,
+      categoryId: categoryId || undefined,
+      page: 1,
+    });
   };
 
   const handleClearSearch = () => {
     setValue("search", "");
-    setSearchParams({});
+    updateParams({
+      search: undefined,
+      categoryId: categoryId || undefined,
+      page: 1,
+    });
   };
 
   const handleCategoryClick = (id: number) => {
-    setValue("search", "");
-    setSearchParams({ categoryId: String(id) });
+    updateParams({
+      search: searchQuery || undefined,
+      categoryId: String(id),
+      page: 1,
+    });
   };
 
   const isLoading =
@@ -48,10 +84,10 @@ const Products = () => {
     (!!searchQuery && isFetchingSearchProducts);
 
   const displayedProducts: productsT[] = searchQuery
-    ? (searchProducts?.data ?? [])
+    ? (searchProducts?.data?.data ?? [])
     : categoryId
-      ? (categoryProducts?.data ?? [])
-      : (products?.data ?? []);
+      ? (categoryProducts?.data?.data ?? [])
+      : (products?.data?.data ?? []);
 
   const activeCategory = categories?.data?.find(
     (c: categoryT) => String(c.id) === categoryId,
@@ -101,7 +137,13 @@ const Products = () => {
       {/* Category filter pills */}
       <div className="flex flex-wrap gap-2">
         <button
-          onClick={() => setSearchParams({})}
+          onClick={() =>
+            updateParams({
+              search: undefined,
+              categoryId: undefined,
+              page: 1,
+            })
+          }
           className={`rounded-full border px-4 py-1.5 text-sm font-semibold transition ${
             !categoryId && !searchQuery
               ? "border-teal-700 bg-teal-700 text-white"
@@ -150,7 +192,11 @@ const Products = () => {
           <button
             onClick={() => {
               handleClearSearch();
-              setSearchParams({});
+              updateParams({
+                search: undefined,
+                categoryId: undefined,
+                page: 1,
+              });
             }}
             className="text-primary mt-2 text-sm underline underline-offset-2"
           >

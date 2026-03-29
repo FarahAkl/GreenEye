@@ -6,7 +6,7 @@ export const productsSchema = z.object({
   description: z.string(),
   price: z.number(),
   stockQuantity: z.number(),
-  productionDate: z.string(),
+  productionDate: z.string().nullable(),
   expiryDate: z.string(),
   primaryImageUrl: z.string(),
   isAvailable: z.boolean(),
@@ -19,10 +19,18 @@ export const productsSchema = z.object({
   additionalImages: z.array(z.string()),
 });
 
+export const productsPaginationSchema = z.object({
+  data: z.array(productsSchema),
+  totalCount: z.number(),
+  pageNumber: z.number(),
+  pageSize: z.number(),
+  totalPages: z.number(),
+});
+
 export const productsResponseSchema = z.object({
   isSuccess: z.boolean(),
   message: z.string().nullable(),
-  data: z.array(productsSchema),
+  data: productsPaginationSchema,
 });
 
 export const updateProductsRequestSchema = z.object({
