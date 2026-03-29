@@ -45,9 +45,9 @@ const AppSec = () => {
           </p>
           <p className="text-2xl text-[#004630]">What you can do:</p>
           {appSteps.map((step) => (
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3" key={step.label}>
               <div className="flex items-end gap-2">
-                <img src={step.icon} alt="plant" />
+                <img src={step.icon} alt="plant" key={step.label} />
                 <p className="text-xl">{step.label}</p>
               </div>
               <p className="text-lg text-gray-700">{step.describtion}</p>

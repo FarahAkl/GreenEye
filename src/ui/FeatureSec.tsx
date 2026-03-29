@@ -88,6 +88,7 @@ const FeatureSec = () => {
                 title={card.title}
                 image={card.image}
                 description={card.description}
+                key={card.title}
               />
             </div>
           ))}

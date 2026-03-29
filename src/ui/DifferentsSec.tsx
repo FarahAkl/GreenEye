@@ -69,6 +69,7 @@ const DifferentsSec = () => {
               label={cardContent.label}
               icon={cardContent.icon}
               describtion={cardContent.describtion}
+              key={cardContent.label}
             />
           ))}
         </div>
@@ -80,6 +81,7 @@ const DifferentsSec = () => {
                   label={cardContent.label}
                   icon={cardContent.icon}
                   describtion={cardContent.describtion}
+                  key={cardContent.label}
                 />
               </div>
             ))}

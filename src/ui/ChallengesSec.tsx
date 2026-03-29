@@ -39,6 +39,7 @@ const ChallengesSec = () => {
             src={`/images/challenge${i}.avif`}
             alt="challenge"
             className="transition-all hover:translate-y-5"
+            key={i}
           />
         ))}
       </Slider>
