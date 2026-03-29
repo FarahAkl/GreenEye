@@ -66,7 +66,8 @@ export const logout = async () => {
 
   try {
     await axiosInstance.post(
-      `/api/Authentication/revoke-token?token=${refreshToken}`,
+      `/api/Authentication/revoke-token`,
+      { refreshToken },
     );
   } finally {
     deleteCookie({ name: "token" });
