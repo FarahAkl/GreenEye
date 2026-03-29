@@ -1,6 +1,35 @@
 import axios, { AxiosError, type InternalAxiosRequestConfig } from "axios";
 import { deleteCookie, getCookie, setCookie } from "../utils/TS-Cookie";
 
+type RefreshResponseData = {
+  isSuccess?: boolean;
+  accessToken?: string | null;
+  refreshToken?: string | null;
+  data?: {
+    accessToken?: string | null;
+    refreshToken?: string | null;
+  } | null;
+};
+
+const getTokensFromRefreshResponse = (payload: unknown): {
+  isSuccess: boolean;
+  accessToken: string | null;
+  refreshToken: string | null;
+} => {
+  if (!payload || typeof payload !== "object") {
+    return { isSuccess: false, accessToken: null, refreshToken: null };
+  }
+
+  const direct = payload as RefreshResponseData;
+  const nested = direct.data ?? undefined;
+
+  return {
+    isSuccess: direct.isSuccess ?? true,
+    accessToken: nested?.accessToken ?? direct.accessToken ?? null,
+    refreshToken: nested?.refreshToken ?? direct.refreshToken ?? null,
+  };
+};
+
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
   headers: {
@@ -36,16 +65,33 @@ axiosInstance.interceptors.response.use(
 
         const res = await axios.post(
           `${import.meta.env.VITE_API_URL}/api/Authentication/refresh-token`,
-          { token: refreshToken },
+          { refreshToken },
         );
 
-        const newAccessToken = res.data.data.accessToken;
+        const {
+          isSuccess,
+          accessToken: newAccessToken,
+          refreshToken: newRefreshToken,
+        } =
+          getTokensFromRefreshResponse(res.data);
+
+        if (!isSuccess || !newAccessToken)
+          throw new Error("Invalid refresh response");
 
         setCookie({
           name: "token",
           value: newAccessToken,
           days: 1,
         });
+
+        // Backends may rotate refresh tokens; keep the latest one.
+        if (newRefreshToken) {
+          setCookie({
+            name: "refreshToken",
+            value: newRefreshToken,
+            days: 7,
+          });
+        }
 
         originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
 
