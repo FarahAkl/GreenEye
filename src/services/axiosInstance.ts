@@ -37,9 +37,75 @@ const axiosInstance = axios.create({
   },
 });
 
+const getStoredToken = (name: "token" | "refreshToken"): string | null => {
+  const cookieName = name === "token" ? "token" : "refreshToken";
+  const localStorageName = name === "token" ? "accessToken" : "refreshToken";
+  return getCookie({ name: cookieName }) ?? localStorage.getItem(localStorageName);
+};
+
+const persistTokens = (
+  accessToken: string,
+  refreshToken?: string | null,
+): void => {
+  setCookie({ name: "token", value: accessToken, days: 1 });
+  localStorage.setItem("accessToken", accessToken);
+
+  if (refreshToken) {
+    setCookie({ name: "refreshToken", value: refreshToken, days: 7 });
+    localStorage.setItem("refreshToken", refreshToken);
+  }
+};
+
+const clearStoredTokens = (): void => {
+  deleteCookie({ name: "token" });
+  deleteCookie({ name: "refreshToken" });
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
+};
+
+let refreshPromise: Promise<string> | null = null;
+
+const refreshAccessToken = async (): Promise<string> => {
+  const refreshToken = getStoredToken("refreshToken")?.trim();
+  if (!refreshToken) throw new Error("No refresh token");
+
+  let res;
+  try {
+    res = await axios.post(
+      `${import.meta.env.VITE_API_URL}/api/Authentication/refresh-token`,
+      { refreshToken },
+    );
+  } catch (err) {
+    if (
+      axios.isAxiosError(err) &&
+      err.response?.status === 400
+    ) {
+      res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/Authentication/refresh-token`,
+        { token: refreshToken },
+      );
+    } else {
+      throw err;
+    }
+  }
+
+  const {
+    isSuccess,
+    accessToken: newAccessToken,
+    refreshToken: newRefreshToken,
+  } = getTokensFromRefreshResponse(res.data);
+
+  if (!isSuccess || !newAccessToken) {
+    throw new Error("Invalid refresh response");
+  }
+
+  persistTokens(newAccessToken, newRefreshToken);
+  return newAccessToken;
+};
+
 axiosInstance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const token = getCookie({ name: "token" });
+    const token = getStoredToken("token");
 
     if (token) config.headers["Authorization"] = `Bearer ${token}`;
 
@@ -59,46 +125,19 @@ axiosInstance.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        const refreshToken = getCookie({ name: "refreshToken" });
-
-        if (!refreshToken) throw new Error("No refresh token");
-
-        const res = await axios.post(
-          `${import.meta.env.VITE_API_URL}/api/Authentication/refresh-token`,
-          { refreshToken },
-        );
-
-        const {
-          isSuccess,
-          accessToken: newAccessToken,
-          refreshToken: newRefreshToken,
-        } =
-          getTokensFromRefreshResponse(res.data);
-
-        if (!isSuccess || !newAccessToken)
-          throw new Error("Invalid refresh response");
-
-        setCookie({
-          name: "token",
-          value: newAccessToken,
-          days: 1,
-        });
-
-        // Backends may rotate refresh tokens; keep the latest one.
-        if (newRefreshToken) {
-          setCookie({
-            name: "refreshToken",
-            value: newRefreshToken,
-            days: 7,
+        if (!refreshPromise) {
+          refreshPromise = refreshAccessToken().finally(() => {
+            refreshPromise = null;
           });
         }
+
+        const newAccessToken = await refreshPromise;
 
         originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
 
         return axiosInstance(originalRequest);
       } catch (err) {
-        deleteCookie({ name: "token" });
-        deleteCookie({ name: "refreshToken" });
+        clearStoredTokens();
 
         window.location.href = "/login";
         return Promise.reject(err);
