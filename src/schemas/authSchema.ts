@@ -40,7 +40,7 @@ export const loginSchema = z.object({
   rememberMe: z.boolean(),
 });
 
-export const registerSchema = z
+export const registerStep1Schema = z
   .object({
     name: z.string().nonempty("This field is required").min(3),
     email: z
@@ -65,15 +65,22 @@ export const registerSchema = z
       .nonempty("This field is required")
       .min(8, "Password must be at least 8 characters")
       .max(255, "Password must not exceed 255 characters"),
-    rule: z.string(),
-    imageFile: z
-      .instanceof(FileList)
-      .refine((files) => files.length > 0, "Image is required"),
+    rule: z.enum(["farmer", "admin", "supplier"], {
+      message: "Please select a role",
+    }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
     path: ["confirmPassword"],
   });
+
+export const registerSchema = registerStep1Schema.extend({
+  imageFile: z
+    .instanceof(FileList)
+    .refine((files) => files.length > 0, "Image is required"),
+});
+
+export type registerStep1T = z.infer<typeof registerStep1Schema>;
 
 export const registerSuccessSchema = z.object({
   isSuccess: z.boolean(),

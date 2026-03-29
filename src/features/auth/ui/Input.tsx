@@ -17,6 +17,7 @@ interface InputProps<T extends FieldValues> {
   error?: string;
   value?: string;
   disabled?: boolean;
+  accept?: string;
 }
 
 function Input<T extends FieldValues>({
@@ -29,6 +30,7 @@ function Input<T extends FieldValues>({
   disabled,
   type = "text",
   error,
+  accept,
 }: InputProps<T>) {
   const [showPassword, setShowPassword] = useState(false);
   const isPassword = type === "password";
@@ -51,6 +53,7 @@ function Input<T extends FieldValues>({
           type={isPassword ? (showPassword ? "text" : "password") : type}
           disabled={disabled}
           placeholder={placeholder}
+          accept={accept}
           {...register?.(name, rules)}
           className={`block w-full rounded-md p-1 placeholder-gray-400 placeholder:text-sm focus:outline-none`}
         />
