@@ -6,8 +6,10 @@ import {
   type loginT,
   type registerT,
 } from "../../../schemas/authSchema";
-import axiosInstance from "../../../services/axiosInstance";
-import { deleteCookie, getCookie } from "../../../utils/TS-Cookie";
+import axiosInstance, {
+  clearAuthAfterRevoke,
+  getStoredRefreshToken,
+} from "../../../services/axiosInstance";
 import { objectToFormData } from "../../../utils/objectToFormData";
 
 export const register = async (data: registerT) => {
@@ -62,16 +64,16 @@ export const login = async (data: loginT) => {
 };
 
 export const logout = async () => {
-  const refreshToken = getCookie({ name: "refreshToken" });
+  const refreshToken = getStoredRefreshToken();
 
   try {
-    await axiosInstance.post(
-      `/api/Authentication/revoke-token`,
-      { refreshToken },
-    );
+    if (refreshToken) {
+      await axiosInstance.post(`/api/Authentication/revoke-token`, {
+        refreshToken,
+      });
+    }
   } finally {
-    deleteCookie({ name: "token" });
-    deleteCookie({ name: "refreshToken" });
+    clearAuthAfterRevoke();
     window.location.href = "/login";
   }
 };

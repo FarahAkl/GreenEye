@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { AuthContext } from "./context/AuthContext";
-import { deleteCookie, getCookie } from "../utils/TS-Cookie";
+import { getCookie } from "../utils/TS-Cookie";
 import { logout as logoutapi } from "../features/auth/services/apiAuth";
 
 interface ProviderProps {
@@ -25,7 +25,6 @@ export function AuthProvider({ children }: ProviderProps) {
     try {
       await logoutapi();
     } finally {
-      deleteCookie({ name: "token" });
       setIsAuthenticated(false);
     }
   };

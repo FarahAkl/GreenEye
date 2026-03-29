@@ -63,6 +63,16 @@ const clearStoredTokens = (): void => {
   localStorage.removeItem("refreshToken");
 };
 
+/** After revoke-token / logout: clear storage and drop any default Authorization on the client. */
+export const clearAuthAfterRevoke = (): void => {
+  clearStoredTokens();
+  delete axiosInstance.defaults.headers.common["Authorization"];
+  delete axiosInstance.defaults.headers["Authorization"];
+};
+
+export const getStoredRefreshToken = (): string | null =>
+  getStoredToken("refreshToken");
+
 let refreshPromise: Promise<string> | null = null;
 
 const refreshAccessToken = async (): Promise<string> => {
@@ -107,7 +117,11 @@ axiosInstance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     const token = getStoredToken("token");
 
-    if (token) config.headers["Authorization"] = `Bearer ${token}`;
+    if (token) {
+      config.headers.set("Authorization", `Bearer ${token}`);
+    } else {
+      config.headers.delete("Authorization");
+    }
 
     return config;
   },
@@ -137,7 +151,7 @@ axiosInstance.interceptors.response.use(
 
         return axiosInstance(originalRequest);
       } catch (err) {
-        clearStoredTokens();
+        clearAuthAfterRevoke();
 
         window.location.href = "/login";
         return Promise.reject(err);
