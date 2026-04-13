@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { useProducts } from "../features/products/hooks/useProducts";
 import { useProductsByCategory } from "../features/products/hooks/useProductsByCategory";
 import { useProductsBySearch } from "../features/products/hooks/useProductsBySearch";
+import { useOrderByPrice } from "../features/products/hooks/useOrderByPrice";
 import { useCategory } from "../hooks/useCategory";
 import ProductCard from "../features/products/ui/ProductCard";
 import type { productsT } from "../schemas/productsSchema";
@@ -11,23 +12,33 @@ import { useForm, useWatch } from "react-hook-form";
 import Spinner from "../ui/Spinner";
 import { IoSearch } from "react-icons/io5";
 
+type SortOrder = "ASC" | "DESC" | "";
+
 const Products = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = searchParams.get("search") || "";
   const categoryId = searchParams.get("categoryId") || "";
+  const sortOrder = (searchParams.get("sort") || "") as SortOrder;
   const pageNumber = Math.max(1, Number(searchParams.get("page")) || 1);
   const pageSize = 10;
 
-  const { products, isFetchingProducts } = useProducts({ pageNumber, pageSize });
+  const { products, isFetchingProducts } = useProducts({
+    pageNumber,
+    pageSize,
+  });
   const { categoryProducts, isFetchingCategoryProducts } =
     useProductsByCategory(categoryId, { pageNumber, pageSize });
-  const { searchProducts, isFetchingSearchProducts } =
-    useProductsBySearch({
-      query: searchQuery,
-      categoryId: categoryId,
-      pageNumber,
-      pageSize,
-    });
+  const { searchProducts, isFetchingSearchProducts } = useProductsBySearch({
+    query: searchQuery,
+    categoryId: categoryId,
+    pageNumber,
+    pageSize,
+  });
+  const { orderedProducts, isOrderingProducts } = useOrderByPrice(
+    sortOrder
+      ? { pageNumber, pageSize, orderByDirection: sortOrder }
+      : undefined,
+  );
   const { categories } = useCategory();
 
   const { register, handleSubmit, control, setValue } = useForm({
@@ -43,11 +54,13 @@ const Products = () => {
   const updateParams = (params: {
     search?: string;
     categoryId?: string;
+    sort?: string;
     page?: number;
   }) => {
     const next = new URLSearchParams();
     if (params.search) next.set("search", params.search);
     if (params.categoryId) next.set("categoryId", params.categoryId);
+    if (params.sort) next.set("sort", params.sort);
     next.set("page", String(params.page ?? 1));
     setSearchParams(next);
   };
@@ -57,6 +70,7 @@ const Products = () => {
     updateParams({
       search: normalizedSearch || undefined,
       categoryId: categoryId || undefined,
+      sort: sortOrder || undefined,
       page: 1,
     });
   };
@@ -66,6 +80,7 @@ const Products = () => {
     updateParams({
       search: undefined,
       categoryId: categoryId || undefined,
+      sort: sortOrder || undefined,
       page: 1,
     });
   };
@@ -74,20 +89,34 @@ const Products = () => {
     updateParams({
       search: searchQuery || undefined,
       categoryId: String(id),
+      sort: sortOrder || undefined,
+      page: 1,
+    });
+  };
+
+  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value as SortOrder;
+    updateParams({
+      search: searchQuery || undefined,
+      categoryId: categoryId || undefined,
+      sort: value || undefined,
       page: 1,
     });
   };
 
   const isLoading =
-    isFetchingProducts ||
-    (!!categoryId && isFetchingCategoryProducts) ||
-    (!!searchQuery && isFetchingSearchProducts);
+    (!!sortOrder && isOrderingProducts) ||
+    (!sortOrder && !searchQuery && !categoryId && isFetchingProducts) ||
+    (!sortOrder && !!categoryId && isFetchingCategoryProducts) ||
+    (!sortOrder && !!searchQuery && isFetchingSearchProducts);
 
-  const displayedProducts: productsT[] = searchQuery
-    ? (searchProducts?.data?.data ?? [])
-    : categoryId
-      ? (categoryProducts?.data?.data ?? [])
-      : (products?.data?.data ?? []);
+  const displayedProducts: productsT[] = sortOrder
+    ? (orderedProducts?.data?.data ?? [])
+    : searchQuery
+      ? (searchProducts?.data?.data ?? [])
+      : categoryId
+        ? (categoryProducts?.data?.data ?? [])
+        : (products?.data?.data ?? []);
 
   const activeCategory = categories?.data?.find(
     (c: categoryT) => String(c.id) === categoryId,
@@ -102,12 +131,14 @@ const Products = () => {
 
   return (
     <div className="relative flex flex-col gap-8 px-4 py-20 sm:px-8 md:px-16">
-      {/* Search bar */}
+      {/* Background */}
       <img
         src="/images/productsBg.png"
         alt=""
         className="absolute inset-0 -z-1000 h-full w-full object-cover opacity-6"
       />
+
+      {/* Search bar */}
       <form
         onSubmit={handleSubmit(onSearchSubmit)}
         className="mx-auto w-full max-w-xl rounded-xl bg-white px-4 py-3 shadow-sm ring-1 ring-gray-200"
@@ -141,6 +172,7 @@ const Products = () => {
             updateParams({
               search: undefined,
               categoryId: undefined,
+              sort: sortOrder || undefined,
               page: 1,
             })
           }
@@ -167,7 +199,7 @@ const Products = () => {
         ))}
       </div>
 
-      {/* Heading */}
+      {/* Heading + Sort dropdown */}
       <div className="flex items-center justify-between">
         <p className="text-dark text-xl font-semibold sm:text-2xl">
           {searchQuery
@@ -176,9 +208,17 @@ const Products = () => {
               ? activeCategory.name
               : "All Products"}
         </p>
-        <p className="text-sm text-gray-400">
-          {displayedProducts.length} products
-        </p>
+
+        {/* Sort by price dropdown */}
+        <select
+          value={sortOrder}
+          onChange={handleSortChange}
+          className="cursor-pointer rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-600 shadow-sm transition outline-none hover:border-teal-700 focus:border-teal-700 focus:ring-1 focus:ring-teal-700"
+        >
+          <option value="">Sort by price</option>
+          <option value="ASC">Price: Low to High</option>
+          <option value="DESC">Price: High to Low</option>
+        </select>
       </div>
 
       {/* Grid or empty state */}
@@ -195,6 +235,7 @@ const Products = () => {
               updateParams({
                 search: undefined,
                 categoryId: undefined,
+                sort: undefined,
                 page: 1,
               });
             }}

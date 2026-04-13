@@ -14,6 +14,13 @@ export type searchParamsT = {
   pageSize?: number;
 };
 
+export type orderingParamsT = {
+  orderByDirection?: "ASC" | "DESC";
+  // categoryId?: string;
+  pageNumber?: number;
+  pageSize?: number;
+};
+
 export type paginationParamsT = {
   pageNumber?: number;
   pageSize?: number;
@@ -58,7 +65,15 @@ export const getProductById = async (id: string) => {
 //   }
 // };
 
-export const getProductsByCategory = async ({ categoryId, pageNumber, pageSize }: { categoryId: string, pageNumber?: number, pageSize?: number }) => {
+export const getProductsByCategory = async ({
+  categoryId,
+  pageNumber,
+  pageSize,
+}: {
+  categoryId: string;
+  pageNumber?: number;
+  pageSize?: number;
+}) => {
   const res = await axiosInstance.get(
     `/api/marketplace/Product/category/${categoryId}`,
     {
@@ -75,6 +90,16 @@ export const getProductBySearch = async (params?: searchParamsT) => {
   const res = await axiosInstance.get("/api/marketplace/Product/search", {
     params,
   });
+  return res.data;
+};
+
+export const orderProductsByPrice = async (params?: orderingParamsT) => {
+  const res = await axiosInstance.get(
+    "/api/marketplace/Product/pricing-order",
+    {
+      params,
+    },
+  );
   return res.data;
 };
 
