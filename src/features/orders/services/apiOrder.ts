@@ -1,6 +1,6 @@
 import { isAxiosError } from "axios";
 import axiosInstance from "../../../services/axiosInstance";
-import type { createOrderT } from "../../../schemas/ordersSchema";
+import { createOrderResponseSchema, type createOrderT } from "../../../schemas/ordersSchema";
 
 type getMyOrdersT = {
   userId: string;
@@ -16,8 +16,8 @@ export const createOrder = async (data: createOrderT) => {
       `/api/marketplace/Order/create-order`,
       data,
     );
-    // const validatedRes = cartResponseSchema.parse(res.data);
-    return res.data;
+    const validatedRes = createOrderResponseSchema.parse(res.data);
+    return validatedRes;
   } catch (err) {
     if (isAxiosError(err)) {
       const message =

@@ -10,4 +10,13 @@ export const createOrderRequestSchema = z.object({
   rateId: z.string(),
 });
 
+export const createOrderResponseSchema = z.object({
+  isSuccess: z.boolean(),
+  message: z.string(),
+  data: z.object({
+    orderId: z.number(),
+    clientSecret: z.string(),
+  }),
+});
+
 export type createOrderT = z.infer<typeof createOrderRequestSchema>;
