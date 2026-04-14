@@ -6,13 +6,21 @@ import { useProductsBySearch } from "../features/products/hooks/useProductsBySea
 import { useOrderByPrice } from "../features/products/hooks/useOrderByPrice";
 import { useCategory } from "../hooks/useCategory";
 import ProductCard from "../features/products/ui/ProductCard";
+import CustomSelect from "../ui/CustomSelect";
 import type { productsT } from "../schemas/productsSchema";
 import type { categoryT } from "../schemas/categorySchema";
 import { useForm, useWatch } from "react-hook-form";
 import Spinner from "../ui/Spinner";
 import { IoSearch } from "react-icons/io5";
+import { MdSort } from "react-icons/md";
 
 type SortOrder = "ASC" | "DESC" | "";
+
+const SORT_OPTIONS = [
+  { value: "" as SortOrder, label: "Sort by price" },
+  { value: "ASC" as SortOrder, label: "Low to High" },
+  { value: "DESC" as SortOrder, label: "High to Low" },
+];
 
 const Products = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -94,8 +102,7 @@ const Products = () => {
     });
   };
 
-  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value as SortOrder;
+  const handleSortSelect = (value: SortOrder) => {
     updateParams({
       search: searchQuery || undefined,
       categoryId: categoryId || undefined,
@@ -209,16 +216,14 @@ const Products = () => {
               : "All Products"}
         </p>
 
-        {/* Sort by price dropdown */}
-        <select
+        <CustomSelect<SortOrder>
+          options={SORT_OPTIONS}
           value={sortOrder}
-          onChange={handleSortChange}
-          className="cursor-pointer rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-600 shadow-sm transition outline-none hover:border-teal-700 focus:border-teal-700 focus:ring-1 focus:ring-teal-700"
-        >
-          <option value="">Sort by price</option>
-          <option value="ASC">Price: Low to High</option>
-          <option value="DESC">Price: High to Low</option>
-        </select>
+          onChange={handleSortSelect}
+          icon={<MdSort size={18} />}
+          placeholder="Sort by price"
+          className="w-52"
+        />
       </div>
 
       {/* Grid or empty state */}

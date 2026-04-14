@@ -41,7 +41,7 @@ const CartItem = ({ item }: { item: itemT }) => {
       <div className="h-68 sm:h-full w-full sm:w-58 shrink-0 overflow-hidden rounded-xl">
         <img
           src={
-            !productImage
+            productImage
               ? `${BASE_URL}${productImage}`
               : "/images/productDefault.jpg"
           }

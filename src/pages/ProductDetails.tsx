@@ -105,7 +105,7 @@ const ProductDetails = () => {
                   : "/images/productDefault.jpg"
               }
               alt={name}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-contain"
             />
           </div>
 
@@ -172,11 +172,13 @@ const ProductDetails = () => {
         <p className="text-dark text-3xl">Product details</p>
         <p className="text-dark my-3 text-2xl">Description</p>
         <p className="text-lg text-gray-600">{description}</p>
-        <div className="flex my-3 items-center gap-5">
+        <div className="my-3 flex items-center gap-5">
           <p className="text-dark text-2xl">Production Date:</p>
-          <p className="text-lg text-gray-600">{formatApiDate(productionDate)}</p>
+          <p className="text-lg text-gray-600">
+            {formatApiDate(productionDate)}
+          </p>
         </div>
-        <div className="flex items-center my-3 gap-5">
+        <div className="my-3 flex items-center gap-5">
           <p className="text-dark text-2xl">Expiry Date:</p>
           <p className="text-lg text-gray-600">{formatApiDate(expiryDate)}</p>
         </div>
