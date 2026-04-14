@@ -101,3 +101,16 @@ export const refundOrder = async (id: string) => {
     throw err;
   }
 };
+
+// Shipping endpoints
+
+export const getShipmentInfo = async ({
+  orderId,
+}: {
+  orderId: string;
+}) => {
+  const res = await axiosInstance.get(
+    `/api/Shipping/order/${orderId}/shipment-info`,
+  );
+  return res.data;
+};

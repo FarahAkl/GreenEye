@@ -23,8 +23,9 @@ import type { ZodIssue } from "zod";
 
 const ROLE_OPTIONS = [
   { value: "farmer", label: "Farmer" },
-  { value: "admin", label: "Admin" },
+  // { value: "admin", label: "Admin" },
   { value: "supplier", label: "Supplier" },
+  { value: "expert", label: "Expert" },
 ] as const;
 
 const applyZodIssues = (
