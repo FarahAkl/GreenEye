@@ -19,30 +19,48 @@ export const createOrderResponseSchema = z.object({
   }),
 });
 
-export const getShippingRateRequestSchema = z.object({
-  name: z.string(),
-  street1: z.string(),
-  city: z.string(),
-  state: z.string(),
-  zip: z.string(),
-  country: z.string(),
-  phone: z.string(),
-  email: z.string(),
+export const orderItemSchema = z.object({
+  id: z.number(),
+  productId: z.number(),
+  productName: z.string().nullable(),
+  productImage: z.string().nullable(),
+  quantity: z.number(),
+  unitPrice: z.number(),
+  totalPrice: z.number(),
+  userName: z.string().nullable(),
+  isReviewed: z.boolean(),
 });
 
-export const shippingScehma = z.object({
-  rateId: z.string(),
-  provider: z.string(),
-  amount: z.number(),
-  currency: z.string(),
-  durationTerms: z.string(),
-  imageUrl: z.string(),
-});
-
-export const getShippingRateSuccessSchema = z.object({
-  isSuccess: z.boolean(),
-  message: z.string(),
-  data: z.array(shippingScehma),
+export const ordersSchema = z.object({
+  id: z.number(),
+  subTotal: z.number(),
+  deliveryFee: z.number(),
+  totalPrice: z.number(),
+  status: z.enum([
+    "Pending",
+    "Confirmed",
+    "Processing",
+    "Shipped",
+    "Delivered",
+    "Paid",
+    "Cancelled",
+    "Refunded",
+  ]),
+  deliveryStatus: z.enum([
+    "Pending",
+    "PickedUp",
+    "InTransit",
+    "OutForDelivery",
+    "Delivered",
+    "Failed",
+    "Returned",
+    "LabelGenerated",
+  ]),
+  trackingNumber: z.string().nullable(),
+  createdAt: z.string(),
+  paymentIntentId: z.string().nullable(),
+  clientSecret: z.string().nullable(),
+  items: z.array(orderItemSchema).nullable(),
 });
 
 export type createOrderT = z.infer<typeof createOrderRequestSchema>;

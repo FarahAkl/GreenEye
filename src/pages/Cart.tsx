@@ -5,6 +5,7 @@ import Spinner from "../ui/Spinner";
 import { TiShoppingCart } from "react-icons/ti";
 import { useNavigate } from "react-router-dom";
 import Button from "../ui/Button";
+import { CgArrowRight } from "react-icons/cg";
 
 const Cart = () => {
   const { cart, isFetchingCart, isError } = useCart();
@@ -71,13 +72,20 @@ const Cart = () => {
         ))}
       </div>
 
-      <div className="flex justify-end">
+      <div className="flex flex-col items-end justify-end gap-2">
         <div className="flex items-center gap-4 rounded-2xl bg-white px-6 py-4 shadow-sm ring-1 ring-gray-100">
           <p className="text-dark text-lg font-semibold">Total:</p>
           <p className="text-dark text-2xl font-bold">
             {totalPrice?.toFixed(2)} EGP
           </p>
         </div>
+        <Button
+          className="flex items-center justify-center gap-3 text-xl"
+          btnLabel=""
+          onClick={()=>navigate('/order')}
+        >
+          <p>Place Order</p> <CgArrowRight />
+        </Button>
       </div>
     </div>
   );

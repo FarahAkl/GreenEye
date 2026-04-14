@@ -15,6 +15,7 @@ import Home from "../pages/Home";
 import Register from "../features/auth/pages/Register";
 import Checkout from "../pages/Checkout";
 import Products from "../pages/Products";
+import Order from "../pages/Order";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,7 @@ const router = createBrowserRouter([
         element: <ProtectedRoute />,
         children: [
           { path: "/cart", element: <Cart /> },
+          { path: "/order", element: <Order /> },
           { path: "/profile", element: <Profile /> },
           { path: "/checkout", element: <Checkout /> },
           { path: "/supplier-dashboard" },
@@ -48,7 +50,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-
 ]);
 
 const AppRoutes = () => {
