@@ -8,7 +8,7 @@ export const getCart = async () => {
 };
 
 export const deleteCart = async () => {
-  const res = await axiosInstance.delete("/api/marketplace/Cart");
+  const res = await axiosInstance.delete("/api/marketplace/Cart/clear");
   return res.data;
 };
 

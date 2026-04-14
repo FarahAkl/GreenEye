@@ -64,3 +64,4 @@ export const ordersSchema = z.object({
 });
 
 export type createOrderT = z.infer<typeof createOrderRequestSchema>;
+export type createOrderSuccessT = z.infer<typeof createOrderResponseSchema>

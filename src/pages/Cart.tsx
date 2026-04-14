@@ -6,9 +6,10 @@ import { TiShoppingCart } from "react-icons/ti";
 import { useNavigate } from "react-router-dom";
 import Button from "../ui/Button";
 import { CgArrowRight } from "react-icons/cg";
+import { FaTrash } from "react-icons/fa";
 
 const Cart = () => {
-  const { cart, isFetchingCart, isError } = useCart();
+  const { cart, isFetchingCart, isError,deteteCart } = useCart();
   const navigate = useNavigate();
 
   const { items, totalPrice, totalItems } = cart?.data || {};
@@ -71,8 +72,16 @@ const Cart = () => {
           <CartItem key={item.id} item={item} />
         ))}
       </div>
-
       <div className="flex flex-col items-end justify-end gap-2">
+        <Button
+          variant="outline"
+          className="flex items-center gap-2 border-2 border-red-600 text-xl text-red-600"
+          btnLabel=""
+          onClick={() => deteteCart()}
+        >
+          <FaTrash />
+          <p>Empty cart</p>
+        </Button>
         <div className="flex items-center gap-4 rounded-2xl bg-white px-6 py-4 shadow-sm ring-1 ring-gray-100">
           <p className="text-dark text-lg font-semibold">Total:</p>
           <p className="text-dark text-2xl font-bold">
@@ -82,7 +91,7 @@ const Cart = () => {
         <Button
           className="flex items-center justify-center gap-3 text-xl"
           btnLabel=""
-          onClick={()=>navigate('/order')}
+          onClick={() => navigate("/order")}
         >
           <p>Place Order</p> <CgArrowRight />
         </Button>
