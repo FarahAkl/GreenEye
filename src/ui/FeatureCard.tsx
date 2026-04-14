@@ -15,7 +15,7 @@ const FeatureCard = ({ image, title, description }: ITourCardProps) => {
           src={image}
           alt={title}
           loading="lazy"
-          className="h-full w-full object-cover transition-opacity duration-500"
+          className="h-full w-full object-cotain transition-opacity duration-500"
         />
       </div>
       <div className="flex grow flex-col px-6 pt-4 pb-6">

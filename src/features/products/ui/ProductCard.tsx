@@ -24,7 +24,7 @@ const ProductCard = (product: productsT) => {
         <img
           src={`${BASE_URL}${image}`}
           alt={name}
-          className="h-full w-full object-cover"
+          className="h-full w-full object-contain"
         />
       </div>
 
