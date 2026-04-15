@@ -31,7 +31,7 @@ export const orderItemSchema = z.object({
   isReviewed: z.boolean(),
 });
 
-export const ordersSchema = z.object({
+export const orderSchema = z.object({
   id: z.number(),
   subTotal: z.number(),
   deliveryFee: z.number(),
@@ -64,4 +64,5 @@ export const ordersSchema = z.object({
 });
 
 export type createOrderT = z.infer<typeof createOrderRequestSchema>;
-export type createOrderSuccessT = z.infer<typeof createOrderResponseSchema>
+export type createOrderSuccessT = z.infer<typeof createOrderResponseSchema>;
+export type orderT = z.infer<typeof orderSchema>;
