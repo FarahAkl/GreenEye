@@ -37,8 +37,9 @@ const CartItem = ({ item }: { item: itemT }) => {
   }, [debouncedQty]);
 
   return (
-    <div className="relative flex flex-col sm:items-center gap-4 rounded-2xl bg-white p-5 sm:p-1 shadow-sm ring-1 ring-gray-100 sm:flex-row">
-      <div className="h-68 sm:h-full w-full sm:w-58 shrink-0 overflow-hidden rounded-xl">
+    <div className="relative flex flex-col gap-4 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100 sm:flex-row sm:items-center sm:p-1">
+      {/* Image */}
+      <div className="aspect-square w-full shrink-0 overflow-hidden rounded-xl bg-gray-50 sm:w-40 md:w-48">
         <img
           src={
             productImage
@@ -46,10 +47,11 @@ const CartItem = ({ item }: { item: itemT }) => {
               : "/images/productDefault.jpg"
           }
           alt={productName}
-          className="h-full w-full object-cover"
+          className="h-full w-full object-contain"
         />
       </div>
 
+      {/* Content */}
       <div className="flex min-w-0 flex-1 flex-col gap-1 p-3 text-gray-600">
         <p className="line-clamp-2 text-2xl leading-snug font-semibold">
           {productName}
