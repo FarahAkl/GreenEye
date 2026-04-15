@@ -1,5 +1,3 @@
-import type { FC } from "react";
-
 type SummaryItem = {
   id: number;
   productName: string;
@@ -18,13 +16,13 @@ type OrderSummaryProps = {
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
-const OrderSummary: FC<OrderSummaryProps> = ({
+const OrderSummary = ({
   items,
   subtotal,
   shipping,
   total,
   isLoading,
-}) => {
+}: OrderSummaryProps) => {
   if (isLoading) {
     return <p>Loading...</p>;
   }

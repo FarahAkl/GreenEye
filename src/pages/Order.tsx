@@ -3,9 +3,15 @@ import { useNavigate } from "react-router-dom";
 import Spinner from "../ui/Spinner";
 import useOrderSummaryData from "../features/orders/hooks/useOrderSummaryData";
 import OrderSummary from "../features/orders/ui/OrderSummary";
+import Stepper from "../ui/Stepper";
 
 const Order = () => {
   const navigate = useNavigate();
+  const steps = [
+    { id: 1, label: "Your Information" },
+    { id: 2, label: "Shipment Details" },
+    { id: 3, label: "Payment" },
+  ];
 
   const { items, subtotal, shipping, total, isLoading } = useOrderSummaryData({
     orderId: null,
@@ -48,6 +54,10 @@ const Order = () => {
           alt=""
           className="absolute inset-0 -z-1000 h-full w-full object-cover opacity-4"
         />
+        <div className="flex flex-col gap-4">
+          <p className="text-dark text-4xl font-medium">Placing Order</p>
+          <Stepper steps={steps.map(step => step.label)} currentStep={1-1} />
+        </div>
       </div>
     </div>
   );

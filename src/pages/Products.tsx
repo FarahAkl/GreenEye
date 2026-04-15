@@ -185,8 +185,8 @@ const Products = () => {
           }
           className={`rounded-full border px-4 py-1.5 text-sm font-semibold transition ${
             !categoryId && !searchQuery
-              ? "border-teal-700 bg-teal-700 text-white"
-              : "border-gray-300 text-gray-600 hover:border-teal-700"
+              ? "border-primary bg-primary text-white"
+              : "hover:border-primary border-gray-300 text-gray-600"
           }`}
         >
           All
@@ -197,8 +197,8 @@ const Products = () => {
             onClick={() => handleCategoryClick(category.id)}
             className={`rounded-full border px-4 py-1.5 text-sm font-semibold transition ${
               String(category.id) === categoryId
-                ? "border-teal-700 bg-teal-700 text-white"
-                : "border-gray-300 text-gray-600 hover:border-teal-700"
+                ? "border-primary bg-primary text-white"
+                : "hover:border-primary border-gray-300 text-gray-600"
             }`}
           >
             {category.name}

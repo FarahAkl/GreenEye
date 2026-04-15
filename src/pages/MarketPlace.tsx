@@ -47,7 +47,7 @@ const MarketPlace = () => {
           className="absolute inset-0 h-full w-full object-cover object-center"
         />
         <div className="relative z-10 flex h-full flex-col items-center justify-center gap-4 py-12 text-center text-white sm:py-0">
-          <p className="text-2xl leading-tight font-bold text-dark sm:text-4xl md:text-5xl">
+          <p className="text-dark text-2xl leading-tight font-bold sm:text-4xl md:text-5xl">
             Smart Shop, Smart Harvest
           </p>
 
@@ -73,7 +73,7 @@ const MarketPlace = () => {
               <Button
                 key={category.id}
                 onClick={() => handleCategoryClick(category.id)}
-                className="h-fit rounded-full! border border-teal-700 px-4 py-1.5! text-sm font-semibold"
+                className="border-primary h-fit rounded-full! border px-4 py-1.5! text-sm font-semibold"
                 btnLabel={category.name}
               />
             ))}
