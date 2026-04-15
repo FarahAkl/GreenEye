@@ -3,27 +3,32 @@ import type {
   createOrderSuccessT,
   createOrderT,
 } from "../../../schemas/ordersSchema";
-import { createOrder as createOrderApi} from "../services/apiOrder";
-import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import { createOrder as createOrderApi } from "../services/apiOrder";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+// import { useNavigate } from "react-router-dom";
 
 const useCreateOrder = () => {
-  const navigate = useNavigate();
+//   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
   const { mutate: createOrder, isPending: isCreating } = useMutation({
     mutationFn: (data: createOrderT) => createOrderApi(data),
     onSuccess: (res: createOrderSuccessT) => {
       toast.success(res.message);
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
 
-      navigate(`/order/${res.data.orderId}/payment`, {
-        state: { clientSecret: res.data.clientSecret },
-      });
+      queryClient.setQueryData(["order", res.data.orderId], { data: res.data });
+
+    //   navigate(`/order/${res.data.orderId}/payment`, {
+    //     state: { clientSecret: res.data.clientSecret },
+    //   });
     },
     onError: (err: Error) => {
       toast.error(err.message);
     },
   });
 
-  return { createOrder,isCreating };
+  return { createOrder, isCreating };
 };
 
 export default useCreateOrder;
