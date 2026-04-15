@@ -52,3 +52,5 @@ export const shippingInfoSchema = z.object({
 export const shippoTrackingSchema = z.object({
   object_status: z.string().nullable(),
 });
+
+export type shippingRateRequestT = z.infer<typeof getShippingRateRequestSchema>;

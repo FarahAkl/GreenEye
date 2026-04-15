@@ -3,14 +3,14 @@ import type {
   createOrderSuccessT,
   createOrderT,
 } from "../../../schemas/ordersSchema";
-import { createOrder } from "../services/apiOrder";
+import { createOrder as createOrderApi} from "../services/apiOrder";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
 const useCreateOrder = () => {
   const navigate = useNavigate();
-  const { mutate: bookTicket, isPending: isBooking } = useMutation({
-    mutationFn: (data: createOrderT) => createOrder(data),
+  const { mutate: createOrder, isPending: isCreating } = useMutation({
+    mutationFn: (data: createOrderT) => createOrderApi(data),
     onSuccess: (res: createOrderSuccessT) => {
       toast.success(res.message);
 
@@ -23,7 +23,7 @@ const useCreateOrder = () => {
     },
   });
 
-  return { bookTicket, isBooking };
+  return { createOrder,isCreating };
 };
 
 export default useCreateOrder;

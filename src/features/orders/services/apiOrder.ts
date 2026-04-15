@@ -1,6 +1,10 @@
 import { isAxiosError } from "axios";
 import axiosInstance from "../../../services/axiosInstance";
-import { createOrderResponseSchema, type createOrderT } from "../../../schemas/ordersSchema";
+import {
+  createOrderResponseSchema,
+  type createOrderT,
+} from "../../../schemas/ordersSchema";
+import type { shippingRateRequestT } from "../../../schemas/shippingSchema";
 
 type getMyOrdersT = {
   userId: string;
@@ -104,13 +108,28 @@ export const refundOrder = async (id: string) => {
 
 // Shipping endpoints
 
-export const getShipmentInfo = async ({
-  orderId,
-}: {
-  orderId: string;
-}) => {
+export const getShipmentInfo = async ({ orderId }: { orderId: string }) => {
   const res = await axiosInstance.get(
     `/api/Shipping/order/${orderId}/shipment-info`,
   );
   return res.data;
+};
+
+export const addShippingRate = async (data: shippingRateRequestT) => {
+  try {
+    const res = await axiosInstance.post("/api/Shipping/shipping-rate", data);
+    // const validatedRes = cartResponseSchema.parse(res.data);
+    return res.data;
+  } catch (err) {
+    if (isAxiosError(err)) {
+      const message =
+        err.response?.data?.error ||
+        err.response?.data?.message ||
+        err.message ||
+        "Something went wrong";
+
+      throw new Error(message);
+    }
+    throw err;
+  }
 };
