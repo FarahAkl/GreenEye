@@ -12,6 +12,7 @@ interface InputProps<T extends FieldValues> {
   placeholder?: string;
   register?: UseFormRegister<T>;
   rules?: RegisterOptions<T, Path<T>>;
+  label?: string;
   prefix?: React.ReactNode;
   type?: string;
   error?: string;
@@ -27,6 +28,7 @@ function Input<T extends FieldValues>({
   rules,
   prefix,
   value,
+  label,
   disabled,
   type = "text",
   error,
@@ -37,9 +39,9 @@ function Input<T extends FieldValues>({
 
   return (
     <div className={`mb-4 flex flex-col gap-2`}>
-
+      {label && <p className="text-gray-600 px-3">{label}</p>}
       <div
-        className={`border-gray-300 ${error ? "border-2 border-red-600" : ""} ${disabled ? "bg-gray-50 text-gray-400" : ""} focus-within:border-primary focus-within:ring-primary flex items-center rounded-2xl border px-3 py-2.5 focus-within:ring-1`}
+        className={`border-gray-300 bg-white/50 ${error ? "border-2 border-red-600" : ""} ${disabled ? "bg-gray-50 text-gray-400" : ""} focus-within:border-primary focus-within:ring-primary flex items-center rounded-3xl border px-3 py-2.5 focus-within:ring-1`}
       >
         {prefix && (
           <span className="pointer-events-none mx-3 flex items-center text-gray-400">

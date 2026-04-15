@@ -54,3 +54,5 @@ export const shippoTrackingSchema = z.object({
 });
 
 export type shippingRateRequestT = z.infer<typeof getShippingRateRequestSchema>;
+export type shippingRateSuccessT = z.infer<typeof getShippingRateSuccessSchema>;
+export type shippingRateT = z.infer<typeof shippingRateScehma>;

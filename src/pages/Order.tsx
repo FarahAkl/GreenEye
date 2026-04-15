@@ -4,6 +4,7 @@ import Spinner from "../ui/Spinner";
 import useOrderSummaryData from "../features/orders/hooks/useOrderSummaryData";
 import OrderSummary from "../features/orders/ui/OrderSummary";
 import Stepper from "../ui/Stepper";
+import OrderInfoForm from "../features/orders/ui/OrderInfoForm";
 
 const Order = () => {
   const navigate = useNavigate();
@@ -56,7 +57,8 @@ const Order = () => {
         />
         <div className="flex flex-col gap-4">
           <p className="text-dark text-4xl font-medium">Placing Order</p>
-          <Stepper steps={steps.map(step => step.label)} currentStep={1-1} />
+          <Stepper steps={steps.map(step => step.label)} currentStep={1 - 1} />
+          <OrderInfoForm/>
         </div>
       </div>
     </div>

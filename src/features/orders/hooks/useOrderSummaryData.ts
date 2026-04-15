@@ -14,7 +14,6 @@ type Props = {
   selectedShippingPrice?: number;
 };
 
-// 🔁 تحويل cart items → شكل موحد
 const mapCartItems = (items: SummaryItem[]): SummaryItem[] =>
   items.map((item) => ({
     id: item.id,
@@ -24,7 +23,6 @@ const mapCartItems = (items: SummaryItem[]): SummaryItem[] =>
     totalPrice: item.totalPrice,
   }));
 
-// 🔁 تحويل order items → نفس الشكل
 const mapOrderItems = (items: SummaryItem[]): SummaryItem[] =>
   items.map((item) => ({
     id: item.id,
