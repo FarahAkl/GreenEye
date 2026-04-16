@@ -1,9 +1,6 @@
 import { useForm, type Path, type UseFormSetError } from "react-hook-form";
 import type { ZodIssue } from "zod";
 
-import SpinnerBtn from "../../../ui/SpinnerBtn";
-
-import useShippingRate from "../hooks/useShippingRate";
 import {
   getShippingRateRequestSchema,
   type shippingRateRequestT,
@@ -30,7 +27,10 @@ const applyZodIssues = (
   }
 };
 
-const OrderInfoForm = ({ onSuccess, initialData }: Props) => {
+const OrderInfoForm = ({
+  onSuccess,
+  initialData,
+}: Props) => {
   const {
     register,
     handleSubmit,
@@ -51,8 +51,6 @@ const OrderInfoForm = ({ onSuccess, initialData }: Props) => {
     },
   });
 
-  const { shippingRate, isFetchShippingRate } = useShippingRate();
-
   const onSubmit = async () => {
     clearErrors();
 
@@ -63,8 +61,6 @@ const OrderInfoForm = ({ onSuccess, initialData }: Props) => {
       return;
     }
 
-    // Fetch shipping rates and proceed to next step
-    shippingRate(parsed.data);
     onSuccess(parsed.data);
   };
 
@@ -133,10 +129,9 @@ const OrderInfoForm = ({ onSuccess, initialData }: Props) => {
       <div className="sm:col-span-2">
         <button
           type="submit"
-          disabled={isFetchShippingRate}
-          className="bg-primary h-12 w-full rounded-2xl text-white disabled:opacity-60"
+          className="bg-primary h-12 w-full rounded-2xl text-white"
         >
-          {isFetchShippingRate ? <SpinnerBtn /> : "Next"}
+          Next
         </button>
       </div>
     </form>

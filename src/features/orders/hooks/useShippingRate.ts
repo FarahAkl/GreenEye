@@ -1,32 +1,22 @@
-import { useState } from "react";
-import type { shippingRateRequestT, shippingRateSuccessT, shippingRateT } from "../../../schemas/shippingSchema";
-import toast from "react-hot-toast";
+import { useQuery } from "@tanstack/react-query";
+import type { shippingRateRequestT } from "../../../schemas/shippingSchema";
 import { addShippingRate } from "../services/apiOrder";
-import { useMutation } from "@tanstack/react-query";
 
-const useShippingRate = () => {
-  const [shippingRates, setShippingRates] = useState<shippingRateT[] | null>(
-    null,
-  );
-
-  const { mutate: shippingRate, isPending: isFetchShippingRate } = useMutation({
-    mutationFn: (data: shippingRateRequestT) => addShippingRate(data),
-
-    onSuccess: (res: shippingRateSuccessT) => {
-      setShippingRates(res.data);
-      toast.success(res.message);
-    },
-
-    onError: (err: Error) => {
-      toast.error(err.message);
-    },
+const useShippingRate = (shippingInfo: shippingRateRequestT | null) => {
+  const { data, isPending, isError, refetch } = useQuery({
+    queryKey: ["shippingRates", shippingInfo],
+    queryFn: () => addShippingRate(shippingInfo!),
+    enabled: !!shippingInfo,
+    staleTime: Infinity,
+    retry: false,
   });
 
   return {
-    shippingRate,
-    isFetchShippingRate,
-    shippingRates,
+    shippingRates: data?.data ?? null,
+    isFetchShippingRate: isPending && !!shippingInfo,
+    isError,
+    refetch,
   };
 };
 
-export default useShippingRate
+export default useShippingRate;

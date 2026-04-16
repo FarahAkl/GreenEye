@@ -3,6 +3,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Spinner from "../ui/Spinner";
 import useOrderSummaryData from "../features/orders/hooks/useOrderSummaryData";
+import useShippingRate from "../features/orders/hooks/useShippingRate";
 import OrderSummary from "../features/orders/ui/OrderSummary";
 import Stepper from "../ui/Stepper";
 import OrderInfoForm from "../features/orders/ui/OrderInfoForm";
@@ -19,13 +20,11 @@ const Order = () => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // Get step from URL, default to 1
   const stepFromUrl = (searchParams.get("step") as "1" | "2" | "3") || "1";
   const [currentStep, setCurrentStep] = useState<CheckoutStep>(
     parseInt(stepFromUrl) as CheckoutStep,
   );
 
-  // Restore data from localStorage
   const [shippingInfo, setShippingInfo] = useState<shippingRateRequestT | null>(
     () => {
       const saved = localStorage.getItem("checkoutShippingInfo");
@@ -42,7 +41,10 @@ const Order = () => {
   const [orderId, setOrderId] = useState<number | null>(null);
   const [, setClientSecret] = useState<string | null>(null);
 
-  // Sync step to URL
+  // ✅ Pass shippingInfo directly — only fetches when on step 2 and info exists
+  const { isFetchShippingRate, shippingRates, isError, refetch } =
+    useShippingRate(currentStep === 2 ? shippingInfo : null);
+
   useEffect(() => {
     setSearchParams({ step: String(currentStep) });
   }, [currentStep, setSearchParams]);
@@ -59,14 +61,12 @@ const Order = () => {
   });
 
   const handleStep1Complete = (data: shippingRateRequestT) => {
-    // Save to localStorage
     localStorage.setItem("checkoutShippingInfo", JSON.stringify(data));
     setShippingInfo(data);
     setCurrentStep(2);
   };
 
   const handleStep2Complete = (rate: shippingRateT) => {
-    // Save to localStorage
     localStorage.setItem("checkoutSelectedRate", JSON.stringify(rate));
     setSelectedShippingRate(rate);
     setCurrentStep(3);
@@ -75,7 +75,6 @@ const Order = () => {
   const handleStep3Complete = (createdOrderId: number, secret: string) => {
     setOrderId(createdOrderId);
     setClientSecret(secret);
-    // Clear checkout data on successful order creation
     localStorage.removeItem("checkoutShippingInfo");
     localStorage.removeItem("checkoutSelectedRate");
     navigate(`/order/${createdOrderId}/confirmation`);
@@ -83,7 +82,6 @@ const Order = () => {
 
   const handleBack = () => {
     if (currentStep === 1) {
-      // Clear data when exiting checkout
       localStorage.removeItem("checkoutShippingInfo");
       localStorage.removeItem("checkoutSelectedRate");
       navigate(-1);
@@ -111,7 +109,6 @@ const Order = () => {
           <FaArrowLeft />
           <p>Back</p>
         </div>
-
         <OrderSummary
           items={items}
           subtotal={subtotal}
@@ -122,7 +119,7 @@ const Order = () => {
       </div>
 
       {/* Right side */}
-      <div className="bg-primary/10 relative px-10 lg:px-14 py-12">
+      <div className="bg-primary/10 relative px-10 py-12 lg:px-14">
         <img
           src="/images/productsBg.png"
           alt=""
@@ -135,7 +132,6 @@ const Order = () => {
             currentStep={currentStep - 1}
           />
 
-          {/* Step 1: Your Information */}
           {currentStep === 1 && (
             <OrderInfoForm
               onSuccess={handleStep1Complete}
@@ -143,16 +139,18 @@ const Order = () => {
             />
           )}
 
-          {/* Step 2: Shipment Details */}
+          {/* ✅ No longer needs shippingInfo or shippingRate passed down */}
           {currentStep === 2 && shippingInfo && (
             <ShippingDetailsForm
-              shippingInfo={shippingInfo}
               onSuccess={handleStep2Complete}
               initialSelectedRate={selectedShippingRate}
+              isFetchShippingRate={isFetchShippingRate}
+              shippingRates={shippingRates}
+              isError={isError}
+              onRetry={refetch}
             />
           )}
 
-          {/* Step 3: Payment */}
           {currentStep === 3 && selectedShippingRate && shippingInfo && (
             <PaymentForm
               shippingInfo={shippingInfo}
