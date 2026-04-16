@@ -1,34 +1,31 @@
-import toast from "react-hot-toast";
-import type {
-  createOrderSuccessT,
-  createOrderT,
-} from "../../../schemas/ordersSchema";
+import { useQuery } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
+import type { createOrderT } from "../../../schemas/ordersSchema";
 import { createOrder as createOrderApi } from "../services/apiOrder";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-// import { useNavigate } from "react-router-dom";
 
-const useCreateOrder = () => {
-//   const navigate = useNavigate();
+const useCreateOrder = (orderData: createOrderT | null) => {
   const queryClient = useQueryClient();
 
-  const { mutate: createOrder, isPending: isCreating } = useMutation({
-    mutationFn: (data: createOrderT) => createOrderApi(data),
-    onSuccess: (res: createOrderSuccessT) => {
-      toast.success(res.message);
+  const { data, isPending, isError, error } = useQuery({
+    queryKey: ["createOrder", orderData],
+    queryFn: async () => {
+      const res = await createOrderApi(orderData!);
+      // Invalidate cart once order is created
       queryClient.invalidateQueries({ queryKey: ["cart"] });
-
-      queryClient.setQueryData(["order", res.data.orderId], { data: res.data });
-
-    //   navigate(`/order/${res.data.orderId}/payment`, {
-    //     state: { clientSecret: res.data.clientSecret },
-    //   });
+      return res;
     },
-    onError: (err: Error) => {
-      toast.error(err.message);
-    },
+    enabled: !!orderData,
+    staleTime: Infinity, // order creation is a one-time event per set of inputs
+    retry: false,
   });
 
-  return { createOrder, isCreating };
+  return {
+    orderId: data?.data.orderId ?? null,
+    clientSecret: data?.data.clientSecret ?? null,
+    isCreating: isPending && !!orderData,
+    isError,
+    error,
+  };
 };
 
 export default useCreateOrder;
