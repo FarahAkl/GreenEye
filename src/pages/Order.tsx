@@ -122,7 +122,7 @@ const Order = () => {
       </div>
 
       {/* Right side */}
-      <div className="bg-primary/10 relative px-14 py-12">
+      <div className="bg-primary/10 relative px-10 lg:px-14 py-12">
         <img
           src="/images/productsBg.png"
           alt=""

@@ -94,7 +94,7 @@ const ShippingDetailsForm = ({
               </div>
             )}
 
-            <div className="flex items-center gap-4">
+            <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
               {/* Shipping Provider Image */}
               {rate.imageUrl && (
                 <div className="h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-gray-100">
@@ -107,7 +107,7 @@ const ShippingDetailsForm = ({
               )}
 
               {/* Shipping Details */}
-              <div className="flex-1 pr-8">
+              <div className="flex-1 text-center sm:pr-8 sm:text-start">
                 <p className="text-dark font-semibold">{rate.provider}</p>
                 <p className="text-sm text-gray-500">{rate.durationTerms}</p>
               </div>
