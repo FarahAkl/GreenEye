@@ -6,15 +6,14 @@ import SpinnerBtn from "../../../ui/SpinnerBtn";
 import useShippingRate from "../hooks/useShippingRate";
 import {
   getShippingRateRequestSchema,
-  //   getShippingRateSuccessSchema,
   type shippingRateRequestT,
-  //   type shippingRateSuccessT,
 } from "../../../schemas/shippingSchema";
 import Input from "../../auth/ui/Input";
 
-// type Props = {
-//   onSuccess: (data: shippingRateSuccessT, rates: unknown[]) => void;
-// };
+type Props = {
+  onSuccess: (data: shippingRateRequestT) => void;
+  initialData?: shippingRateRequestT | null;
+};
 
 const applyZodIssues = (
   setError: UseFormSetError<shippingRateRequestT>,
@@ -31,7 +30,7 @@ const applyZodIssues = (
   }
 };
 
-const OrderInfoForm = () => {
+const OrderInfoForm = ({ onSuccess, initialData }: Props) => {
   const {
     register,
     handleSubmit,
@@ -40,7 +39,7 @@ const OrderInfoForm = () => {
     clearErrors,
     formState: { errors },
   } = useForm<shippingRateRequestT>({
-    defaultValues: {
+    defaultValues: initialData || {
       name: "",
       street1: "",
       city: "",
@@ -52,7 +51,7 @@ const OrderInfoForm = () => {
     },
   });
 
-  const { isFetchShippingRate } = useShippingRate();
+  const { shippingRate, isFetchShippingRate } = useShippingRate();
 
   const onSubmit = async () => {
     clearErrors();
@@ -64,9 +63,9 @@ const OrderInfoForm = () => {
       return;
     }
 
-    // const rates = await shippingRate(parsed.data);
-
-    // onSuccess(rates, parsed.data);
+    // Fetch shipping rates and proceed to next step
+    shippingRate(parsed.data);
+    onSuccess(parsed.data);
   };
 
   return (
@@ -135,7 +134,7 @@ const OrderInfoForm = () => {
         <button
           type="submit"
           disabled={isFetchShippingRate}
-          className="bg-primary h-12 w-full rounded-2xl text-white"
+          className="bg-primary h-12 w-full rounded-2xl text-white disabled:opacity-60"
         >
           {isFetchShippingRate ? <SpinnerBtn /> : "Next"}
         </button>

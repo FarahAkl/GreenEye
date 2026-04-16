@@ -1,22 +1,32 @@
-import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
+import type { shippingRateRequestT, shippingRateSuccessT, shippingRateT } from "../../../schemas/shippingSchema";
 import toast from "react-hot-toast";
-import type { shippingRateRequestT, shippingRateSuccessT } from "../../../schemas/shippingSchema";
 import { addShippingRate } from "../services/apiOrder";
+import { useMutation } from "@tanstack/react-query";
 
 const useShippingRate = () => {
+  const [shippingRates, setShippingRates] = useState<shippingRateT[] | null>(
+    null,
+  );
 
   const { mutate: shippingRate, isPending: isFetchShippingRate } = useMutation({
     mutationFn: (data: shippingRateRequestT) => addShippingRate(data),
+
     onSuccess: (res: shippingRateSuccessT) => {
+      setShippingRates(res.data);
       toast.success(res.message);
-        return res.data;
     },
+
     onError: (err: Error) => {
       toast.error(err.message);
     },
   });
 
-  return { shippingRate, isFetchShippingRate };
+  return {
+    shippingRate,
+    isFetchShippingRate,
+    shippingRates,
+  };
 };
 
-export default useShippingRate;
+export default useShippingRate

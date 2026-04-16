@@ -17,7 +17,7 @@ type supplierOrdersT = {
 export const createOrder = async (data: createOrderT) => {
   try {
     const res = await axiosInstance.post(
-      `/api/marketplace/Order/create-order`,
+      `/api/marketplace/Order/create`,
       data,
     );
     const validatedRes = createOrderResponseSchema.parse(res.data);

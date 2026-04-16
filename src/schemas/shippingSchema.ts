@@ -16,14 +16,14 @@ export const getShippingRateSuccessSchema = z.object({
 });
 
 export const getShippingRateRequestSchema = z.object({
-  name: z.string(),
-  street1: z.string(),
-  city: z.string(),
-  state: z.string(),
-  zip: z.string(),
-  country: z.string(),
-  phone: z.string(),
-  email: z.string(),
+  name: z.string().nonempty("This field is required"),
+  street1: z.string().nonempty("This field is required"),
+  city: z.string().nonempty("This field is required"),
+  state: z.string().nonempty("This field is required"),
+  zip: z.string().nonempty("This field is required"),
+  country: z.string().nonempty("This field is required"),
+  phone: z.string().nonempty("This field is required"),
+  email: z.string().nonempty("This field is required"),
 });
 
 export const shippingInfoSchema = z.object({
