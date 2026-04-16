@@ -10,16 +10,9 @@ type getMyOrdersT = {
   userId: string;
 };
 
-type supplierOrdersT = {
-  supplierId: string;
-};
-
 export const createOrder = async (data: createOrderT) => {
   try {
-    const res = await axiosInstance.post(
-      `/api/marketplace/Order/create`,
-      data,
-    );
+    const res = await axiosInstance.post(`/api/marketplace/Order/create`, data);
     const validatedRes = createOrderResponseSchema.parse(res.data);
     return validatedRes;
   } catch (err) {
@@ -36,20 +29,10 @@ export const createOrder = async (data: createOrderT) => {
   }
 };
 
-export const getMyOrders = async (params: getMyOrdersT) => {
-  const res = await axiosInstance.get("/api/marketplace/Order/orders", {
+export const getUserOrders = async (params?: getMyOrdersT) => {
+  const res = await axiosInstance.get("/api/marketplace/Order/user-orders", {
     params,
   });
-  return res.data;
-};
-
-export const getSupplierOrders = async (params: supplierOrdersT) => {
-  const res = await axiosInstance.get(
-    "/api/marketplace/Order/supplier-orders",
-    {
-      params,
-    },
-  );
   return res.data;
 };
 
@@ -58,7 +41,7 @@ export const getOrderById = async ({
   params,
 }: {
   id: string;
-  params: getMyOrdersT;
+  params?: getMyOrdersT;
 }) => {
   const res = await axiosInstance.get(`/api/marketplace/Order/${id}`, {
     params,

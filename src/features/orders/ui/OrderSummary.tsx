@@ -1,3 +1,5 @@
+import Spinner from "../../../ui/Spinner";
+
 type SummaryItem = {
   id: number;
   productName: string;
@@ -24,7 +26,11 @@ const OrderSummary = ({
   isLoading,
 }: OrderSummaryProps) => {
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
   }
 
   return (

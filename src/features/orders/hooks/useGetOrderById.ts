@@ -1,12 +1,8 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getOrderById } from "../services/apiOrder";
-import { useProfile } from "../../profile/hooks/useProfile";
 
-const useGetOrderById = (orderId: string) => {
+const useGetOrderById = ({orderId,userId}: {orderId:string,userId?:string}) => {
   const queryClient = useQueryClient();
-  const { profileData } = useProfile();
-
-  const userId = profileData?.userId;
 
   const {
     data: order,
@@ -15,9 +11,9 @@ const useGetOrderById = (orderId: string) => {
     error,
   } = useQuery({
     queryKey: ["order", orderId],
-    queryFn: () => getOrderById({ id: orderId, params: { userId } }),
+    queryFn: () => getOrderById({ id: orderId, params: userId ? { userId } : undefined }),
     staleTime: 1000 * 60 * 5,
-    enabled: !!orderId && !!userId,
+    enabled: !!orderId ,
     initialData: () => {
       return queryClient.getQueryData(["order", orderId]);
     },

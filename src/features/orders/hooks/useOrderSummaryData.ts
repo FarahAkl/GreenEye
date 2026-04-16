@@ -34,7 +34,7 @@ const mapOrderItems = (items: SummaryItem[]): SummaryItem[] =>
 
 const useOrderSummaryData = ({ orderId, selectedShippingPrice = 0 }: Props) => {
   const { cart, isFetchingCart } = useCart();
-  const { order, isFetchingOrder } = useGetOrderById(orderId || "");
+  const { order, isFetchingOrder } = useGetOrderById({ orderId: orderId || "" });
 
   const isOrder = !!orderId;
 
