@@ -5,6 +5,7 @@ import Spinner from "../ui/Spinner";
 import useOrderSummaryData from "../features/orders/hooks/useOrderSummaryData";
 import useShippingRate from "../features/orders/hooks/useShippingRate";
 import useCreateOrder from "../features/orders/hooks/useCreateOrder";
+import useGetOrderById from "../features/orders/hooks/useGetOrderById";
 import OrderSummary from "../features/orders/ui/OrderSummary";
 import Stepper from "../ui/Stepper";
 import OrderInfoForm from "../features/orders/ui/OrderInfoForm";
@@ -26,10 +27,13 @@ const Order = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const stepFromUrl = (searchParams.get("step") as "1" | "2" | "3") || "1";
+  const orderIdFromUrl = searchParams.get("orderId");
   const [currentStep, setCurrentStep] = useState<CheckoutStep>(
     parseInt(stepFromUrl) as CheckoutStep,
   );
-  const [phase, setPhase] = useState<Phase>("checkout");
+  const [phase, setPhase] = useState<Phase>(
+    orderIdFromUrl ? "payment" : "checkout",
+  );
 
   const [shippingInfo, setShippingInfo] = useState<shippingRateRequestT | null>(
     () => {
@@ -60,15 +64,38 @@ const Order = () => {
     error: orderError,
   } = useCreateOrder();
 
+  const activeOrderId = orderId ? String(orderId) : orderIdFromUrl;
+  const { order } = useGetOrderById({ orderId: activeOrderId || "" });
+  const resolvedClientSecret = clientSecret ?? order?.data?.clientSecret ?? null;
+
   useEffect(() => {
-    if (phase === "checkout") {
-      setSearchParams({ step: String(currentStep) });
+    const nextParams = new URLSearchParams(searchParams);
+
+    if (phase === "payment" && activeOrderId) {
+      nextParams.set("orderId", activeOrderId);
+      nextParams.delete("step");
+    } else {
+      nextParams.set("step", String(currentStep));
+      nextParams.delete("orderId");
     }
-  }, [currentStep, phase, setSearchParams]);
+
+    if (nextParams.toString() !== searchParams.toString()) {
+      setSearchParams(nextParams, { replace: true });
+    }
+  }, [activeOrderId, currentStep, phase, searchParams, setSearchParams]);
+
+  useEffect(() => {
+    if (orderIdFromUrl) {
+      setPhase("payment");
+      return;
+    }
+
+    if (phase === "payment" && !activeOrderId) {
+      setPhase("checkout");
+    }
+  }, [activeOrderId, orderIdFromUrl, phase]);
 
   const steps = ["Your Information", "Shipment Details", "Confirmation"];
-
-  const activeOrderId = orderId ? String(orderId) : null;
 
   const { items, subtotal, shipping, total, isLoading } = useOrderSummaryData({
     orderId: activeOrderId,
@@ -104,10 +131,12 @@ const Order = () => {
     };
 
     try {
-      await createOrder(orderData);
-      // On success, useCreateOrder exposes orderId + clientSecret
-      // We transition to payment phase below via the orderId/clientSecret becoming available
+      const createdOrder = await createOrder(orderData);
       setPhase("payment");
+      setSearchParams(
+        new URLSearchParams({ orderId: String(createdOrder.data.orderId) }),
+        { replace: true },
+      );
     } catch {
       // Error is captured in isOrderError / orderError inside the hook
     }
@@ -224,10 +253,10 @@ const Order = () => {
             )}
 
           {/* Payment phase — outside the stepper */}
-          {phase === "payment" && orderId && clientSecret && (
+          {phase === "payment" && activeOrderId && resolvedClientSecret && (
             <PaymentForm
-              orderId={orderId}
-              clientSecret={clientSecret}
+              orderId={Number(activeOrderId)}
+              clientSecret={resolvedClientSecret}
               onSuccess={handlePaymentSuccess}
             />
           )}
