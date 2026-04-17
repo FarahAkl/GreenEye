@@ -29,10 +29,11 @@ export const createOrder = async (data: createOrderT) => {
   }
 };
 
-export const getUserOrders = async (params?: getMyOrdersT) => {
-  const res = await axiosInstance.get("/api/marketplace/Order/user-orders", {
-    params,
-  });
+export const getUserOrders = async ({ userId }: { userId?: string }) => {
+  const res = await axiosInstance.get(
+    "/api/marketplace/Order/user-orders",
+    {params: {userId}},
+  );
   return res.data;
 };
 
