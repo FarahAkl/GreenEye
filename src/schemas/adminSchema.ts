@@ -57,3 +57,5 @@ export const pendingProductsResponseSchema = z.object({
 export const rejectProductReasonSchema = z.object({
   reason: z.string(),
 });
+
+export type rejectT = z.infer<typeof rejectedReasonSchema>;
