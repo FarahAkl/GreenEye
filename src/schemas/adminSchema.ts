@@ -59,3 +59,5 @@ export const rejectProductReasonSchema = z.object({
 });
 
 export type rejectT = z.infer<typeof rejectedReasonSchema>;
+export type withdrawalApproveT = z.infer<typeof withdrawalApproveRequestSchema>;
+export type rejectProductT  = z.infer<typeof rejectProductReasonSchema>
