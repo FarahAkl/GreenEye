@@ -4,17 +4,22 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import Spinner from "../ui/Spinner";
 import useOrderSummaryData from "../features/orders/hooks/useOrderSummaryData";
 import useShippingRate from "../features/orders/hooks/useShippingRate";
+import useCreateOrder from "../features/orders/hooks/useCreateOrder";
 import OrderSummary from "../features/orders/ui/OrderSummary";
 import Stepper from "../ui/Stepper";
 import OrderInfoForm from "../features/orders/ui/OrderInfoForm";
+import PaymentForm from "../features/orders/ui/PaymentForm";
 import type {
   shippingRateRequestT,
   shippingRateT,
 } from "../schemas/shippingSchema";
 import ShippingDetailsForm from "../features/orders/ui/ShippingDetaisForm";
-import PaymentForm from "../features/orders/ui/PaymentForm";
+import type { createOrderT } from "../schemas/ordersSchema";
+import ConfirmationStep from "../features/orders/ui/ConfirmationStep";
 
+// Steps 1–3 are inside the stepper. Payment is a 4th phase outside it.
 type CheckoutStep = 1 | 2 | 3;
+type Phase = "checkout" | "payment";
 
 const Order = () => {
   const navigate = useNavigate();
@@ -24,6 +29,7 @@ const Order = () => {
   const [currentStep, setCurrentStep] = useState<CheckoutStep>(
     parseInt(stepFromUrl) as CheckoutStep,
   );
+  const [phase, setPhase] = useState<Phase>("checkout");
 
   const [shippingInfo, setShippingInfo] = useState<shippingRateRequestT | null>(
     () => {
@@ -38,27 +44,35 @@ const Order = () => {
       return saved ? JSON.parse(saved) : null;
     });
 
-  const [orderId, setOrderId] = useState<number | null>(null);
-  const [, setClientSecret] = useState<string | null>(null);
+  const {
+    isFetchShippingRate,
+    shippingRates,
+    isError: isShippingError,
+    refetch,
+  } = useShippingRate(currentStep === 2 ? shippingInfo : null);
 
-  // ✅ Pass shippingInfo directly — only fetches when on step 2 and info exists
-  const { isFetchShippingRate, shippingRates, isError, refetch } =
-    useShippingRate(currentStep === 2 ? shippingInfo : null);
+  const {
+    createOrder,
+    orderId,
+    clientSecret,
+    isCreating,
+    isError: isOrderError,
+    error: orderError,
+  } = useCreateOrder();
 
   useEffect(() => {
-    setSearchParams({ step: String(currentStep) });
-  }, [currentStep, setSearchParams]);
+    if (phase === "checkout") {
+      setSearchParams({ step: String(currentStep) });
+    }
+  }, [currentStep, phase, setSearchParams]);
 
-  const steps = [
-    { id: 1, label: "Your Information" },
-    { id: 2, label: "Shipment Details" },
-    { id: 3, label: "Payment" },
-  ];
+  const steps = ["Your Information", "Shipment Details", "Confirmation"];
 
   const { items, subtotal, shipping, total, isLoading } = useOrderSummaryData({
-    orderId: orderId ? String(orderId) : null,
     selectedShippingPrice: selectedShippingRate?.amount || 0,
   });
+
+  // ─── Step handlers ────────────────────────────────────────────────────────
 
   const handleStep1Complete = (data: shippingRateRequestT) => {
     localStorage.setItem("checkoutShippingInfo", JSON.stringify(data));
@@ -72,15 +86,44 @@ const Order = () => {
     setCurrentStep(3);
   };
 
-  const handleStep3Complete = (createdOrderId: number, secret: string) => {
-    setOrderId(createdOrderId);
-    setClientSecret(secret);
+  // Step 3: user clicks "Place Order" — create the order, then move to payment
+  const handleConfirm = async () => {
+    if (!shippingInfo || !selectedShippingRate) return;
+
+    const orderData: createOrderT = {
+      phoneNumber: shippingInfo.phone,
+      street: shippingInfo.street1,
+      city: shippingInfo.city,
+      state: shippingInfo.state,
+      zipCode: shippingInfo.zip,
+      country: shippingInfo.country,
+      rateId: selectedShippingRate.rateId ?? "",
+    };
+
+    try {
+      await createOrder(orderData);
+      // On success, useCreateOrder exposes orderId + clientSecret
+      // We transition to payment phase below via the orderId/clientSecret becoming available
+      setPhase("payment");
+    } catch {
+      // Error is captured in isOrderError / orderError inside the hook
+    }
+  };
+
+  // Payment success
+  const handlePaymentSuccess = (createdOrderId: number) => {
     localStorage.removeItem("checkoutShippingInfo");
     localStorage.removeItem("checkoutSelectedRate");
     navigate(`/order/${createdOrderId}/confirmation`);
   };
 
   const handleBack = () => {
+    if (phase === "payment") {
+      // Allow going back to confirmation to review (order is already created, that's fine)
+      setPhase("checkout");
+      setCurrentStep(3);
+      return;
+    }
     if (currentStep === 1) {
       localStorage.removeItem("checkoutShippingInfo");
       localStorage.removeItem("checkoutSelectedRate");
@@ -97,6 +140,8 @@ const Order = () => {
       </div>
     );
   }
+
+  // ─── Main checkout + payment layout ──────────────────────────────────────
 
   return (
     <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
@@ -125,37 +170,62 @@ const Order = () => {
           alt=""
           className="absolute inset-0 -z-1000 h-full w-full object-cover opacity-4"
         />
-        <div className="flex flex-col gap-4">
-          <p className="text-dark text-4xl font-medium">Placing Order</p>
-          <Stepper
-            steps={steps.map((step) => step.label)}
-            currentStep={currentStep - 1}
-          />
 
-          {currentStep === 1 && (
+        <div className="flex flex-col gap-4">
+          {/* Header + stepper only during checkout steps */}
+          {phase === "checkout" && (
+            <>
+              <p className="text-dark text-4xl font-medium">Placing Order</p>
+              <Stepper steps={steps} currentStep={currentStep - 1} />
+            </>
+          )}
+
+          {/* Payment phase header */}
+          {phase === "payment" && (
+            <p className="text-dark text-4xl font-medium">Placing Order</p>
+          )}
+
+          {/* Step 1 */}
+          {phase === "checkout" && currentStep === 1 && (
             <OrderInfoForm
               onSuccess={handleStep1Complete}
               initialData={shippingInfo}
             />
           )}
 
-          {/* ✅ No longer needs shippingInfo or shippingRate passed down */}
-          {currentStep === 2 && shippingInfo && (
+          {/* Step 2 */}
+          {phase === "checkout" && currentStep === 2 && shippingInfo && (
             <ShippingDetailsForm
               onSuccess={handleStep2Complete}
               initialSelectedRate={selectedShippingRate}
               isFetchShippingRate={isFetchShippingRate}
               shippingRates={shippingRates}
-              isError={isError}
+              isError={isShippingError}
               onRetry={refetch}
             />
           )}
 
-          {currentStep === 3 && selectedShippingRate && shippingInfo && (
+          {/* Step 3 — Confirmation */}
+          {phase === "checkout" &&
+            currentStep === 3 &&
+            selectedShippingRate &&
+            shippingInfo && (
+              <ConfirmationStep
+                shippingInfo={shippingInfo}
+                selectedShippingRate={selectedShippingRate}
+                onConfirm={handleConfirm}
+                isCreating={isCreating}
+                isError={isOrderError}
+                errorMessage={orderError?.message}
+              />
+            )}
+
+          {/* Payment phase — outside the stepper */}
+          {phase === "payment" && orderId && clientSecret && (
             <PaymentForm
-              shippingInfo={shippingInfo}
-              selectedShippingRate={selectedShippingRate}
-              onSuccess={handleStep3Complete}
+              orderId={orderId}
+              clientSecret={clientSecret}
+              onSuccess={handlePaymentSuccess}
             />
           )}
         </div>

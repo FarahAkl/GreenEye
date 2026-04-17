@@ -7,6 +7,7 @@ import AppLayout from "../ui/AppLayout";
 import Cart from "../pages/Cart";
 import ResetPassword from "../features/auth/pages/ResetPassword";
 import ForgetPassword from "../features/auth/pages/ForgetPassword";
+import OrderConfirmation from "../features/orders/ui/OrderConfirmation";
 import OTP from "../features/auth/pages/OTP";
 import PageNotFound from "../pages/PageNotFound";
 import Profile from "../pages/Profile";
@@ -42,6 +43,7 @@ const router = createBrowserRouter([
         children: [
           { path: "/cart", element: <Cart /> },
           { path: "/order", element: <Order /> },
+          { path: '/order/:orderId/confirmation', element:<OrderConfirmation/>},
           { path: "/profile", element: <Profile /> },
           { path: "/checkout", element: <Checkout /> },
           { path: "/supplier-dashboard" },
