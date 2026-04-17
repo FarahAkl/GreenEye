@@ -68,7 +68,10 @@ const Order = () => {
 
   const steps = ["Your Information", "Shipment Details", "Confirmation"];
 
+  const activeOrderId = orderId ? String(orderId) : null;
+
   const { items, subtotal, shipping, total, isLoading } = useOrderSummaryData({
+    orderId: activeOrderId,
     selectedShippingPrice: selectedShippingRate?.amount || 0,
   });
 
