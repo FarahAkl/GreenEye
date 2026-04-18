@@ -14,9 +14,9 @@ import Profile from "../pages/Profile";
 import ProtectedRoute from "./ProtectedRoute";
 import Home from "../pages/Home";
 import Register from "../features/auth/pages/Register";
-import Checkout from "../pages/Checkout";
 import Products from "../pages/Products";
 import Order from "../pages/Order";
+import MyOrders from "../pages/MyOrders";
 
 const router = createBrowserRouter([
   {
@@ -43,9 +43,13 @@ const router = createBrowserRouter([
         children: [
           { path: "/cart", element: <Cart /> },
           { path: "/order", element: <Order /> },
-          { path: '/order/:orderId/confirmation', element:<OrderConfirmation/>},
+          {
+            path: "/order/:orderId/confirmation",
+            element: <OrderConfirmation />,
+          },
+          { path: "/orders", element: <MyOrders /> },
+          { path: "/order/:orderId" },
           { path: "/profile", element: <Profile /> },
-          { path: "/checkout", element: <Checkout /> },
           { path: "/supplier-dashboard" },
           { path: "/admin-dashboard" },
         ],

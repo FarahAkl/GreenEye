@@ -1,12 +1,8 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getUserOrders } from "../services/apiOrder";
 
-const useGetUserOrders = ({
-  userId,
-}: {
-  userId?: string;
-}) => {
-  const queryClient = useQueryClient();
+const useGetUserOrders = (params?: { userId: string }) => {
+  const { userId } = params || {};
 
   const {
     data: orders,
@@ -14,14 +10,9 @@ const useGetUserOrders = ({
     isError,
     error,
   } = useQuery({
-    queryKey: ["orders",userId],
-    queryFn: () =>
-      getUserOrders({userId}),
+    queryKey: ["orders", userId],
+    queryFn: () => getUserOrders({ userId }),
     staleTime: 1000 * 60 * 5,
-    enabled: !!userId,
-    initialData: () => {
-      return queryClient.getQueryData(["orders", userId]);
-    },
   });
 
   return {
