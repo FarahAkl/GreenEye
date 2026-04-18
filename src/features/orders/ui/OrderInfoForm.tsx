@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useForm, type Path, type UseFormSetError } from "react-hook-form";
 import type { ZodIssue } from "zod";
 
@@ -6,6 +7,7 @@ import {
   type shippingRateRequestT,
 } from "../../../schemas/shippingSchema";
 import Input from "../../auth/ui/Input";
+import { useProfile } from "../../profile/hooks/useProfile";
 
 type Props = {
   onSuccess: (data: shippingRateRequestT) => void;
@@ -31,11 +33,13 @@ const OrderInfoForm = ({
   onSuccess,
   initialData,
 }: Props) => {
+  const { profileData } = useProfile();
   const {
     register,
     handleSubmit,
     getValues,
     setError,
+    setValue,
     clearErrors,
     formState: { errors },
   } = useForm<shippingRateRequestT>({
@@ -50,6 +54,14 @@ const OrderInfoForm = ({
       email: "",
     },
   });
+
+  useEffect(() => {
+    if (!profileData?.data) return;
+
+    setValue("name", profileData.data.name);
+    setValue("email", profileData.data.email);
+    setValue("phone", profileData.data.phoneNumber);
+  }, [profileData, setValue]);
 
   const onSubmit = async () => {
     clearErrors();
@@ -72,6 +84,7 @@ const OrderInfoForm = ({
         type="text"
         register={register}
         name="name"
+        disabled
         error={errors.name?.message}
       />
       <p className="text-dark px-3 font-semibold">Phone Number</p>
@@ -79,6 +92,7 @@ const OrderInfoForm = ({
         type="text"
         register={register}
         name="phone"
+        disabled
         error={errors.phone?.message}
       />
       <p className="text-dark px-3 font-semibold">Email</p>
@@ -86,6 +100,7 @@ const OrderInfoForm = ({
         type="email"
         register={register}
         name="email"
+        disabled
         error={errors.email?.message}
       />
 
