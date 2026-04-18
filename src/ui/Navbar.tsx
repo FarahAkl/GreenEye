@@ -81,7 +81,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="sticky top-0 left-0 z-1000 border-b border-white/60 bg-[#f7fbf8]/85 px-4 shadow-[0_10px_40px_rgba(0,47,32,0.08)] backdrop-blur-xl sm:px-6 md:px-10 lg:px-16">
+    <header className="sticky top-0 left-0 z-1000 border-b border-gray-300/60 bg-gray-200/50 px-4 shadow-[0_10px_40px_rgba(0,47,32,0.1)] backdrop-blur-2xl sm:px-6 md:px-10 lg:px-16">
       <ScrollToHash />
 
       <div className="mx-auto flex h-18 max-w-7xl items-center justify-between gap-3">

@@ -1,5 +1,5 @@
-import { FaArrowRight } from "react-icons/fa";
-import Button from "./Button";
+// import { FaArrowRight } from "react-icons/fa";
+// import Button from "./Button";
 
 interface ITourCardProps {
   image: string;
@@ -15,18 +15,18 @@ const FeatureCard = ({ image, title, description }: ITourCardProps) => {
           src={image}
           alt={title}
           loading="lazy"
-          className="h-full w-full object-cotain transition-opacity duration-500"
+          className="object-cotain h-full w-full transition-opacity duration-500"
         />
       </div>
       <div className="flex grow flex-col px-6 pt-4 pb-6">
         <h3 className="text-black-900 text-dark mb-2 line-clamp-2 h-16 text-center text-2xl">
           {title}
         </h3>
-        <p className="text-black-600  line-clamp-2 h-20 text-center text-gray-600">
+        <p className="text-black-600 line-clamp-2 h-20 text-center text-gray-600">
           {description}
         </p>
 
-        <div className="flex justify-center">
+        {/* <div className="flex justify-center">
           <Button
             variant="no-border"
             btnLabel={""}
@@ -35,7 +35,7 @@ const FeatureCard = ({ image, title, description }: ITourCardProps) => {
             <p className="text-lg">Read More</p>
             <FaArrowRight size={18}/>
           </Button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

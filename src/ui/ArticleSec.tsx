@@ -1,8 +1,26 @@
+import { useState } from "react";
 import Button from "./Button";
 
 const ArticleSec = () => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const text = `Agriculture is the backbone of food security, economic stability, and
+human survival. For generations, farming decisions were guided by
+experience, observation, and seasonal patterns. Today, this reality
+has changed. Climate variability, water scarcity, land degradation, and
+rapid population growth have transformed agriculture into a high-risk
+system with shrinking margins for error. Not to mention that these
+decisions are made reactively — responding to problems after they occur
+rather than preventing them in advance. Farmers are now required to
+make critical decisions in an environment where natural resources are
+declining and conditions are becoming increasingly unpredictable.`;
+
+  const limit = 400;
+
+  const displayedText = isExpanded ? text : text.slice(0, limit) + "...";
+
   return (
-    <section className="grid grid-cols-1 items-center justify-between gap-8 px-8 pt-24 pb-12 md:grid-cols-2 md:px-12 lg:px-20 lg:pt-24">
+    <section className="grid grid-cols-1 items-center justify-between gap-8 px-8 pt-24 pb-12 shadow-[0_10px_30px_rgba(0,149,102,0.15)] md:grid-cols-2 md:px-12 lg:px-20 lg:pt-24">
       <div className="flex justify-center">
         <svg viewBox="0 0 200 200" className="h-115 w-115 md:h-120 md:w-120">
           <defs>
@@ -28,19 +46,14 @@ const ArticleSec = () => {
         <p className="text-dark text-4xl font-bold">
           Agriculture at a Turning Point
         </p>
-        <p className="text-lg/8 text-gray-500">
-          Agriculture is the backbone of food security, economic stability, and
-          human survival. For generations, farming decisions were guided by
-          experience, observation, and seasonal patterns. Today, this reality
-          has changed.Climate variability, water scarcity, land degradation, and
-          rapid population growth have transformed agriculture into a high-risk
-          system with shrinking margins for error. Not to mention that these
-          decisions are made reactively —responding to problems after they occur
-          rather than preventing them in advance. Farmers are now required to
-          make critical decisions in an environment where natural resources are
-          declining and conditions are becoming increasingly unpredictable.
-        </p>
-        <Button btnLabel="Continue Reading" className="mt-4 md:w-1/2" />
+
+        <p className="text-lg/8 text-gray-500">{displayedText}</p>
+
+        <Button
+          btnLabel={isExpanded ? "Show Less" : "Continue Reading"}
+          className="mt-4 md:w-1/2"
+          onClick={() => setIsExpanded((prev) => !prev)}
+        />
       </div>
     </section>
   );
