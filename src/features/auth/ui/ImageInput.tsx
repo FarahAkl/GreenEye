@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { CgImage } from "react-icons/cg";
 import {
   useWatch,
@@ -11,7 +11,6 @@ import {
 import type { registerT } from "../../../schemas/authSchema";
 
 interface ImageInputProps {
-  /** Field name — must be a FileList-typed key of registerT */
   name: Extract<Path<registerT>, "imageFile" | "logoFile">;
   label: string;
   hint?: string;
@@ -43,14 +42,17 @@ const ImageInput = ({
     [selectedFile],
   );
 
-  useEffect(() => {
-    if (!previewUrl) return;
-    return () => URL.revokeObjectURL(previewUrl);
-  }, [previewUrl]);
+  const handleRemove = () => {
+    // reset RHF value
+    setValue(name, undefined, { shouldValidate: true });
+  };
 
   return (
-    <div className="flex flex-col gap-2 flex-1">
-      <span className="px-2 font-medium text-gray-600">{label}</span>
+    <div className="flex flex-1 flex-col gap-2">
+      <span className="flex h-12 items-center justify-center px-2 text-center font-medium text-gray-600">
+        {label}
+      </span>
+
       <label
         htmlFor={inputId}
         onDragOver={(e) => {
@@ -79,7 +81,21 @@ const ImageInput = ({
                 alt={`Selected ${label.toLowerCase()} preview`}
                 className="mx-auto h-44 w-full rounded-xl object-cover shadow-md ring-1 ring-black/5"
               />
+
+              {/* Remove button */}
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleRemove();
+                }}
+                className="absolute top-2 right-2 rounded-full bg-black/70 px-2 py-1 text-xs text-white hover:bg-black"
+              >
+                Remove
+              </button>
             </div>
+
             <p className="text-primary text-sm font-medium underline-offset-2 group-hover:underline">
               Choose a different image
             </p>
@@ -89,25 +105,29 @@ const ImageInput = ({
             <div className="bg-primary/12 text-primary group-hover:bg-primary/18 flex h-16 w-16 items-center justify-center rounded-2xl transition">
               <CgImage size={32} />
             </div>
+
             <div className="text-center">
               <p className="text-dark font-semibold">
                 Tap to upload or drag a file here
               </p>
               <p className="mt-1 text-xs text-gray-500">{hint}</p>
             </div>
+
             <span className="bg-primary rounded-full px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition group-hover:brightness-110">
               Browse files
             </span>
           </>
         )}
+
         <input
           id={inputId}
           type="file"
-          accept="image/*"
+          accept="image/*,.pdf"
           className="sr-only"
           {...register(name)}
         />
       </label>
+
       {error?.message && (
         <p className="text-sm text-red-600">{error.message}</p>
       )}

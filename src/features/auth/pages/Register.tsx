@@ -269,7 +269,7 @@ const Register = () => {
               Add a clear photo of yourself — it helps verify your account.
             </p>
 
-            <div className="flex flex-col gap-3 sm:flex-row">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               {/* Profile image — always required */}
               <ImageInput
                 name="imageFile"
