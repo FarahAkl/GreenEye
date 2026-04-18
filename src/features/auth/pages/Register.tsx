@@ -20,6 +20,7 @@ import useSignUp from "../hooks/useRegister";
 import { CgImage, CgUser } from "react-icons/cg";
 import { IoChevronDown } from "react-icons/io5";
 import type { ZodIssue } from "zod";
+import Button from "../../../ui/Button";
 
 const ROLE_OPTIONS = [
   { value: "farmer", label: "Farmer" },
@@ -120,8 +121,7 @@ const Register = () => {
         SignUp
       </p>
       <p className="mb-8 text-center text-sm text-gray-500">
-        Step {step} of 2
-        {step === 1 ? " — Your details" : " — Profile image"}
+        Step {step} of 2{step === 1 ? " — Your details" : " — Profile image"}
       </p>
       <form
         onSubmit={
@@ -209,7 +209,7 @@ const Register = () => {
                           errors.rule
                             ? "border-2 border-red-600"
                             : roleMenuOpen
-                              ? "border-primary ring-1 ring-primary"
+                              ? "border-primary ring-primary ring-1"
                               : "border-gray-300 hover:border-gray-400"
                         }`}
                       >
@@ -236,12 +236,16 @@ const Register = () => {
                           aria-labelledby="register-role-trigger"
                         >
                           {ROLE_OPTIONS.map(({ value, label }) => (
-                            <li key={value} role="option" aria-selected={field.value === value}>
+                            <li
+                              key={value}
+                              role="option"
+                              aria-selected={field.value === value}
+                            >
                               <button
                                 type="button"
                                 className={`w-full px-4 py-2.5 text-left text-sm transition ${
                                   field.value === value
-                                    ? "bg-primary/10 font-semibold text-primary"
+                                    ? "bg-primary/10 text-primary font-semibold"
                                     : "text-gray-800 hover:bg-gray-50"
                                 }`}
                                 onClick={() => {
@@ -289,7 +293,7 @@ const Register = () => {
                 className={`group flex cursor-pointer flex-col items-center justify-center gap-4 rounded-2xl border-2 border-dashed px-6 py-10 transition ${
                   errors.imageFile
                     ? "border-red-400 bg-red-50/40"
-                    : "border-gray-200 bg-linear-to-b from-gray-50/90 to-white hover:border-primary/45 hover:from-primary/6 hover:shadow-sm"
+                    : "hover:border-primary/45 hover:from-primary/6 border-gray-200 bg-linear-to-b from-gray-50/90 to-white hover:shadow-sm"
                 }`}
               >
                 {imagePreviewUrl && selectedImage ? (
@@ -307,7 +311,7 @@ const Register = () => {
                   </>
                 ) : (
                   <>
-                    <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/12 text-primary transition group-hover:bg-primary/18">
+                    <div className="bg-primary/12 text-primary group-hover:bg-primary/18 flex h-16 w-16 items-center justify-center rounded-2xl transition">
                       <CgImage size={32} />
                     </div>
                     <div className="text-center">
@@ -318,7 +322,7 @@ const Register = () => {
                         JPG, PNG or WEBP · one image
                       </p>
                     </div>
-                    <span className="rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition group-hover:brightness-110">
+                    <span className="bg-primary rounded-full px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition group-hover:brightness-110">
                       Browse files
                     </span>
                   </>
@@ -332,7 +336,9 @@ const Register = () => {
                 />
               </label>
               {errors.imageFile?.message && (
-                <p className="text-sm text-red-600">{errors.imageFile.message}</p>
+                <p className="text-sm text-red-600">
+                  {errors.imageFile.message}
+                </p>
               )}
             </div>
           </div>
@@ -348,21 +354,22 @@ const Register = () => {
             </button>
           ) : (
             <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
-              <button
+              <Button
+                variant="outline"
+                btnLabel="Back"
                 type="button"
                 onClick={() => setStep(1)}
                 disabled={isPendingSignup}
                 className="h-12 w-full cursor-pointer rounded-2xl border border-gray-300 px-5 text-sm font-medium text-gray-700 transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50 sm:max-w-xs"
-              >
-                Back
-              </button>
-              <button
+              />
+              <Button
+                btnLabel=""
+                className="sm:w-1/2!"
                 type="submit"
                 disabled={isPendingSignup}
-                className="bg-primary h-12 w-full flex-1 cursor-pointer rounded-2xl px-5 text-sm font-medium text-white transition-all duration-300 hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {isPendingSignup ? <SpinnerBtn /> : "Sign up"}
-              </button>
+              </Button>
             </div>
           )}
 
