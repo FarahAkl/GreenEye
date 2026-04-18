@@ -65,7 +65,7 @@ export const registerStep1Schema = z
       .nonempty("This field is required")
       .min(8, "Password must be at least 8 characters")
       .max(255, "Password must not exceed 255 characters"),
-    rule: z.enum(["farmer", "admin", "supplier"], {
+    rule: z.enum(["farmer", "admin", "supplier", "expert"], {
       message: "Please select a role",
     }),
   })
