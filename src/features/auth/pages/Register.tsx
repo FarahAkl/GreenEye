@@ -269,7 +269,11 @@ const Register = () => {
               Add a clear photo of yourself — it helps verify your account.
             </p>
 
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <div
+              className={`grid gap-3 ${
+                showLogoUpload ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1"
+              }`}
+            >
               {/* Profile image — always required */}
               <ImageInput
                 name="imageFile"
