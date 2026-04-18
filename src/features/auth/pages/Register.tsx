@@ -271,7 +271,9 @@ const Register = () => {
 
             <div
               className={`grid gap-3 ${
-                showLogoUpload ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1"
+                showLogoUpload
+                  ? "grid-cols-1 items-stretch sm:grid-cols-2"
+                  : "grid-cols-1"
               }`}
             >
               {/* Profile image — always required */}

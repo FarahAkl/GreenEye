@@ -48,7 +48,7 @@ const ImageInput = ({
   };
 
   return (
-    <div className="flex flex-1 flex-col gap-2">
+    <div className="flex h-full flex-1 flex-col gap-2">
       <span className="flex h-12 items-center justify-center px-2 text-center font-medium text-gray-600">
         {label}
       </span>
@@ -67,7 +67,7 @@ const ImageInput = ({
             setValue(name, files, { shouldValidate: true });
           }
         }}
-        className={`group flex cursor-pointer flex-col items-center justify-center gap-4 rounded-2xl border-2 border-dashed px-6 py-10 transition ${
+        className={`group flex h-full cursor-pointer flex-col items-center justify-center gap-4 rounded-2xl border-2 border-dashed px-6 py-10 transition ${
           error
             ? "border-red-400 bg-red-50/40"
             : "hover:border-primary/45 hover:from-primary/6 border-gray-200 bg-linear-to-b from-gray-50/90 to-white hover:shadow-sm"
