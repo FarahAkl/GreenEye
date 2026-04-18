@@ -24,12 +24,13 @@ type CheckoutStep = 1 | 2 | 3;
 type Phase = "checkout" | "payment";
 
 const Order = () => {
-  useScrollToTop()
+  useScrollToTop();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const stepFromUrl = (searchParams.get("step") as "1" | "2" | "3") || "1";
   const orderIdFromUrl = searchParams.get("orderId");
+  const shouldRestoreCheckout = searchParams.has("step") || !!orderIdFromUrl;
   const [currentStep, setCurrentStep] = useState<CheckoutStep>(
     parseInt(stepFromUrl) as CheckoutStep,
   );
@@ -39,6 +40,7 @@ const Order = () => {
 
   const [shippingInfo, setShippingInfo] = useState<shippingRateRequestT | null>(
     () => {
+      if (!shouldRestoreCheckout) return null;
       const saved = localStorage.getItem("checkoutShippingInfo");
       return saved ? JSON.parse(saved) : null;
     },
@@ -46,6 +48,7 @@ const Order = () => {
 
   const [selectedShippingRate, setSelectedShippingRate] =
     useState<shippingRateT | null>(() => {
+      if (!shouldRestoreCheckout) return null;
       const saved = localStorage.getItem("checkoutSelectedRate");
       return saved ? JSON.parse(saved) : null;
     });
@@ -69,6 +72,19 @@ const Order = () => {
   const activeOrderId = orderId ? String(orderId) : orderIdFromUrl;
   const { order } = useGetOrderById({ orderId: activeOrderId || "" });
   const resolvedClientSecret = clientSecret ?? order?.data?.clientSecret ?? null;
+
+  useEffect(() => {
+    const hasCheckoutStep = searchParams.has("step");
+
+    if (!orderIdFromUrl && !hasCheckoutStep) {
+      localStorage.removeItem("checkoutShippingInfo");
+      localStorage.removeItem("checkoutSelectedRate");
+      setShippingInfo(null);
+      setSelectedShippingRate(null);
+      setCurrentStep(1);
+      setPhase("checkout");
+    }
+  }, [orderIdFromUrl, searchParams]);
 
   useEffect(() => {
     const nextParams = new URLSearchParams(searchParams);
@@ -108,7 +124,9 @@ const Order = () => {
 
   const handleStep1Complete = (data: shippingRateRequestT) => {
     localStorage.setItem("checkoutShippingInfo", JSON.stringify(data));
+    localStorage.removeItem("checkoutSelectedRate");
     setShippingInfo(data);
+    setSelectedShippingRate(null);
     setCurrentStep(2);
   };
 
