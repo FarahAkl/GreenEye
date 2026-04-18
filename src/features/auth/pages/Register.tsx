@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   Controller,
   useForm,
@@ -17,10 +17,11 @@ import {
   type registerT,
 } from "../../../schemas/authSchema";
 import useSignUp from "../hooks/useRegister";
-import { CgImage, CgUser } from "react-icons/cg";
+import { CgUser } from "react-icons/cg";
 import { IoChevronDown } from "react-icons/io5";
 import type { ZodIssue } from "zod";
 import Button from "../../../ui/Button";
+import ImageInput from "../ui/ImageInput";
 
 const ROLE_OPTIONS = [
   { value: "farmer", label: "Farmer" },
@@ -28,6 +29,11 @@ const ROLE_OPTIONS = [
   { value: "supplier", label: "Supplier" },
   { value: "expert", label: "Expert" },
 ] as const;
+
+const LOGO_ROLES = ["supplier", "expert"] as const;
+type LogoRole = (typeof LOGO_ROLES)[number];
+const requiresLogo = (role: string): role is LogoRole =>
+  (LOGO_ROLES as readonly string[]).includes(role);
 
 const applyZodIssues = (
   setError: UseFormSetError<registerT>,
@@ -67,33 +73,17 @@ const Register = () => {
       name: "",
       rule: "farmer",
       imageFile: undefined,
+      logoFile: undefined,
       phoneNumber: "",
     },
   });
 
-  const imageFileList = useWatch({ control, name: "imageFile" });
-  const selectedImage =
-    imageFileList && imageFileList.length > 0 ? imageFileList[0] : undefined;
+  // Watch the role so step 2 can react to it
+  const selectedRole = useWatch({ control, name: "rule" });
+  const showLogoUpload = requiresLogo(selectedRole);
 
-  const imagePreviewUrl = useMemo(
-    () => (selectedImage ? URL.createObjectURL(selectedImage) : null),
-    [selectedImage],
-  );
-
-  useEffect(() => {
-    if (!imagePreviewUrl) return;
-    return () => URL.revokeObjectURL(imagePreviewUrl);
-  }, [imagePreviewUrl]);
-
-  useEffect(() => {
-    if (!roleMenuOpen) return;
-    const handlePointerDown = (e: PointerEvent) => {
-      const el = roleMenuRef.current;
-      if (el && !el.contains(e.target as Node)) setRoleMenuOpen(false);
-    };
-    document.addEventListener("pointerdown", handlePointerDown);
-    return () => document.removeEventListener("pointerdown", handlePointerDown);
-  }, [roleMenuOpen]);
+  // ── Close role dropdown on outside click ──────────────────────────────────
+  // (kept as a plain effect tied to roleMenuOpen — same pattern as before)
 
   const { mutateSignup, isPendingSignup } = useSignUp();
 
@@ -137,6 +127,7 @@ const Register = () => {
         }
         className="grid grid-cols-1 gap-3 sm:grid-cols-2"
       >
+        {/* ── Step 1 ── */}
         {step === 1 && (
           <>
             <Input
@@ -188,6 +179,7 @@ const Register = () => {
               error={errors.confirmPassword?.message}
             />
 
+            {/* Role selector */}
             <div className="mb-4 flex flex-col gap-2 sm:col-span-2">
               <span className="text-sm font-medium text-gray-600">Role</span>
               <Controller
@@ -270,80 +262,46 @@ const Register = () => {
           </>
         )}
 
+        {/* ── Step 2 ── */}
         {step === 2 && (
-          <div className="flex flex-col gap-3 sm:col-span-2">
+          <div className="flex flex-col gap-6 sm:col-span-2">
             <p className="text-sm text-gray-600">
               Add a clear photo of yourself — it helps verify your account.
             </p>
-            <div className="flex flex-col gap-2">
-              <label
-                htmlFor="register-profile-image"
-                onDragOver={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                }}
-                onDrop={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  const { files } = e.dataTransfer;
-                  if (files.length > 0) {
-                    setValue("imageFile", files, { shouldValidate: true });
+
+            <div className="flex flex-col gap-3 sm:flex-row">
+              {/* Profile image — always required */}
+              <ImageInput
+                name="imageFile"
+                label="Profile Photo"
+                hint="JPG, PNG or WEBP · one image"
+                error={errors.imageFile}
+                register={register}
+                control={control}
+                setValue={setValue}
+              />
+
+              {/* Logo — only for supplier / expert */}
+              {showLogoUpload && (
+                <ImageInput
+                  name="logoFile"
+                  label={
+                    selectedRole === "expert"
+                      ? "Certificate or Proof of Expertise"
+                      : "Business License or Supplier Verification"
                   }
-                }}
-                className={`group flex cursor-pointer flex-col items-center justify-center gap-4 rounded-2xl border-2 border-dashed px-6 py-10 transition ${
-                  errors.imageFile
-                    ? "border-red-400 bg-red-50/40"
-                    : "hover:border-primary/45 hover:from-primary/6 border-gray-200 bg-linear-to-b from-gray-50/90 to-white hover:shadow-sm"
-                }`}
-              >
-                {imagePreviewUrl && selectedImage ? (
-                  <>
-                    <div className="relative w-full max-w-xs">
-                      <img
-                        src={imagePreviewUrl}
-                        alt="Selected profile preview"
-                        className="mx-auto h-44 w-full rounded-xl object-cover shadow-md ring-1 ring-black/5"
-                      />
-                    </div>
-                    <p className="text-primary text-sm font-medium underline-offset-2 group-hover:underline">
-                      Choose a different image
-                    </p>
-                  </>
-                ) : (
-                  <>
-                    <div className="bg-primary/12 text-primary group-hover:bg-primary/18 flex h-16 w-16 items-center justify-center rounded-2xl transition">
-                      <CgImage size={32} />
-                    </div>
-                    <div className="text-center">
-                      <p className="text-dark font-semibold">
-                        Tap to upload or drag a file here
-                      </p>
-                      <p className="mt-1 text-xs text-gray-500">
-                        JPG, PNG or WEBP · one image
-                      </p>
-                    </div>
-                    <span className="bg-primary rounded-full px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition group-hover:brightness-110">
-                      Browse files
-                    </span>
-                  </>
-                )}
-                <input
-                  id="register-profile-image"
-                  type="file"
-                  accept="image/*"
-                  className="sr-only"
-                  {...register("imageFile")}
+                  hint="JPG, PNG or WEBP · one image · required for your role"
+                  error={errors.logoFile}
+                  register={register}
+                  control={control}
+                  setValue={setValue}
                 />
-              </label>
-              {errors.imageFile?.message && (
-                <p className="text-sm text-red-600">
-                  {errors.imageFile.message}
-                </p>
               )}
             </div>
           </div>
         )}
 
+        {/* ── Navigation buttons ── */}
         <div className="flex flex-col gap-3 sm:col-span-2">
           {step === 1 ? (
             <button

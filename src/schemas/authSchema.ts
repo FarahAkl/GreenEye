@@ -23,7 +23,7 @@ export const loginSuccessResponseSchema = z.object({
 export const ErrorResponseSchema = z.object({
   isSuccess: z.boolean(),
   message: z.string().nullable(),
-  data: z.object().nullable(),
+  data: z.object({}).nullable(),
 });
 
 export const loginSchema = z.object({
@@ -53,7 +53,7 @@ export const registerStep1Schema = z
     phoneNumber: z
       .string()
       .nonempty("This field is required")
-      .regex(/^([0-9\s-+()]*)$/, "Invalid phone number")
+      .regex(/^([0-9\s\-+()]*)$/, "Invalid phone number")
       .min(10, "Phone number is shorter than the minimum length"),
     password: z
       .string()
@@ -74,11 +74,27 @@ export const registerStep1Schema = z
     path: ["confirmPassword"],
   });
 
-export const registerSchema = registerStep1Schema.extend({
-  imageFile: z
-    .instanceof(FileList)
-    .refine((files) => files.length > 0, "Image is required"),
-});
+export const registerSchema = registerStep1Schema
+  .extend({
+    imageFile: z
+      .instanceof(FileList)
+      .refine((files) => files.length > 0, "Image is required"),
+
+    logoFile: z.instanceof(FileList).optional(),
+  })
+  .superRefine((data, ctx) => {
+    const requiresLogo = ["supplier", "expert"].includes(data.rule);
+
+    if (requiresLogo) {
+      if (!data.logoFile || data.logoFile.length === 0) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Verification document is required for this role",
+          path: ["logoFile"],
+        });
+      }
+    }
+  });
 
 export type registerStep1T = z.infer<typeof registerStep1Schema>;
 
