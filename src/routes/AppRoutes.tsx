@@ -17,6 +17,7 @@ import Register from "../features/auth/pages/Register";
 import Products from "../pages/Products";
 import Order from "../pages/Order";
 import MyOrders from "../pages/MyOrders";
+import OrderDetails from "../pages/OrderDetails";
 
 const router = createBrowserRouter([
   {
@@ -48,7 +49,7 @@ const router = createBrowserRouter([
             element: <OrderConfirmation />,
           },
           { path: "/orders", element: <MyOrders /> },
-          { path: "/order/:orderId" },
+          { path: "/order/:orderId", element: <OrderDetails /> },
           { path: "/profile", element: <Profile /> },
           { path: "/supplier-dashboard" },
           { path: "/admin-dashboard" },

@@ -56,7 +56,7 @@ const OrderCard = ({
 
         <Button
           btnLabel="Details"
-          onClick={() => navigate(`order/${order.id}`)}
+          onClick={() => navigate(`/order/${order.id}`)}
           className="h-10! rounded-full! px-6!"
         />
       </div>

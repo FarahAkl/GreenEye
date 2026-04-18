@@ -17,12 +17,14 @@ import type {
 import ShippingDetailsForm from "../features/orders/ui/ShippingDetaisForm";
 import type { createOrderT } from "../schemas/ordersSchema";
 import ConfirmationStep from "../features/orders/ui/ConfirmationStep";
+import { useScrollToTop } from "../hooks/useScrollToTop";
 
 // Steps 1–3 are inside the stepper. Payment is a 4th phase outside it.
 type CheckoutStep = 1 | 2 | 3;
 type Phase = "checkout" | "payment";
 
 const Order = () => {
+  useScrollToTop()
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
