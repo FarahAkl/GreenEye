@@ -28,6 +28,28 @@ export const productSchema = z.object({
   imageFiles: z.array(z.any()),
 });
 
+export const createProductItemSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+
+  description: z.string(),
+
+  categoryId: z.number().min(1),
+
+  price: z.number().min(1, "Price must be greater than 0"),
+
+  stockQuantity: z.number().min(1, "Stock quantity must be greater than 0"),
+
+  expiryDate: z.string(),
+
+  imageFiles: z
+    .array(z.instanceof(File))
+    .min(1, "At least one image is required"),
+});
+
+export const createProductsSchema = z.object({
+  products: z.array(productSchema).min(1),
+});
+
 export const updateProductSchema = z.object({
   name: z.string(),
   description: z.string(),
@@ -36,3 +58,6 @@ export const updateProductSchema = z.object({
   expiryDate: z.string(),
   imageFile: z.string(),
 });
+
+export type createProductT = z.infer<typeof createProductsSchema>;
+export type updateProductT = z.infer<typeof updateProductSchema>
