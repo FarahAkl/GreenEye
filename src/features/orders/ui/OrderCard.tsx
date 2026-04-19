@@ -27,6 +27,7 @@ const OrderCard = ({
     order.status !== "Refunded";
 
   const isCancelledStatus = order.status === "Cancelled";
+  const isTerminalNegative = order.status === "Cancelled" || order.status === "Refunded";
 
   return (
     <div className="animate-[slideUp_0.3s_ease_both] overflow-hidden rounded-2xl border border-[#e0f0e9] bg-white shadow-sm">
@@ -54,11 +55,13 @@ const OrderCard = ({
           </p>
         </div>
 
-        <Button
-          btnLabel="Details"
-          onClick={() => navigate(`/order/${order.id}`)}
-          className="h-10! rounded-full! px-6!"
-        />
+        {!isTerminalNegative && (
+          <Button
+            btnLabel="Details"
+            onClick={() => navigate(`/order/${order.id}`)}
+            className="h-10! rounded-full! px-6!"
+          />
+        )}
       </div>
 
       {/* Products bar */}
@@ -75,10 +78,12 @@ const OrderCard = ({
           </span>
         </div>
 
-        <DeliveryTracker
-          deliveryStatus={order.deliveryStatus}
-          createdAt={order.createdAt}
-        />
+        {!isTerminalNegative && (
+          <DeliveryTracker
+            deliveryStatus={order.deliveryStatus}
+            createdAt={order.createdAt}
+          />
+        )}
       </div>
 
       {/* Cancel / Refund action */}
