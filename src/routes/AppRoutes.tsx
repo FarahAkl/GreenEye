@@ -14,6 +14,7 @@ import PageNotFound from "../pages/PageNotFound";
 import Profile from "../pages/Profile";
 import ProtectedRoute from "./ProtectedRoute";
 import RoleProtectedRoute from "./RoleProtectedRoute";
+import PublicRoleGuard from "./PublicRoleGuard";
 import Home from "../pages/Home";
 import Register from "../features/auth/pages/Register";
 import Products from "../pages/Products";
@@ -38,23 +39,28 @@ const router = createBrowserRouter([
   {
     element: <AppLayout />,
     children: [
-      { path: "/", element: <Home /> },
-      { path: "/marketplace", element: <MarketPlace /> },
-      { path: "/products", element: <Products /> },
-      { path: "/product/:id", element: <ProductDetails /> },
-      { path: "*", element: <PageNotFound /> },
       {
-        element: <ProtectedRoute />,
+        element: <PublicRoleGuard />,
         children: [
-          { path: "/cart", element: <Cart /> },
-          { path: "/order", element: <Order /> },
+          { path: "/", element: <Home /> },
+          { path: "/marketplace", element: <MarketPlace /> },
+          { path: "/products", element: <Products /> },
+          { path: "/product/:id", element: <ProductDetails /> },
+          { path: "*", element: <PageNotFound /> },
           {
-            path: "/order/:orderId/confirmation",
-            element: <OrderConfirmation />,
+            element: <ProtectedRoute />,
+            children: [
+              { path: "/cart", element: <Cart /> },
+              { path: "/order", element: <Order /> },
+              {
+                path: "/order/:orderId/confirmation",
+                element: <OrderConfirmation />,
+              },
+              { path: "/orders", element: <MyOrders /> },
+              { path: "/order/:orderId", element: <OrderDetails /> },
+              { path: "/profile", element: <Profile /> },
+            ],
           },
-          { path: "/orders", element: <MyOrders /> },
-          { path: "/order/:orderId", element: <OrderDetails /> },
-          { path: "/profile", element: <Profile /> },
         ],
       },
     ],
