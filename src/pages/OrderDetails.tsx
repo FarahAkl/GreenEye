@@ -111,7 +111,7 @@ const OrderDetails = () => {
         </div>
 
         <div className="grid gap-6">
-          <div className="rounded-[28px] p-6 shadow-[0_20px_60px_rgba(0,47,32,0.08)] backdrop-blur-sm">
+          <div className="rounded-[28px] border border-gray-300 p-6 shadow-[0_20px_60px_rgba(0,47,32,0.1)] backdrop-blur-lg">
             <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
               <div>
                 <p className="mb-2 text-3xl font-semibold text-[#345e52]">
@@ -236,7 +236,7 @@ const OrderDetails = () => {
             </div>
           </div>
 
-          <div className="rounded-[28px] p-6 shadow-[0_20px_60px_rgba(0,47,32,0.08)] backdrop-blur-sm">
+          <div className="rounded-[28px] border border-gray-300 p-6 shadow-[0_20px_60px_rgba(0,47,32,0.1)] backdrop-blur-lg">
             <OrderSummary
               items={orderItems}
               subtotal={orderData.subTotal}
