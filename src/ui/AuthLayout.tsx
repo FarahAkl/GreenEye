@@ -1,7 +1,9 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
+import { useScrollToTop } from "../hooks/useScrollToTop";
 
 const AuthLayout = () => {
+  useScrollToTop();
   return (
     <div className="flex min-h-screen flex-col">
       <Navbar />

@@ -1,14 +1,22 @@
-import { Outlet, useNavigate, NavLink } from "react-router-dom";
+import { Outlet, NavLink } from "react-router-dom";
 import { useAuth } from "../features/auth/hooks/useAuth";
 import { logout } from "../features/auth/services/apiAuth";
-import { LuLogOut, LuLayoutDashboard, LuUsers, LuPackage, LuWallet, LuClipboardList } from "react-icons/lu";
+import {
+  LuLogOut,
+  LuLayoutDashboard,
+  LuUsers,
+  LuPackage,
+  LuWallet,
+  LuClipboardList,
+} from "react-icons/lu";
 import { useState } from "react";
 import { HiMenu, HiX } from "react-icons/hi";
+import { useScrollToTop } from "../hooks/useScrollToTop";
 
 const DashboardLayout = () => {
-  const navigate = useNavigate();
   const { roles } = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  useScrollToTop();
 
   const lowerRoles = roles.map((r) => r.toLowerCase());
   const isAdmin = lowerRoles.includes("admin");
@@ -17,14 +25,30 @@ const DashboardLayout = () => {
   const adminLinks = [
     { to: "/admin-dashboard", label: "Overview", icon: LuLayoutDashboard },
     { to: "/admin-dashboard/users", label: "Pending Users", icon: LuUsers },
-    { to: "/admin-dashboard/products", label: "Pending Products", icon: LuPackage },
-    { to: "/admin-dashboard/withdrawals", label: "Withdrawals", icon: LuWallet },
+    {
+      to: "/admin-dashboard/products",
+      label: "Pending Products",
+      icon: LuPackage,
+    },
+    {
+      to: "/admin-dashboard/withdrawals",
+      label: "Withdrawals",
+      icon: LuWallet,
+    },
   ];
 
   const supplierLinks = [
     { to: "/supplier-dashboard", label: "Overview", icon: LuLayoutDashboard },
-    { to: "/supplier-dashboard/my-products", label: "My Products", icon: LuPackage },
-    { to: "/supplier-dashboard/orders", label: "Orders", icon: LuClipboardList },
+    {
+      to: "/supplier-dashboard/my-products",
+      label: "My Products",
+      icon: LuPackage,
+    },
+    {
+      to: "/supplier-dashboard/orders",
+      label: "Orders",
+      icon: LuClipboardList,
+    },
     { to: "/supplier-dashboard/wallet", label: "Wallet", icon: LuWallet },
   ];
 
@@ -38,13 +62,19 @@ const DashboardLayout = () => {
   return (
     <div className="flex h-screen bg-[#f4f9f6]">
       {/* Sidebar - Desktop */}
-      <aside className={`fixed inset-y-0 left-0 z-50 w-64 transform border-r border-[#e0f0e9] bg-white transition-transform duration-300 lg:static lg:translate-x-0 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
+      <aside
+        className={`fixed inset-y-0 left-0 z-50 w-64 transform border-r border-[#e0f0e9] bg-white transition-transform duration-300 lg:static lg:translate-x-0 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
+      >
         <div className="flex h-16 items-center border-b border-[#e0f0e9] px-6">
           <div className="flex items-center gap-2">
             <img src="/images/logo.png" alt="logo" className="h-8 shrink-0" />
             <div className="flex flex-col">
-              <span className="text-lg leading-none font-bold text-[#04591B]">GreenEye</span>
-              <span className="text-[10px] font-medium text-[#7a9e8e] uppercase tracking-wider">{dashboardLabel}</span>
+              <span className="text-lg leading-none font-bold text-[#04591B]">
+                GreenEye
+              </span>
+              <span className="text-[10px] font-medium tracking-wider text-[#7a9e8e] uppercase">
+                {dashboardLabel}
+              </span>
             </div>
           </div>
         </div>

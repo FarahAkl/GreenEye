@@ -13,6 +13,7 @@ import { useForm, useWatch } from "react-hook-form";
 import Spinner from "../ui/Spinner";
 import { IoSearch } from "react-icons/io5";
 import { MdSort } from "react-icons/md";
+import Pagination from "../ui/Pagination";
 
 type SortOrder = "ASC" | "DESC" | "";
 
@@ -28,7 +29,7 @@ const Products = () => {
   const categoryId = searchParams.get("categoryId") || "";
   const sortOrder = (searchParams.get("sort") || "") as SortOrder;
   const pageNumber = Math.max(1, Number(searchParams.get("page")) || 1);
-  const pageSize = 10;
+  const pageSize = 8;
 
   const { products, isFetchingProducts } = useProducts({
     pageNumber,
@@ -128,6 +129,14 @@ const Products = () => {
   const activeCategory = categories?.data?.find(
     (c: categoryT) => String(c.id) === categoryId,
   );
+
+  const totalPages = sortOrder
+    ? (orderedProducts?.data?.totalPages ?? 0)
+    : searchQuery
+      ? (searchProducts?.data?.totalPages ?? 0)
+      : categoryId
+        ? (categoryProducts?.data?.totalPages ?? 0)
+        : (products?.data?.totalPages ?? 0);
 
   if (isLoading)
     return (
@@ -256,6 +265,20 @@ const Products = () => {
           ))}
         </div>
       )}
+
+      {/* Pagination */}
+      <Pagination
+        currentPage={pageNumber}
+        totalPages={totalPages}
+        onPageChange={(page) =>
+          updateParams({
+            search: searchQuery || undefined,
+            categoryId: categoryId || undefined,
+            sort: sortOrder || undefined,
+            page,
+          })
+        }
+      />
     </div>
   );
 };
