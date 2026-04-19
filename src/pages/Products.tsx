@@ -45,7 +45,12 @@ const Products = () => {
   });
   const { orderedProducts, isOrderingProducts } = useOrderByPrice(
     sortOrder
-      ? { pageNumber, pageSize, orderByDirection: sortOrder }
+      ? {
+          pageNumber,
+          pageSize,
+          orderByDirection: sortOrder,
+          categoryId: categoryId || undefined,
+        }
       : undefined,
   );
   const { categories } = useCategory();

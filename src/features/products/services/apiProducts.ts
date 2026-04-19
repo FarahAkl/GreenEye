@@ -16,7 +16,7 @@ export type searchParamsT = {
 
 export type orderingParamsT = {
   orderByDirection?: "ASC" | "DESC";
-  // categoryId?: string;
+  categoryId?: string;
   pageNumber?: number;
   pageSize?: number;
 };

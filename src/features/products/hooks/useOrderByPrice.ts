@@ -15,6 +15,7 @@ export const useOrderByPrice = (params?: orderingParamsT) => {
       "products",
       "ordered",
       params?.orderByDirection,
+      params?.categoryId,
       params?.pageNumber ?? 1,
       params?.pageSize ?? 10,
     ],
