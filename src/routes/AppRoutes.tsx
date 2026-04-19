@@ -4,6 +4,7 @@ import MarketPlace from "../pages/MarketPlace";
 import ProductDetails from "../pages/ProductDetails";
 import AuthLayout from "../ui/AuthLayout";
 import AppLayout from "../ui/AppLayout";
+import DashboardLayout from "../ui/DashboardLayout";
 import Cart from "../pages/Cart";
 import ResetPassword from "../features/auth/pages/ResetPassword";
 import ForgetPassword from "../features/auth/pages/ForgetPassword";
@@ -12,12 +13,15 @@ import OTP from "../features/auth/pages/OTP";
 import PageNotFound from "../pages/PageNotFound";
 import Profile from "../pages/Profile";
 import ProtectedRoute from "./ProtectedRoute";
+import RoleProtectedRoute from "./RoleProtectedRoute";
 import Home from "../pages/Home";
 import Register from "../features/auth/pages/Register";
 import Products from "../pages/Products";
 import Order from "../pages/Order";
 import MyOrders from "../pages/MyOrders";
 import OrderDetails from "../pages/OrderDetails";
+import AdminDashboard from "../pages/AdminDashboard";
+import SupplierDashboard from "../pages/SupplierDashboard";
 
 const router = createBrowserRouter([
   {
@@ -51,8 +55,31 @@ const router = createBrowserRouter([
           { path: "/orders", element: <MyOrders /> },
           { path: "/order/:orderId", element: <OrderDetails /> },
           { path: "/profile", element: <Profile /> },
-          { path: "/supplier-dashboard" },
-          { path: "/admin-dashboard" },
+        ],
+      },
+    ],
+  },
+
+  // Dashboard routes — separate layout, no main Navbar/Footer
+  {
+    element: <DashboardLayout />,
+    children: [
+      {
+        element: <RoleProtectedRoute allowedRoles={["admin"]} />,
+        children: [
+          { path: "/admin-dashboard", element: <AdminDashboard /> },
+          { path: "/admin-dashboard/users", element: <AdminDashboard /> },
+          { path: "/admin-dashboard/products", element: <AdminDashboard /> },
+          { path: "/admin-dashboard/withdrawals", element: <AdminDashboard /> },
+        ],
+      },
+      {
+        element: <RoleProtectedRoute allowedRoles={["supplier"]} />,
+        children: [
+          { path: "/supplier-dashboard", element: <SupplierDashboard /> },
+          { path: "/supplier-dashboard/my-products", element: <SupplierDashboard /> },
+          { path: "/supplier-dashboard/orders", element: <SupplierDashboard /> },
+          { path: "/supplier-dashboard/wallet", element: <SupplierDashboard /> },
         ],
       },
     ],

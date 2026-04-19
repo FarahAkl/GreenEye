@@ -6,7 +6,8 @@ export type AuthUser = z.infer<typeof AuthResponseDataSchema>;
 
 export interface AuthContextType {
   isAuthenticated: boolean;
-  login: () => void;
+  roles: string[];
+  login: (roles: string[]) => void;
   logout: () => void;
 }
 

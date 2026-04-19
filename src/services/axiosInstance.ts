@@ -66,6 +66,7 @@ const clearStoredTokens = (): void => {
 /** After revoke-token / logout: clear storage and drop any default Authorization on the client. */
 export const clearAuthAfterRevoke = (): void => {
   clearStoredTokens();
+  deleteCookie({ name: "roles" });
   delete axiosInstance.defaults.headers.common["Authorization"];
   delete axiosInstance.defaults.headers["Authorization"];
 };

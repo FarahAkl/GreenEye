@@ -30,14 +30,7 @@ const Login = () => {
   const { login, isLogin } = useLogin();
 
   const onSubmit = async (data: loginT) => {
-    login(data, {
-      // onSuccess: () => {
-      //   navigate(redirectTo || -1, { replace: true });
-      // },
-      onSuccess: () => {
-        navigate(-1);
-      },
-    });
+    login(data);
   };
 
   return (

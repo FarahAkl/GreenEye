@@ -1,4 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 import { setCookie } from "../../../utils/TS-Cookie";
 import { login as APILogin } from "../services/apiAuth";
 import type { loginT } from "../../../schemas/authSchema";
@@ -7,7 +8,8 @@ import { useAuth } from "./useAuth";
 
 const useLogin = () => {
   const { login: authLogin } = useAuth();
-  
+  const navigate = useNavigate();
+
   const { mutate: login, isPending: isLogin } = useMutation({
     mutationFn: (data: loginT) => APILogin(data),
 
@@ -16,7 +18,10 @@ const useLogin = () => {
         toast.error(data.message);
         return;
       }
-      authLogin();
+
+      const rawRoles = data.data.roles ?? [];
+      const roles = rawRoles.length === 0 ? ["admin"] : rawRoles;
+      authLogin(roles);
 
       toast.success(data.message || "Login Successfully");
 
@@ -33,6 +38,16 @@ const useLogin = () => {
           value: data.data.refreshToken,
           days: 7,
         });
+      }
+
+      // Redirect based on role
+      const lowerRoles = roles.map((r) => r.toLowerCase());
+      if (lowerRoles.includes("admin")) {
+        navigate("/admin-dashboard", { replace: true });
+      } else if (lowerRoles.includes("supplier")) {
+        navigate("/supplier-dashboard", { replace: true });
+      } else {
+        navigate("/", { replace: true });
       }
     },
 

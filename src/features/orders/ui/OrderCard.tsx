@@ -27,7 +27,8 @@ const OrderCard = ({
     order.status !== "Refunded";
 
   const isCancelledStatus = order.status === "Cancelled";
-  const isTerminalNegative = order.status === "Cancelled" || order.status === "Refunded";
+  const isTerminalNegative =
+    order.status === "Cancelled" || order.status === "Refunded";
 
   return (
     <div className="animate-[slideUp_0.3s_ease_both] overflow-hidden rounded-2xl border border-[#e0f0e9] bg-white shadow-sm">
