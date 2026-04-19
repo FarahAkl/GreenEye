@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useLogin from "../hooks/useLogin";
 import { FiMail } from "react-icons/fi";
@@ -9,11 +9,6 @@ import SpinnerBtn from "../../../ui/SpinnerBtn";
 import { loginSchema, type loginT } from "../../../schemas/authSchema";
 
 const Login = () => {
-  const navigate = useNavigate();
-  // const [searchParams] = useSearchParams();
-
-  // const redirectTo = searchParams.get("redirect") ;
-
   const {
     register,
     handleSubmit,
