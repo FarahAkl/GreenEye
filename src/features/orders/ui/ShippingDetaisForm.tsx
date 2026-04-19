@@ -94,7 +94,7 @@ const ShippingDetailsForm = ({
               </div>
               <div className="flex flex-col items-end">
                 <p className="text-dark font-bold">
-                  {rate.amount} {rate.currency}
+                  {rate.amount} EGP
                 </p>
               </div>
             </div>
