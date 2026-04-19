@@ -12,9 +12,7 @@ const parseRolesCookie = (): string[] => {
     const raw = getCookie({ name: "roles" });
     if (!raw) return [];
     const parsed = JSON.parse(decodeURIComponent(raw));
-    // If array is explicitly empty, it means admin
-    if (Array.isArray(parsed) && parsed.length === 0) return ["admin"];
-    return parsed;
+    return Array.isArray(parsed) ? parsed : [];
   } catch {
     return [];
   }

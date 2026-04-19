@@ -19,8 +19,7 @@ const useLogin = () => {
         return;
       }
 
-      const rawRoles = data.data.roles ?? [];
-      const roles = rawRoles.length === 0 ? ["admin"] : rawRoles;
+      const roles = data.data.roles ?? [];
       authLogin(roles);
 
       toast.success(data.message || "Login Successfully");
