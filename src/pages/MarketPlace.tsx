@@ -13,7 +13,7 @@ import Button from "../ui/Button";
 const BASE_URL = import.meta.env.VITE_API_URL;
 
 const MarketPlace = () => {
-  const { products, isFetchingProducts } = useProducts();
+  const { products, isFetchingProducts } = useProducts({ pageSize: 8 });
   const { categories } = useCategory();
   const navigate = useNavigate();
 
