@@ -22,7 +22,10 @@ import Order from "../pages/Order";
 import MyOrders from "../pages/MyOrders";
 import OrderDetails from "../pages/OrderDetails";
 import AdminDashboard from "../pages/AdminDashboard";
-import SupplierDashboard from "../pages/SupplierDashboard";
+import SupplierDashboard from "../features/suppplier/pages/SupplierDashboard";
+import SupplierProducts from "../features/suppplier/pages/SupplierProducts";
+import SupplierOrders from "../features/suppplier/pages/SupplierOrders";
+import AddProducts from "../features/suppplier/pages/AddProducts";
 
 const router = createBrowserRouter([
   {
@@ -83,9 +86,22 @@ const router = createBrowserRouter([
         element: <RoleProtectedRoute allowedRoles={["supplier"]} />,
         children: [
           { path: "/supplier-dashboard", element: <SupplierDashboard /> },
-          { path: "/supplier-dashboard/my-products", element: <SupplierDashboard /> },
-          { path: "/supplier-dashboard/orders", element: <SupplierDashboard /> },
-          { path: "/supplier-dashboard/wallet", element: <SupplierDashboard /> },
+          {
+            path: "/supplier-dashboard/my-products",
+            element: <SupplierProducts />,
+          },
+          {
+            path: "/supplier-dashboard/my-products/add",
+            element: <AddProducts />,
+          },
+          {
+            path: "/supplier-dashboard/orders",
+            element: <SupplierOrders />,
+          },
+          {
+            path: "/supplier-dashboard/wallet",
+            element: <SupplierDashboard />,
+          },
         ],
       },
     ],

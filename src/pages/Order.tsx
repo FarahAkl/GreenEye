@@ -31,12 +31,11 @@ const Order = () => {
   const stepFromUrl = (searchParams.get("step") as "1" | "2" | "3") || "1";
   const orderIdFromUrl = searchParams.get("orderId");
   const shouldRestoreCheckout = searchParams.has("step") || !!orderIdFromUrl;
+  
   const [currentStep, setCurrentStep] = useState<CheckoutStep>(
-    parseInt(stepFromUrl) as CheckoutStep,
+    shouldRestoreCheckout ? (parseInt(stepFromUrl) as CheckoutStep) : 1,
   );
-  const [phase, setPhase] = useState<Phase>(
-    orderIdFromUrl ? "payment" : "checkout",
-  );
+  const [phase, setPhase] = useState<Phase>("checkout");
 
   const [shippingInfo, setShippingInfo] = useState<shippingRateRequestT | null>(
     () => {
@@ -70,6 +69,7 @@ const Order = () => {
   } = useCreateOrder();
 
   const activeOrderId = orderId ? String(orderId) : orderIdFromUrl;
+  const derivedPhase: Phase = activeOrderId ? "payment" : "checkout";
   const { order } = useGetOrderById({ orderId: activeOrderId || "" });
   const resolvedClientSecret = clientSecret ?? order?.data?.clientSecret ?? null;
 
@@ -79,17 +79,13 @@ const Order = () => {
     if (!orderIdFromUrl && !hasCheckoutStep) {
       localStorage.removeItem("checkoutShippingInfo");
       localStorage.removeItem("checkoutSelectedRate");
-      setShippingInfo(null);
-      setSelectedShippingRate(null);
-      setCurrentStep(1);
-      setPhase("checkout");
     }
   }, [orderIdFromUrl, searchParams]);
 
   useEffect(() => {
     const nextParams = new URLSearchParams(searchParams);
 
-    if (phase === "payment" && activeOrderId) {
+    if (derivedPhase === "payment" && activeOrderId) {
       nextParams.set("orderId", activeOrderId);
       nextParams.delete("step");
     } else {
@@ -100,18 +96,8 @@ const Order = () => {
     if (nextParams.toString() !== searchParams.toString()) {
       setSearchParams(nextParams, { replace: true });
     }
-  }, [activeOrderId, currentStep, phase, searchParams, setSearchParams]);
+  }, [activeOrderId, currentStep, derivedPhase, searchParams, setSearchParams]);
 
-  useEffect(() => {
-    if (orderIdFromUrl) {
-      setPhase("payment");
-      return;
-    }
-
-    if (phase === "payment" && !activeOrderId) {
-      setPhase("checkout");
-    }
-  }, [activeOrderId, orderIdFromUrl, phase]);
 
   const steps = ["Your Information", "Shipment Details", "Confirmation"];
 
@@ -233,12 +219,12 @@ const Order = () => {
           )}
 
           {/* Payment phase header */}
-          {phase === "payment" && (
+          {derivedPhase === "payment" && (
             <p className="text-dark text-4xl font-medium">Placing Order</p>
           )}
 
           {/* Step 1 */}
-          {phase === "checkout" && currentStep === 1 && (
+          {derivedPhase === "checkout" && currentStep === 1 && (
             <OrderInfoForm
               onSuccess={handleStep1Complete}
               initialData={shippingInfo}
@@ -246,7 +232,7 @@ const Order = () => {
           )}
 
           {/* Step 2 */}
-          {phase === "checkout" && currentStep === 2 && shippingInfo && (
+          {derivedPhase === "checkout" && currentStep === 2 && shippingInfo && (
             <ShippingDetailsForm
               onSuccess={handleStep2Complete}
               initialSelectedRate={selectedShippingRate}
@@ -258,7 +244,7 @@ const Order = () => {
           )}
 
           {/* Step 3 — Confirmation */}
-          {phase === "checkout" &&
+          {derivedPhase === "checkout" &&
             currentStep === 3 &&
             selectedShippingRate &&
             shippingInfo && (
@@ -273,7 +259,7 @@ const Order = () => {
             )}
 
           {/* Payment phase — outside the stepper */}
-          {phase === "payment" && activeOrderId && resolvedClientSecret && (
+          {derivedPhase === "payment" && activeOrderId && resolvedClientSecret && (
             <PaymentForm
               orderId={Number(activeOrderId)}
               clientSecret={resolvedClientSecret}

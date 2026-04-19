@@ -3,6 +3,7 @@ import {
   HiOutlineWallet,
   HiOutlineClipboardDocumentList,
 } from "react-icons/hi2";
+import { Link } from "react-router-dom";
 
 const cards = [
   {
@@ -11,6 +12,7 @@ const cards = [
     icon: HiOutlineCube,
     color: "#2d9e7a",
     bg: "#e8f7f1",
+    to: "/supplier-dashboard/my-products",
   },
   {
     title: "Wallet",
@@ -18,6 +20,7 @@ const cards = [
     icon: HiOutlineWallet,
     color: "#d97706",
     bg: "#fef3c7",
+    to: "/supplier-dashboard/wallet",
   },
   {
     title: "Orders",
@@ -25,6 +28,7 @@ const cards = [
     icon: HiOutlineClipboardDocumentList,
     color: "#6366f1",
     bg: "#e0e7ff",
+    to: "/supplier-dashboard/orders",
   },
 ];
 
@@ -68,9 +72,9 @@ const SupplierDashboard = () => {
             <p className="text-sm leading-relaxed text-[#7a9e8e]">
               {card.description}
             </p>
-            <button className="mt-4 text-xs font-semibold text-primary hover:underline">
+            <Link to={card.to} className="mt-4 text-xs font-semibold text-primary hover:underline">
               Go to {card.title} →
-            </button>
+            </Link>
           </div>
         ))}
       </div>
