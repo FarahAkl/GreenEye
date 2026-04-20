@@ -10,6 +10,7 @@ export const useSupplierProducts = (supplierId: string) => {
   } = useQuery({
     queryKey: ["supplier-products", supplierId],
     queryFn: () => getSupplierProducts(supplierId),
+    enabled: !!supplierId,
     staleTime: 1000 * 60 * 5,
   });
 

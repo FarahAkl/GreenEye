@@ -50,9 +50,15 @@ export const updateProduct = async ({
   id: string;
   params: updateProductT;
 }) => {
+  const payload = { ...params };
+  if (payload.expiryDate === "") {
+    // @ts-ignore - Backend expects null or omitted if no expiry date is set
+    payload.expiryDate = null;
+  }
+
   const res = await axiosInstance.put(
     `/api/Supplier/product/${id}/update`,
-    params,
+    payload,
   );
   return res.data;
 };

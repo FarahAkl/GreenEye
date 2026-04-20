@@ -10,6 +10,7 @@ export const useSupplierOrders = (supplierId: string) => {
   } = useQuery({
     queryKey: ["supplier-orders", supplierId],
     queryFn: () => getSupplierOrders(supplierId),
+    enabled: !!supplierId,
     staleTime: 1000 * 60 * 5,
   });
 
