@@ -85,12 +85,12 @@ const ProductRow = ({
         </p>
         <span
           className={`inline-flex items-center gap-1.5 text-xs font-semibold ${
-            inStock ? "text-emerald-700" : "text-red-600"
+            inStock ? "text-primary" : "text-red-600"
           }`}
         >
           <span
             className={`h-2 w-2 shrink-0 rounded-full ${
-              inStock ? "bg-emerald-500" : "bg-red-500"
+              inStock ? "bg-primary" : "bg-red-500"
             }`}
             style={{
               boxShadow: inStock ? "0 0 0 3px #bbf7d0" : "0 0 0 3px #fee2e2",
@@ -102,7 +102,7 @@ const ProductRow = ({
 
       {/* Price & Badge */}
       <div className="min-w-27 text-right">
-        <p className="text-xl font-semibold tracking-tight text-dark">
+        <p className="text-dark text-xl font-semibold tracking-tight">
           {product.price}{" "}
           <span className="text-sm font-semibold text-gray-400">EGP</span>
         </p>
@@ -144,7 +144,6 @@ const ProductRow = ({
               />
             </Modal.Window>
           </Modal>
-
         </div>
       </div>
     </div>
