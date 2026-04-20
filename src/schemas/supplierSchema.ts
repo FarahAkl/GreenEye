@@ -61,3 +61,4 @@ export const updateProductSchema = z.object({
 
 export type createProductT = z.infer<typeof createProductsSchema>;
 export type updateProductT = z.infer<typeof updateProductSchema>
+export type createProductItemT =z.infer<typeof createProductItemSchema>

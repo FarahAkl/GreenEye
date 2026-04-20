@@ -5,7 +5,6 @@ import type {
   createProductT,
   updateProductT,
 } from "../../../schemas/supplierSchema";
-import { createProductResponseSchema } from "../../../schemas/productsSchema";
 
 export type profitsParamsT = {
   year?: number;
@@ -27,8 +26,7 @@ export const addProducts = async (data: createProductT) => {
       formData,
     );
 
-    const validateRes = createProductResponseSchema.parse(res.data);
-    return validateRes;
+    return res.data;
   } catch (err) {
     if (isAxiosError(err)) {
       const message =
