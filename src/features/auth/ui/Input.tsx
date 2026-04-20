@@ -19,6 +19,7 @@ interface InputProps<T extends FieldValues> {
   value?: string;
   disabled?: boolean;
   accept?: string;
+  className?: string;
 }
 
 function Input<T extends FieldValues>({
@@ -33,12 +34,13 @@ function Input<T extends FieldValues>({
   type = "text",
   error,
   accept,
+  className,
 }: InputProps<T>) {
   const [showPassword, setShowPassword] = useState(false);
   const isPassword = type === "password";
 
   return (
-    <div className={`mb-4 flex flex-col gap-2`}>
+    <div className={`mb-4 flex flex-col gap-2 ${className}`}>
       {label && <p className="text-gray-600 px-3">{label}</p>}
       <div
         className={`border-gray-300 bg-white/50 ${error ? "border-2 border-red-600" : ""} ${disabled ? "bg-gray-50 text-gray-400" : ""} focus-within:border-primary focus-within:ring-primary flex items-center rounded-3xl border px-3 py-2.5 focus-within:ring-1`}
