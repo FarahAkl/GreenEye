@@ -10,8 +10,8 @@ import { useProfile } from "../../profile/hooks/useProfile";
 import type { updateProductT } from "../../../schemas/supplierSchema";
 
 import Button from "../../../ui/Button";
-import ProductRow from "../components/ProductRow";
-import SkeletonRow from "../components/SkeletonRow";
+import ProductRow from "../ui/ProductRow";
+import SkeletonRow from "../ui/SkeletonRow";
 
 const SupplierProducts = () => {
   const navigate = useNavigate();
