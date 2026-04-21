@@ -3,21 +3,24 @@ import {
   HiOutlineCube,
   HiOutlineBanknotes,
 } from "react-icons/hi2";
+import { useNavigate } from "react-router-dom";
 
 const cards = [
   {
-    title: "Pending Users",
+    title: "All Users",
     description: "Review and approve new supplier and expert registrations.",
     icon: HiOutlineUsers,
     color: "#2d9e7a",
     bg: "#e8f7f1",
+    to: "/admin-dashboard/users/all",
   },
   {
-    title: "Pending Products",
+    title: "All Products",
     description: "Approve or reject products submitted by suppliers.",
     icon: HiOutlineCube,
     color: "#d97706",
     bg: "#fef3c7",
+    to: "/admin-dashboard/products/all",
   },
   {
     title: "Withdrawal Requests",
@@ -25,10 +28,12 @@ const cards = [
     icon: HiOutlineBanknotes,
     color: "#6366f1",
     bg: "#e0e7ff",
+    to: "/admin-dashboard/withdrawals/requests",
   },
 ];
 
 const AdminDashboard = () => {
+  const navigate = useNavigate();
   return (
     <div className="animate-[fadeInUp_0.4s_ease_both]">
       <style>{`
@@ -40,7 +45,9 @@ const AdminDashboard = () => {
 
       {/* Header */}
       <div className="mb-10">
-        <h1 className="mb-2 text-3xl font-bold text-[#1a3a2e]">Admin Overview</h1>
+        <h1 className="mb-2 text-3xl font-bold text-[#1a3a2e]">
+          Admin Overview
+        </h1>
         <p className="text-[#7a9e8e]">
           Welcome back! Here's what needs your attention today.
         </p>
@@ -68,7 +75,10 @@ const AdminDashboard = () => {
             <p className="text-sm leading-relaxed text-[#7a9e8e]">
               {card.description}
             </p>
-            <button className="mt-4 text-xs font-semibold text-primary hover:underline">
+            <button
+              className="text-primary mt-4 text-xs font-semibold hover:underline"
+              onClick={() => navigate(card.to)}
+            >
               View details →
             </button>
           </div>

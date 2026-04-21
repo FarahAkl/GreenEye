@@ -89,3 +89,23 @@ export const rejectProduct = async ({
   );
   return res.data;
 };
+
+export const getAllUsers = async (params: {
+  rule?: string;
+  pageSize?: number;
+  pageNumber?: number;
+  orderByDirection?: string;
+}) => {
+  const res = await axiosInstance.get(`/api/Admin/all-users`, { params });
+  return res.data;
+};
+
+export const getProductsCount = async () => {
+  const res = await axiosInstance.get(`/api/Admin/products-count`);
+  return res.data;
+};
+
+export const getOrdersCount = async () => {
+  const res = await axiosInstance.get(`/api/Admin/orders-count`);
+  return res.data;
+};

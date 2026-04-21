@@ -1,21 +1,124 @@
-import { Outlet, NavLink } from "react-router-dom";
+import { Outlet, NavLink, useLocation } from "react-router-dom";
 import { useAuth } from "../features/auth/hooks/useAuth";
 import { logout } from "../features/auth/services/apiAuth";
 import {
   LuLogOut,
   LuLayoutDashboard,
-  LuUsers,
   LuPackage,
   LuWallet,
   LuClipboardList,
+  LuShoppingBag,
+  LuLayoutGrid,
+  LuChevronDown,
+  LuChevronRight,
+  LuUser,
+  LuChartBar,
 } from "react-icons/lu";
 import { useState } from "react";
 import { HiMenu, HiX } from "react-icons/hi";
 import { useScrollToTop } from "../hooks/useScrollToTop";
+import type { IconType } from "react-icons";
+
+interface SubLink {
+  to: string;
+  label: string;
+  badge?: number;
+  badgeColor?: string;
+}
+
+interface SidebarItemType {
+  to?: string;
+  label: string;
+  icon: IconType;
+  subLinks?: SubLink[];
+}
+
+const SidebarItem = ({
+  item,
+  setIsSidebarOpen,
+  pathname,
+}: {
+  item: SidebarItemType;
+  setIsSidebarOpen: (open: boolean) => void;
+  pathname: string;
+}) => {
+  const isSubActive = item.subLinks?.some(
+    (sub: SubLink) => pathname === sub.to || pathname.startsWith(sub.to + "/"),
+  );
+  const [isUserToggled, setIsUserToggled] = useState(false);
+  const isOpen = isUserToggled || isSubActive;
+
+  if (!item.subLinks) {
+    return item.to ? (
+      <NavLink
+        to={item.to}
+        end={
+          item.to === "/admin-dashboard" || item.to === "/supplier-dashboard"
+        }
+        onClick={() => setIsSidebarOpen(false)}
+        className={({ isActive }) =>
+          `flex items-center gap-2 rounded-xl px-2 py-3 text-[15px] font-semibold transition-all duration-200 ${
+            isActive
+              ? "bg-[#e9f2ee] text-[#3b8768]"
+              : "text-[#6b7280] hover:bg-[#f0fdf4] hover:text-[#3b8768]"
+          }`
+        }
+      >
+        <span className="w-4"></span>
+        <item.icon size={22} />
+        <span className="flex-1">{item.label}</span>
+      </NavLink>
+    ) : null;
+  }
+
+  return (
+    <div className="space-y-1">
+      <button
+        onClick={() => setIsUserToggled(!isOpen)}
+        className={`flex w-full items-center gap-2 rounded-xl px-2 py-3 text-[15px] font-semibold text-[#6b7280] transition-all duration-200 hover:bg-[#f0fdf4] hover:text-[#3b8768]`}
+      >
+        <span className="flex w-4 justify-center text-[#9ca3af]">
+          {isOpen ? <LuChevronDown size={16} /> : <LuChevronRight size={16} />}
+        </span>
+        <item.icon size={22} />
+        <span className="flex-1 text-left">{item.label}</span>
+      </button>
+      {isOpen && (
+        <div className="space-y-1">
+          {item.subLinks.map((subLink: SubLink) => (
+            <NavLink
+              key={subLink.to}
+              to={subLink.to}
+              onClick={() => setIsSidebarOpen(false)}
+              className={({ isActive }) =>
+                `flex items-center justify-between rounded-xl py-2.5 pr-4 pl-13 text-[15px] font-semibold transition-all duration-200 ${
+                  isActive
+                    ? "bg-[#e9f2ee] text-[#3b8768]"
+                    : "text-[#6b7280] hover:text-[#3b8768]"
+                }`
+              }
+            >
+              <span>- {subLink.label}</span>
+              {subLink.badge && (
+                <span
+                  className={`flex h-5 w-5 items-center justify-center rounded-full text-[11px] font-bold text-white ${subLink.badgeColor || "bg-[#de4436]"}`}
+                >
+                  {subLink.badge}
+                </span>
+              )}
+            </NavLink>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
 
 const DashboardLayout = () => {
   const { roles } = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const location = useLocation();
+  const pathname = location.pathname;
   useScrollToTop();
 
   const lowerRoles = roles.map((r) => r.toLowerCase());
@@ -23,17 +126,48 @@ const DashboardLayout = () => {
   const isSupplier = lowerRoles.includes("supplier");
 
   const adminLinks = [
-    { to: "/admin-dashboard", label: "Overview", icon: LuLayoutDashboard },
-    { to: "/admin-dashboard/users", label: "Pending Users", icon: LuUsers },
+    { to: "/admin-dashboard", label: "Overview & Analytics", icon: LuChartBar },
     {
-      to: "/admin-dashboard/products",
-      label: "Pending Products",
-      icon: LuPackage,
+      label: "User Management",
+      icon: LuUser,
+      subLinks: [
+        {
+          to: "/admin-dashboard/users/pending",
+          label: "Pending Users",
+        },
+        { to: "/admin-dashboard/users/all", label: "All Users" },
+      ],
     },
     {
-      to: "/admin-dashboard/withdrawals",
-      label: "Withdrawals",
+      label: "Product Management",
+      icon: LuPackage,
+      subLinks: [
+        {
+          to: "/admin-dashboard/products/pending",
+          label: "Pending Products",
+        },
+        { to: "/admin-dashboard/products/all", label: "All Products" },
+      ],
+    },
+    { to: "/admin-dashboard/orders", label: "Orders", icon: LuShoppingBag },
+    {
+      label: "Wallets & Cash Flow",
       icon: LuWallet,
+      subLinks: [
+        {
+          to: "/admin-dashboard/withdrawals/requests",
+          label: "Withdrawal Requests",
+        },
+        {
+          to: "/admin-dashboard/withdrawals/wallets",
+          label: "Supplier Wallets",
+        },
+      ],
+    },
+    {
+      to: "/admin-dashboard/categories",
+      label: "Categories",
+      icon: LuLayoutGrid,
     },
   ];
 
@@ -80,23 +214,13 @@ const DashboardLayout = () => {
         </div>
 
         <nav className="flex-1 space-y-1 p-4">
-          {links.map((link) => (
-            <NavLink
-              key={link.to}
-              to={link.to}
-              end
-              onClick={() => setIsSidebarOpen(false)}
-              className={({ isActive }) =>
-                `flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-200 ${
-                  isActive
-                    ? "bg-primary text-white shadow-md"
-                    : "text-[#5d8a7d] hover:bg-[#ebf5f0] hover:text-[#1d4638]"
-                }`
-              }
-            >
-              <link.icon size={20} />
-              {link.label}
-            </NavLink>
+          {links.map((link, index) => (
+            <SidebarItem
+              key={index}
+              item={link}
+              setIsSidebarOpen={setIsSidebarOpen}
+              pathname={pathname}
+            />
           ))}
         </nav>
 
