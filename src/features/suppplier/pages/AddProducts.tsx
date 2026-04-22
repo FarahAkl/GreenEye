@@ -93,7 +93,7 @@ const AddProducts = () => {
   return (
     <>
       <div className="bg-dark/90 rounded-2xl px-6 py-3.5">
-        <h2 className="text-base font-semibold tracking-wide text-white">
+        <h2 className="text-xl font-semibold tracking-wide text-white">
           Adding New Product
         </h2>
       </div>

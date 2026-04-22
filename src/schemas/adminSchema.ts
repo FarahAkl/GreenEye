@@ -12,6 +12,17 @@ export const pendingUserSchema = z.object({
   role: z.string(),
 });
 
+export const userSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  email: z.string(),
+  phoneNumber: z.string(),
+  profileImage: z.string().nullable(),
+  logoImage: z.string().nullable,
+  role: z.string(),
+  createdAt: z.string(),
+});
+
 export const pendingUsersResponseSchema = z.object({
   isSuccess: z.boolean(),
   message: z.string(),
@@ -60,4 +71,6 @@ export const rejectProductReasonSchema = z.object({
 
 export type rejectT = z.infer<typeof rejectedReasonSchema>;
 export type withdrawalApproveT = z.infer<typeof withdrawalApproveRequestSchema>;
-export type rejectProductT  = z.infer<typeof rejectProductReasonSchema>
+export type rejectProductT = z.infer<typeof rejectProductReasonSchema>;
+export type userT = z.infer<typeof userSchema>;
+export type pendingUserT = z.infer<typeof pendingUserSchema>;

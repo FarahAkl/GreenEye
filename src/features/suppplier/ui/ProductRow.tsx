@@ -6,7 +6,7 @@ import EditForm from "./EditForm";
 import type { updateProductT } from "../../../schemas/supplierSchema";
 import Modal from "../../../ui/Modal";
 
-const BASE_URL = import.meta.env.BASE_URL;
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 interface SupplierProduct {
   productId: number;

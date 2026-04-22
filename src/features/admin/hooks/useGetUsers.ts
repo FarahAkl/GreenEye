@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getAllUsers } from "../services/apiAdmin";
 
 export const useGetUsers = (params: {
-  rule?: string;
+  role?: string;
   pageSize?: number;
   pageNumber?: number;
   orderByDirection?: string;
@@ -15,7 +15,7 @@ export const useGetUsers = (params: {
   } = useQuery({
     queryKey: [
       "users",
-      params.rule,
+      params.role,
       params.orderByDirection,
       params.pageNumber,
       params.pageSize,

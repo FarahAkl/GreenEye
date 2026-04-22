@@ -91,7 +91,7 @@ export const rejectProduct = async ({
 };
 
 export const getAllUsers = async (params: {
-  rule?: string;
+  role?: string;
   pageSize?: number;
   pageNumber?: number;
   orderByDirection?: string;
