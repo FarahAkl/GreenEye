@@ -24,7 +24,7 @@ interface EditFormProps {
   isUpdating: boolean;
 }
 
-function EditForm({
+m({
   product,
   onCloseModal,
   onSave,

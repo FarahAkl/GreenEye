@@ -5,7 +5,7 @@ interface RoleProtectedRouteProps {
   allowedRoles: string[];
 }
 
-function RoleProtectedRoute({ allowedRoles }: RoleProtectedRouteProps) {
+const RoleProtectedRoute = ({ allowedRoles }: RoleProtectedRouteProps) => {
   const { isAuthenticated, roles } = useAuth();
 
   if (!isAuthenticated) {
@@ -21,6 +21,6 @@ function RoleProtectedRoute({ allowedRoles }: RoleProtectedRouteProps) {
   }
 
   return <Outlet />;
-}
+};
 
 export default RoleProtectedRoute;

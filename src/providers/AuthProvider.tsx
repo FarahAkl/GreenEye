@@ -18,7 +18,7 @@ const parseRolesCookie = (): string[] => {
   }
 };
 
-export function AuthProvider({ children }: ProviderProps) {
+export const AuthProvider = ({ children }: ProviderProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
     return !!getCookie({ name: "token" });
   });
@@ -61,4 +61,4 @@ export function AuthProvider({ children }: ProviderProps) {
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-}
+};

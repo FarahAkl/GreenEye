@@ -22,7 +22,7 @@ interface InputProps<T extends FieldValues> {
   className?: string;
 }
 
-function Input<T extends FieldValues>({
+const Input = <T extends FieldValues>({
   name,
   placeholder,
   register,
@@ -35,13 +35,13 @@ function Input<T extends FieldValues>({
   error,
   accept,
   className,
-}: InputProps<T>) {
+}: InputProps<T>) => {
   const [showPassword, setShowPassword] = useState(false);
   const isPassword = type === "password";
 
   return (
     <div className={`mb-4 flex flex-col gap-2 ${className}`}>
-      {label && <p className="text-gray-600 px-3">{label}</p>}
+      {label && <p className="px-3 text-gray-600">{label}</p>}
       <div
         className={`border-gray-300 bg-white/50 ${error ? "border-2 border-red-600" : ""} ${disabled ? "bg-gray-50 text-gray-400" : ""} focus-within:border-primary focus-within:ring-primary flex items-center rounded-3xl border px-3 py-2.5 focus-within:ring-1`}
       >
@@ -76,6 +76,6 @@ function Input<T extends FieldValues>({
       {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
     </div>
   );
-}
+};
 
 export default Input;

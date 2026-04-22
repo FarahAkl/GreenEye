@@ -23,6 +23,7 @@ import MyOrders from "../pages/MyOrders";
 import OrderDetails from "../pages/OrderDetails";
 import AdminDashboard from "../features/admin/pages/AdminDashboard";
 import AllUsers from "../features/admin/pages/AllUsers";
+import PendingUsers from "../features/admin/pages/PendingUsers";
 import SupplierDashboard from "../features/suppplier/pages/SupplierDashboard";
 import SupplierProducts from "../features/suppplier/pages/SupplierProducts";
 import SupplierOrders from "../features/suppplier/pages/SupplierOrders";
@@ -78,7 +79,7 @@ const router = createBrowserRouter([
         element: <RoleProtectedRoute allowedRoles={["admin"]} />,
         children: [
           { path: "/admin-dashboard", element: <AdminDashboard /> },
-          { path: "/admin-dashboard/users/pending", element: <AdminDashboard /> },
+          { path: "/admin-dashboard/users/pending", element: <PendingUsers /> },
           { path: "/admin-dashboard/users/all", element: <AllUsers /> },
           { path: "/admin-dashboard/products/pending", element: <AdminDashboard /> },
           { path: "/admin-dashboard/products/all", element: <AdminDashboard /> },

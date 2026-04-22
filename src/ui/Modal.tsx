@@ -23,7 +23,7 @@ interface ModalProps {
   children: ReactNode;
 }
 
-export default function Modal({ children }: ModalProps) {
+const Modal = ({ children }: ModalProps) => {
   const [openName, setOpenName] = useState("");
 
   const open = (name: string) => setOpenName(name);
@@ -34,14 +34,14 @@ export default function Modal({ children }: ModalProps) {
       {children}
     </ModalContext.Provider>
   );
-}
+};
 
 interface OpenProps {
   children: ReactElement<{ onClick?: (e: MouseEvent) => void }>;
   opens: string;
 }
 
-function Open({ children, opens }: OpenProps) {
+const Open = ({ children, opens }: OpenProps) => {
   const context = useContext(ModalContext);
   if (!context) throw new Error("Open must be used inside <Modal>");
 
@@ -53,7 +53,7 @@ function Open({ children, opens }: OpenProps) {
       open(opens);
     },
   });
-}
+};
 
 interface WindowProps {
   name: string;
@@ -63,7 +63,7 @@ interface WindowProps {
   children: ReactElement<{ onCloseModal?: () => void }>;
 }
 
-function Window({ name, icon, title, description, children }: WindowProps) {
+const Window = ({ name, icon, title, description, children }: WindowProps) => {
   const context = useContext(ModalContext);
   if (!context) throw new Error("Window must be used inside <Modal>");
 
@@ -80,7 +80,7 @@ function Window({ name, icon, title, description, children }: WindowProps) {
     <div className="fixed inset-0 z-999 flex h-full items-center justify-center bg-black/20 backdrop-blur-sm transition-all">
       <div
         ref={ref}
-        className="relative w-fit min-w-fit rounded-xl bg-white p-8 shadow-xl"
+        className="relative mx-2 w-fit min-w-fit rounded-xl bg-white p-8 shadow-xl"
       >
         <div className="flex items-center gap-2">
           <div className="border-black-400 flex h-12 w-12 shrink-0 items-center justify-center rounded-full border">
@@ -96,7 +96,9 @@ function Window({ name, icon, title, description, children }: WindowProps) {
     </div>,
     modalRoot,
   );
-}
+};
 
 Modal.Open = Open;
 Modal.Window = Window;
+
+export default Modal;
