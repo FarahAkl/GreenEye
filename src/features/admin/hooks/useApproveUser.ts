@@ -12,7 +12,7 @@ export const useApproveUser = () => {
       queryClient.invalidateQueries({ queryKey: ["pending-users"] });
     },
     onError: (err: Error) => {
-      toast.error(err.message || "Failed to approve product");
+      toast.error(err.message || "Failed to approve user");
     },
   });
 

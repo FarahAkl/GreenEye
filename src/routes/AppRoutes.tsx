@@ -24,6 +24,7 @@ import OrderDetails from "../pages/OrderDetails";
 import AdminDashboard from "../features/admin/pages/AdminDashboard";
 import AllUsers from "../features/admin/pages/AllUsers";
 import PendingUsers from "../features/admin/pages/PendingUsers";
+import PendingProducts from "../features/admin/pages/PendingProducts";
 import SupplierDashboard from "../features/suppplier/pages/SupplierDashboard";
 import SupplierProducts from "../features/suppplier/pages/SupplierProducts";
 import SupplierOrders from "../features/suppplier/pages/SupplierOrders";
@@ -81,7 +82,7 @@ const router = createBrowserRouter([
           { path: "/admin-dashboard", element: <AdminDashboard /> },
           { path: "/admin-dashboard/users/pending", element: <PendingUsers /> },
           { path: "/admin-dashboard/users/all", element: <AllUsers /> },
-          { path: "/admin-dashboard/products/pending", element: <AdminDashboard /> },
+          { path: "/admin-dashboard/products/pending", element: <PendingProducts /> },
           { path: "/admin-dashboard/products/all", element: <AdminDashboard /> },
           { path: "/admin-dashboard/orders", element: <AdminDashboard /> },
           { path: "/admin-dashboard/withdrawals/requests", element: <AdminDashboard /> },
