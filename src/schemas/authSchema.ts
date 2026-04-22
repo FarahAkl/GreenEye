@@ -65,7 +65,7 @@ export const registerStep1Schema = z
       .nonempty("This field is required")
       .min(8, "Password must be at least 8 characters")
       .max(255, "Password must not exceed 255 characters"),
-    rule: z.enum(["farmer", "admin", "supplier", "expert"], {
+    role: z.enum(["farmer", "admin", "supplier", "expert"], {
       message: "Please select a role",
     }),
   })
@@ -83,7 +83,7 @@ export const registerSchema = registerStep1Schema
     logoFile: z.instanceof(FileList).optional(),
   })
   .superRefine((data, ctx) => {
-    const requiresLogo = ["supplier", "expert"].includes(data.rule);
+    const requiresLogo = ["supplier", "expert"].includes(data.role);
 
     if (requiresLogo) {
       if (!data.logoFile || data.logoFile.length === 0) {

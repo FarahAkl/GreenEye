@@ -71,7 +71,7 @@ const Register = () => {
       confirmPassword: "",
       address: "",
       name: "",
-      rule: "farmer",
+      role: "farmer",
       imageFile: undefined,
       logoFile: undefined,
       phoneNumber: "",
@@ -79,7 +79,7 @@ const Register = () => {
   });
 
   // Watch the role so step 2 can react to it
-  const selectedRole = useWatch({ control, name: "rule" });
+  const selectedRole = useWatch({ control, name: "role" });
   const showLogoUpload = requiresLogo(selectedRole);
 
   // ── Close role dropdown on outside click ──────────────────────────────────
@@ -183,7 +183,7 @@ const Register = () => {
             <div className="mb-4 flex flex-col gap-2 sm:col-span-2">
               <span className="text-sm font-medium text-gray-600">Role</span>
               <Controller
-                name="rule"
+                name="role"
                 control={control}
                 render={({ field }) => {
                   const selected = ROLE_OPTIONS.find(
@@ -198,7 +198,7 @@ const Register = () => {
                         aria-expanded={roleMenuOpen}
                         onClick={() => setRoleMenuOpen((open) => !open)}
                         className={`focus-within:ring-primary flex w-full items-center justify-between rounded-2xl border px-3 py-2.5 text-left transition focus-within:ring-1 focus:outline-none ${
-                          errors.rule
+                          errors.role
                             ? "border-2 border-red-600"
                             : roleMenuOpen
                               ? "border-primary ring-primary ring-1"
@@ -255,8 +255,8 @@ const Register = () => {
                   );
                 }}
               />
-              {errors.rule?.message && (
-                <p className="text-sm text-red-600">{errors.rule.message}</p>
+              {errors.role?.message && (
+                <p className="text-sm text-red-600">{errors.role.message}</p>
               )}
             </div>
           </>
