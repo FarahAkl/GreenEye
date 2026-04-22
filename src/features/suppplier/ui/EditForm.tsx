@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { FiImage, FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import Input from "../../auth/ui/Input";
 import type { updateProductT } from "../../../schemas/supplierSchema";
@@ -24,20 +24,20 @@ interface EditFormProps {
   isUpdating: boolean;
 }
 
-m({
+const EditForm = ({
   product,
   onCloseModal,
   onSave,
   isUpdating,
-}: EditFormProps) {
+}: EditFormProps) => {
   const [step, setStep] = useState<1 | 2>(1);
 
   const {
+    control,
     register,
     handleSubmit,
     trigger,
     setValue,
-    watch,
     formState: { errors },
   } = useForm<updateProductT>({
     defaultValues: {
@@ -48,8 +48,6 @@ m({
       expiryDate: "",
     },
   });
-
-  const imageFileWatch = watch("imageFile");
 
   const onSubmit = (data: updateProductT) => {
     onSave(product.productId, data);
@@ -69,11 +67,20 @@ m({
     }
   };
 
+  const imageFile = useWatch({
+    control,
+    name: "imageFile",
+  });
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="mt-5 w-full max-w-md">
       <div className="mb-6 flex items-center justify-center gap-2">
-        <div className={`h-2 w-12 rounded-full transition-colors ${step === 1 ? 'bg-primary' : 'bg-[#e0f0e9]'}`} />
-        <div className={`h-2 w-12 rounded-full transition-colors ${step === 2 ? 'bg-primary' : 'bg-[#e0f0e9]'}`} />
+        <div
+          className={`h-2 w-12 rounded-full transition-colors ${step === 1 ? "bg-primary" : "bg-[#e0f0e9]"}`}
+        />
+        <div
+          className={`h-2 w-12 rounded-full transition-colors ${step === 2 ? "bg-primary" : "bg-[#e0f0e9]"}`}
+        />
       </div>
 
       {step === 1 && (
@@ -143,7 +150,7 @@ m({
             <button
               type="button"
               onClick={handleNextStep}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 font-semibold text-white transition-colors hover:bg-[#034415]"
+              className="bg-primary flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 font-semibold text-white transition-colors hover:bg-[#034415]"
             >
               Next Step <FiArrowRight />
             </button>
@@ -154,7 +161,9 @@ m({
       {step === 2 && (
         <div className="animate-[fadeIn_0.3s_ease]">
           <div className="space-y-2">
-            <label className="text-sm font-semibold text-[#5d8a7d]">Update Product Image (Optional)</label>
+            <label className="text-sm font-semibold text-[#5d8a7d]">
+              Update Product Image (Optional)
+            </label>
             <div className="relative">
               <input
                 type="file"
@@ -163,31 +172,48 @@ m({
                 onChange={(e) => {
                   const file = e.target.files?.[0];
                   if (file) {
-                    setValue("imageFile", file as any, { shouldValidate: true });
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(file);
+                    setValue("imageFile", dataTransfer.files, {
+                      shouldValidate: true,
+                    });
                   }
                 }}
               />
-              <div className={`flex flex-col items-center justify-center rounded-2xl border-2 border-dashed p-8 transition-colors ${imageFileWatch ? 'border-primary bg-primary/5' : 'border-[#e0f0e9] bg-[#fafcfb] hover:border-primary/30 hover:bg-[#ebf5f0]'}`}>
-                {imageFileWatch ? (
+              <div
+                className={`flex flex-col items-center justify-center rounded-2xl border-2 border-dashed p-8 transition-colors ${imageFile ? "border-primary bg-primary/5" : "hover:border-primary/30 border-[#e0f0e9] bg-[#fafcfb] hover:bg-[#ebf5f0]"}`}
+              >
+                {imageFile ? (
                   <>
-                    <FiImage size={32} className="mb-2 text-primary" />
-                    <span className="text-sm font-bold text-primary">Image Selected</span>
-                    <span className="mt-1 text-xs text-[#5d8a7d]">{(imageFileWatch as unknown as File).name}</span>
+                    <FiImage size={32} className="text-primary mb-2" />
+                    <span className="text-primary text-sm font-bold">
+                      Image Selected
+                    </span>
+                    <span className="mt-1 text-xs text-[#5d8a7d]">
+                      {(imageFile as unknown as File).name}
+                    </span>
                   </>
                 ) : (
                   <>
                     <FiImage size={32} className="mb-2 text-[#7a9e8e]" />
-                    <span className="text-sm font-bold text-[#1a3a2e]">Upload New Image</span>
-                    <span className="mt-1 text-xs text-[#7a9e8e]">Drag & drop or click to browse</span>
+                    <span className="text-sm font-bold text-[#1a3a2e]">
+                      Upload New Image
+                    </span>
+                    <span className="mt-1 text-xs text-[#7a9e8e]">
+                      Drag & drop or click to browse
+                    </span>
                   </>
                 )}
               </div>
             </div>
             {errors.imageFile && (
-              <p className="mt-1 text-xs text-red-500">{errors.imageFile?.message}</p>
+              <p className="mt-1 text-xs text-red-500">
+                {errors.imageFile?.message}
+              </p>
             )}
             <p className="mt-2 text-xs text-[#7a9e8e]">
-              If you don't select an image, the current product image will be kept.
+              If you don't select an image, the current product image will be
+              kept.
             </p>
           </div>
 
@@ -212,6 +238,6 @@ m({
       )}
     </form>
   );
-}
+};
 
 export default EditForm;
