@@ -69,8 +69,27 @@ export const rejectProductReasonSchema = z.object({
   reason: z.string(),
 });
 
+export const changeRoleRequestSchema = z.object({
+  userId: z.string(),
+  newRole: z.string(),
+});
+
+export const freezeUserSchema = z.object({
+  userId: z.string(),
+  reason: z.string(),
+  days: z.number(),
+});
+
+export const unfreezeUserSchema = z.object({
+  userId: z.string(),
+  message: z.string(),
+});
+
 export type rejectT = z.infer<typeof rejectedReasonSchema>;
 export type withdrawalApproveT = z.infer<typeof withdrawalApproveRequestSchema>;
 export type rejectProductT = z.infer<typeof rejectProductReasonSchema>;
 export type userT = z.infer<typeof userSchema>;
 export type pendingUserT = z.infer<typeof pendingUserSchema>;
+export type changeRoleT = z.infer<typeof changeRoleRequestSchema>
+export type freezeUserT = z.infer<typeof freezeUserSchema>
+export type unfreezeUserT = z.infer<typeof unfreezeUserSchema>

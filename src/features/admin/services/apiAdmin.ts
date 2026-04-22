@@ -1,6 +1,10 @@
+import { isAxiosError } from "axios";
 import type {
+  changeRoleT,
+  freezeUserT,
   rejectProductT,
   rejectT,
+  unfreezeUserT,
   withdrawalApproveT,
 } from "../../../schemas/adminSchema";
 import axiosInstance from "../../../services/axiosInstance";
@@ -107,5 +111,93 @@ export const getProductsCount = async () => {
 
 export const getOrdersCount = async () => {
   const res = await axiosInstance.get(`/api/Admin/orders-count`);
+  return res.data;
+};
+
+export const changeRole = async (data: changeRoleT) => {
+  try {
+    const res = await axiosInstance.post(`/api/Admin/change-role`, data);
+    return res.data;
+  } catch (err) {
+    if (isAxiosError(err)) {
+      const message =
+        err.response?.data?.error ||
+        err.response?.data?.message ||
+        err.message ||
+        "Something went wrong";
+
+      throw new Error(message);
+    }
+    throw err;
+  }
+};
+
+export const freezeUser = async (data: freezeUserT) => {
+  try {
+    const res = await axiosInstance.post(`/api/Admin/freeze-user`, data);
+    return res.data;
+  } catch (err) {
+    if (isAxiosError(err)) {
+      const message =
+        err.response?.data?.error ||
+        err.response?.data?.message ||
+        err.message ||
+        "Something went wrong";
+
+      throw new Error(message);
+    }
+    throw err;
+  }
+};
+
+export const unfreezeUser = async (data: unfreezeUserT) => {
+  try {
+    const res = await axiosInstance.post(`/api/Admin/unfreeze-user`, data);
+    return res.data;
+  } catch (err) {
+    if (isAxiosError(err)) {
+      const message =
+        err.response?.data?.error ||
+        err.response?.data?.message ||
+        err.message ||
+        "Something went wrong";
+
+      throw new Error(message);
+    }
+    throw err;
+  }
+};
+
+export const getProductUpdatesPending = async () => {
+  const res = await axiosInstance.get(`/api/Admin/product-updates/pending`);
+  return res.data;
+};
+
+export const getProductUpdateDetails = async (requestId: string) => {
+  const res = await axiosInstance.get(
+    `/api/Admin/product/${requestId}/update-details`,
+  );
+  return res.data;
+};
+
+export const approveProductUpdates = async ({
+  requestId,
+}: {
+  requestId: string;
+}) => {
+  const res = await axiosInstance.put(
+    `/api/Admin/product-updates/${requestId}/approve`,
+  );
+  return res.data;
+};
+
+export const rejectProductUpdates = async ({
+  requestId,
+}: {
+  requestId: string;
+}) => {
+  const res = await axiosInstance.put(
+    `/api/Admin/product-updates/${requestId}/reject`,
+  );
   return res.data;
 };
