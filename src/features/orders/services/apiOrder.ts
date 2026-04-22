@@ -29,10 +29,9 @@ export const createOrder = async (data: createOrderT) => {
   }
 };
 
-export const getUserOrders = async ({ userId }: { userId?: string }) => {
+export const getUserOrders = async () => {
   const res = await axiosInstance.get(
-    "/api/marketplace/Order/user-orders",
-    {params: {userId}},
+    "/api/marketplace/Order/user/orders",
   );
   return res.data;
 };
