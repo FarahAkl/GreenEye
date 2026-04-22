@@ -27,7 +27,7 @@ export const rejectUser = async ({
   params: rejectT;
 }) => {
   const res = await axiosInstance.put(
-    `/api/Admin/user/${userId}/approve`,
+    `/api/Admin/user/${userId}/reject`,
     params,
   );
   return res.data;

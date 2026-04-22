@@ -10,6 +10,7 @@ export const useGetUsers = (params: {
   const {
     data: users,
     isPending: isFetchingUsers,
+    isFetching,
     isError,
     error,
   } = useQuery({
@@ -24,5 +25,5 @@ export const useGetUsers = (params: {
     staleTime: 1000 * 60 * 5,
   });
 
-  return { users, isFetchingUsers, isError, error };
+  return { users, isFetchingUsers, isFetching, isError, error };
 };

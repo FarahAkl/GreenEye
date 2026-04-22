@@ -25,7 +25,7 @@ const AllUsers = () => {
   const [activeTab, setActiveTab] = useState(tabs[0]);
   const [page, setPage] = useState(1);
 
-  const { users, isFetchingUsers } = useGetUsers({
+  const { users, isFetchingUsers, isFetching } = useGetUsers({
     role: activeTab.role,
     pageNumber: page,
     pageSize: 10,
@@ -33,7 +33,7 @@ const AllUsers = () => {
 
   const totalPages = users?.data.totalPages;
 
-  if (isFetchingUsers) {
+  if (isFetchingUsers || isFetching) {
     return (
       <div className="flex h-100 w-full items-center justify-center">
         <Spinner />
@@ -123,7 +123,7 @@ const AllUsers = () => {
                               : `https://ui-avatars.com/api/?name=${user.name || "User"}&background=04591b&color=fff`
                           }
                           alt=""
-                          className="h-8 w-8 rounded-full object-cover"
+                          className="h-8 w-8 shrink-0 rounded-full object-cover"
                         />
                         <span className="text-dark font-semibold">
                           {user.name || "lurem ipsum"}
