@@ -15,9 +15,9 @@ export const categoriesResponseSchema = z.object({
 });
 
 export const createCategoryRequestSchema = z.object({
-  name: z.string(),
+  name: z.string().nonempty("Name is required"),
   description: z.string().optional(),
-  imageUrl: z.instanceof(File).optional(),
+  imageUrl: z.instanceof(FileList).optional(),
 });
 
 export const createCategoryResponse = z.object({

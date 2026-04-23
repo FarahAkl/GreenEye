@@ -76,7 +76,7 @@ const PendingProducts = () => {
                           <span className="text-dark font-semibold">
                             {product.name}
                           </span>
-                          <span className="text-xs text-gray-500 max-w-[200px] truncate">
+                          <span className="text-xs text-gray-500 max-w-50 truncate">
                             {product.description}
                           </span>
                         </div>
