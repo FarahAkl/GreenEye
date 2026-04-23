@@ -142,11 +142,12 @@ const DashboardLayout = () => {
       label: "Product Management",
       icon: LuPackage,
       subLinks: [
+        { to: "/admin-dashboard/products/all", label: "All Products" },
         {
           to: "/admin-dashboard/products/pending",
           label: "Pending Products",
         },
-        { to: "/admin-dashboard/products/all", label: "All Products" },
+        { to: "/admin-dashboard/products/updates", label: "Pending Updates" },
       ],
     },
     { to: "/admin-dashboard/orders", label: "Orders", icon: LuShoppingBag },

@@ -84,13 +84,29 @@ const router = createBrowserRouter([
           { path: "/admin-dashboard", element: <AdminDashboard /> },
           { path: "/admin-dashboard/users/pending", element: <PendingUsers /> },
           { path: "/admin-dashboard/users/all", element: <AllUsers /> },
-          { path: "/admin-dashboard/products/pending", element: <PendingProducts /> },
-          { path: "/admin-dashboard/products/all", element: <AdminDashboard /> },
+          {
+            path: "/admin-dashboard/products/pending",
+            element: <PendingProducts />,
+          },
+          {
+            path: "/admin-dashboard/products/all",
+            element: <AdminDashboard />,
+          },
+          {
+            path: "/admin-dashboard/products/update",
+            element: <AdminDashboard />,
+          },
           { path: "/admin-dashboard/categories", element: <Categories /> },
           { path: "/admin-dashboard/categories/add", element: <AddCategory /> },
           { path: "/admin-dashboard/orders", element: <AdminDashboard /> },
-          { path: "/admin-dashboard/withdrawals/requests", element: <AdminDashboard /> },
-          { path: "/admin-dashboard/withdrawals/wallets", element: <AdminDashboard /> },
+          {
+            path: "/admin-dashboard/withdrawals/requests",
+            element: <AdminDashboard />,
+          },
+          {
+            path: "/admin-dashboard/withdrawals/wallets",
+            element: <AdminDashboard />,
+          },
           { path: "/admin-dashboard/categories", element: <AdminDashboard /> },
         ],
       },
