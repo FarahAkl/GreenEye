@@ -7,20 +7,20 @@ import {
   type UseFormSetValue,
   type FieldError,
   type Path,
+  type FieldValues,
 } from "react-hook-form";
-import type { registerT } from "../../../schemas/authSchema";
 
-interface ImageInputProps {
-  name: Extract<Path<registerT>, "imageFile" | "logoFile">;
+interface ImageInputProps<T extends FieldValues> {
+  name: Path<T>;
   label: string;
   hint?: string;
   error?: FieldError | { message?: string };
-  register: UseFormRegister<registerT>;
-  control: Control<registerT>;
-  setValue: UseFormSetValue<registerT>;
+  register: UseFormRegister<T>;
+  control: Control<T>;
+  setValue: UseFormSetValue<T>;
 }
 
-const ImageInput = ({
+const ImageInput = <T extends FieldValues>({
   name,
   label,
   hint = "JPG, PNG or WEBP · one image",
@@ -28,8 +28,8 @@ const ImageInput = ({
   register,
   control,
   setValue,
-}: ImageInputProps) => {
-  const inputId = `register-${name}`;
+}: ImageInputProps<T>) => {
+  const inputId = `input-${String(name)}`;
 
   const fileList = useWatch({ control, name });
   const selectedFile =
@@ -38,12 +38,13 @@ const ImageInput = ({
       : undefined;
 
   const previewUrl = useMemo(
-    () => (selectedFile ? URL.createObjectURL(selectedFile) : null),
+    () =>
+      selectedFile instanceof File ? URL.createObjectURL(selectedFile) : null,
     [selectedFile],
   );
 
   const handleRemove = () => {
-    // reset RHF value
+    // @ts-ignore
     setValue(name, undefined, { shouldValidate: true });
   };
 
@@ -64,13 +65,14 @@ const ImageInput = ({
           e.stopPropagation();
           const { files } = e.dataTransfer;
           if (files.length > 0) {
+            // @ts-ignore
             setValue(name, files, { shouldValidate: true });
           }
         }}
         className={`group flex h-full cursor-pointer flex-col items-center justify-center gap-4 rounded-2xl border-2 border-dashed px-6 py-10 transition ${
           error
             ? "border-red-400 bg-red-50/40"
-            : "hover:border-primary/45 hover:from-primary/6 border-gray-200 bg-linear-to-b from-gray-50/90 to-white hover:shadow-sm"
+            : "border-gray-200 bg-linear-to-b from-gray-50/90 to-white hover:border-primary/45 hover:from-primary/6 hover:shadow-sm"
         }`}
       >
         {previewUrl && selectedFile ? (
@@ -102,7 +104,7 @@ const ImageInput = ({
           </>
         ) : (
           <>
-            <div className="bg-primary/12 text-primary group-hover:bg-primary/18 flex h-16 w-16 items-center justify-center rounded-2xl transition">
+            <div className="bg-primary/12 text-primary flex h-16 w-16 items-center justify-center rounded-2xl transition group-hover:bg-primary/18">
               <CgImage size={32} />
             </div>
 
@@ -122,7 +124,7 @@ const ImageInput = ({
         <input
           id={inputId}
           type="file"
-          accept="image/*,.pdf"
+          accept="image/*"
           className="sr-only"
           {...register(name)}
         />

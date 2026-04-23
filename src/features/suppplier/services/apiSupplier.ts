@@ -48,9 +48,10 @@ export const updateProduct = async ({
   id: string;
   params: updateProductT;
 }) => {
+  const payload = objectToFormData(params);
   const res = await axiosInstance.put(
     `/api/Supplier/product/${id}/update`,
-    params,
+    payload,
   );
   return res.data;
 };

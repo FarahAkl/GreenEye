@@ -21,7 +21,7 @@ import { CgUser } from "react-icons/cg";
 import { IoChevronDown } from "react-icons/io5";
 import type { ZodIssue } from "zod";
 import Button from "../../../ui/Button";
-import ImageInput from "../ui/ImageInput";
+import ImageInput from "../../../ui/ImageInput";
 
 const ROLE_OPTIONS = [
   { value: "farmer", label: "Farmer" },

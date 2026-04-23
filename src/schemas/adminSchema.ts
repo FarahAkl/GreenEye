@@ -85,12 +85,26 @@ export const unfreezeUserSchema = z.object({
   message: z.string(),
 });
 
+export const pendingProductUpdateSchema = z.object({
+  requestId: z.number(),
+  productId: z.number(),
+  productName: z.string(),
+  requestedByUserId: z.string(),
+  requestedAt: z.string(),
+});
+
+export const pendingProductUpdateResponseSchema = z.object({
+  isSuccess: z.boolean(),
+  message: z.string(),
+  data:z.array(pendingProductUpdateSchema)
+})
+
 export type rejectT = z.infer<typeof rejectedReasonSchema>;
 export type withdrawalApproveT = z.infer<typeof withdrawalApproveRequestSchema>;
 export type rejectProductT = z.infer<typeof rejectProductReasonSchema>;
 export type userT = z.infer<typeof userSchema>;
 export type pendingUserT = z.infer<typeof pendingUserSchema>;
 export type pendingProductT = z.infer<typeof pendingProductSchema>;
-export type changeRoleT = z.infer<typeof changeRoleRequestSchema>
-export type freezeUserT = z.infer<typeof freezeUserSchema>
-export type unfreezeUserT = z.infer<typeof unfreezeUserSchema>
+export type changeRoleT = z.infer<typeof changeRoleRequestSchema>;
+export type freezeUserT = z.infer<typeof freezeUserSchema>;
+export type unfreezeUserT = z.infer<typeof unfreezeUserSchema>;

@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { useForm, useWatch } from "react-hook-form";
-import { FiImage, FiArrowLeft, FiArrowRight } from "react-icons/fi";
+import { useForm } from "react-hook-form";
+import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import Input from "../../auth/ui/Input";
+import ImageInput from "../../../ui/ImageInput";
 import type { updateProductT } from "../../../schemas/supplierSchema";
 import Button from "../../../ui/Button";
 
@@ -67,10 +68,10 @@ const EditForm = ({
     }
   };
 
-  const imageFile = useWatch({
-    control,
-    name: "imageFile",
-  });
+  // const imageFile = useWatch({
+  //   control,
+  //   name: "imageFile",
+  // });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="mt-5 w-full max-w-md">
@@ -161,56 +162,14 @@ const EditForm = ({
       {step === 2 && (
         <div className="animate-[fadeIn_0.3s_ease]">
           <div className="space-y-2">
-            <label className="text-sm font-semibold text-[#5d8a7d]">
-              Update Product Image (Optional)
-            </label>
-            <div className="relative">
-              <input
-                type="file"
-                accept="image/*"
-                className="absolute inset-0 z-10 cursor-pointer opacity-0"
-                onChange={(e) => {
-                  const file = e.target.files?.[0];
-                  if (file) {
-                    const dataTransfer = new DataTransfer();
-                    dataTransfer.items.add(file);
-                    setValue("imageFile", dataTransfer.files, {
-                      shouldValidate: true,
-                    });
-                  }
-                }}
-              />
-              <div
-                className={`flex flex-col items-center justify-center rounded-2xl border-2 border-dashed p-8 transition-colors ${imageFile ? "border-primary bg-primary/5" : "hover:border-primary/30 border-[#e0f0e9] bg-[#fafcfb] hover:bg-[#ebf5f0]"}`}
-              >
-                {imageFile ? (
-                  <>
-                    <FiImage size={32} className="text-primary mb-2" />
-                    <span className="text-primary text-sm font-bold">
-                      Image Selected
-                    </span>
-                    <span className="mt-1 text-xs text-[#5d8a7d]">
-                      {(imageFile as unknown as File).name}
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    <FiImage size={32} className="mb-2 text-[#7a9e8e]" />
-                    <span className="text-sm font-bold text-[#1a3a2e]">
-                      Upload New Image
-                    </span>
-                    <span className="mt-1 text-xs text-[#7a9e8e]">
-                      Drag & drop or click to browse
-                    </span>
-                  </>
-                )}
-              </div>
-            </div>
-            {errors.imageFile && (
-              <p className="mt-1 text-xs text-red-500">
-                {errors.imageFile?.message}
-              </p>
-            )}
+            <ImageInput
+              name="imageFile"
+              label="Update Product Image (Optional)"
+              register={register}
+              control={control}
+              setValue={setValue}
+              hint="JPG, PNG or WEBP · will replace old image"
+            />
             <p className="mt-2 text-xs text-[#7a9e8e]">
               If you don't select an image, the current product image will be
               kept.
