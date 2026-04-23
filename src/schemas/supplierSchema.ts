@@ -51,14 +51,14 @@ export const createProductsSchema = z.object({
 });
 
 export const updateProductSchema = z.object({
-  name: z.string().nullable(),
-  description: z.string().nullable(),
-  price: z.number(),
-  stockQuantity: z.number(),
-  expiryDate: z.string().nullable(),
-  imageFile: z.instanceof(FileList),
+  Name: z.string().nullable(),
+  Description: z.string().nullable(),
+  Price: z.number(),
+  StockQuantity: z.number(),
+  ExpiryDate: z.string().nullable(),
+  ImageFile: z.instanceof(FileList).optional(),
 });
 
 export type createProductT = z.infer<typeof createProductsSchema>;
-export type updateProductT = z.infer<typeof updateProductSchema>
-export type createProductItemT =z.infer<typeof createProductItemSchema>
+export type updateProductT = z.infer<typeof updateProductSchema>;
+export type createProductItemT = z.infer<typeof createProductItemSchema>;

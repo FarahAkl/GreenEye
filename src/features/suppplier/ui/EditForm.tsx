@@ -42,11 +42,11 @@ const EditForm = ({
     formState: { errors },
   } = useForm<updateProductT>({
     defaultValues: {
-      name: product.name,
-      description: "", // Description is not in SupplierProduct interface, defaulting to empty
-      price: product.price,
-      stockQuantity: product.quantity,
-      expiryDate: "",
+      Name: product.name,
+      Description: "", // Description is not in SupplierProduct interface, defaulting to empty
+      Price: product.price,
+      StockQuantity: product.quantity,
+      ExpiryDate: null,
     },
   });
 
@@ -57,11 +57,11 @@ const EditForm = ({
 
   const handleNextStep = async () => {
     const isValid = await trigger([
-      "name",
-      "description",
-      "price",
-      "stockQuantity",
-      "expiryDate",
+      "Name",
+      "Description",
+      "Price",
+      "StockQuantity",
+      "ExpiryDate",
     ]);
     if (isValid) {
       setStep(2);
@@ -87,24 +87,24 @@ const EditForm = ({
       {step === 1 && (
         <div className="animate-[fadeIn_0.3s_ease]">
           <Input<updateProductT>
-            name="name"
+            name="Name"
             label="Product Name"
             placeholder="Enter product name"
             register={register}
             rules={{ required: "Name is required" }}
-            error={errors.name?.message}
+            error={errors.Name?.message}
           />
 
           <Input<updateProductT>
-            name="description"
+            name="Description"
             label="Description"
             placeholder="Enter description"
             register={register}
-            error={errors.description?.message}
+            error={errors.Description?.message}
           />
 
           <Input<updateProductT>
-            name="price"
+            name="Price"
             label="Price (EGP)"
             type="number"
             placeholder="0"
@@ -114,11 +114,11 @@ const EditForm = ({
               min: { value: 0.01, message: "Must be greater than 0" },
               valueAsNumber: true,
             }}
-            error={errors.price?.message}
+            error={errors.Price?.message}
           />
 
           <Input<updateProductT>
-            name="stockQuantity"
+            name="StockQuantity"
             label="Stock Quantity"
             type="number"
             placeholder="0"
@@ -128,15 +128,15 @@ const EditForm = ({
               min: { value: 0, message: "Cannot be negative" },
               valueAsNumber: true,
             }}
-            error={errors.stockQuantity?.message}
+            error={errors.StockQuantity?.message}
           />
 
           <Input<updateProductT>
-            name="expiryDate"
+            name="ExpiryDate"
             label="Expiry Date"
             type="date"
             register={register}
-            error={errors.expiryDate?.message}
+            error={errors.ExpiryDate?.message}
           />
 
           <div className="mt-6 flex gap-3">
@@ -163,7 +163,7 @@ const EditForm = ({
         <div className="animate-[fadeIn_0.3s_ease]">
           <div className="space-y-2">
             <ImageInput
-              name="imageFile"
+              name="ImageFile"
               label="Update Product Image (Optional)"
               register={register}
               control={control}
