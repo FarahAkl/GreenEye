@@ -5,7 +5,7 @@ import {
   // LuEye,
   // LuTrash2,
   LuCalendar,
-  // LuChevronDown,
+  LuUser
 } from "react-icons/lu";
 // import { CgLockUnlock } from "react-icons/cg";
 import Pagination from "../../../ui/Pagination";
@@ -20,6 +20,27 @@ const tabs = [
 ];
 
 const BASE_URL = import.meta.env.VITE_API_URL;
+
+const UserImage = ({ src, name }: { src: string; name: string }) => {
+  const [imgError, setImgError] = useState(false);
+  
+  return (
+    <div className="h-8 w-8 shrink-0 overflow-hidden rounded-full border border-gray-100 bg-gray-50 flex items-center justify-center">
+      {!imgError && src ? (
+        <img
+          src={src}
+          alt={name}
+          onError={() => setImgError(true)}
+          className="h-full w-full object-cover"
+        />
+      ) : (
+        <div className="flex h-full w-full items-center justify-center bg-gray-100">
+          <LuUser className="text-gray-300" size={16} />
+        </div>
+      )}
+    </div>
+  );
+};
 
 const AllUsers = () => {
   const [activeTab, setActiveTab] = useState(tabs[0]);
@@ -116,14 +137,9 @@ const AllUsers = () => {
                     </td>
                     <td className="px-4 py-4">
                       <div className="flex items-center gap-3">
-                        <img
-                          src={
-                            user.profileImage
-                              ? `${BASE_URL}${user.profileImage}`
-                              : `https://ui-avatars.com/api/?name=${user.name || "User"}&background=04591b&color=fff`
-                          }
-                          alt=""
-                          className="h-8 w-8 shrink-0 rounded-full object-cover"
+                        <UserImage 
+                          src={user.profileImage ? `${BASE_URL}${user.profileImage}` : ""} 
+                          name={user.name || "User"} 
                         />
                         <span className="text-dark font-semibold">
                           {user.name || "lurem ipsum"}

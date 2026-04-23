@@ -6,8 +6,30 @@ import Spinner from "../../../ui/Spinner";
 import type { pendingProductT } from "../../../schemas/adminSchema";
 import Modal from "../../../ui/Modal";
 import RejectionForm from "../ui/RejectionForm";
+import { useState } from "react";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
+
+const ProductImage = ({ src, name }: { src: string; name: string }) => {
+  const [imgError, setImgError] = useState(false);
+  
+  return (
+    <div className="h-10 w-10 shrink-0 overflow-hidden rounded-lg border border-gray-100 bg-gray-50 flex items-center justify-center">
+      {!imgError && src ? (
+        <img
+          src={src}
+          alt={name}
+          onError={() => setImgError(true)}
+          className="h-full w-full object-cover"
+        />
+      ) : (
+        <div className="flex h-full w-full items-center justify-center bg-gray-100">
+          <LuPackage className="text-gray-300" size={20} />
+        </div>
+      )}
+    </div>
+  );
+};
 
 const PendingProducts = () => {
   const { pendingProducts, isFetchingProducts, isFetching } = useGetPendingProducts();
@@ -63,14 +85,9 @@ const PendingProducts = () => {
                   >
                     <td className="px-4 py-4">
                       <div className="flex items-center gap-3">
-                        <img
-                          src={
-                            product.productImages?.[0]
-                              ? `${BASE_URL}${product.productImages[0]}`
-                              : `https://ui-avatars.com/api/?name=${product.name || "Product"}&background=04591b&color=fff`
-                          }
-                          alt=""
-                          className="h-10 w-10 shrink-0 rounded-lg object-cover border border-gray-100"
+                        <ProductImage 
+                          src={product.productImages?.[0] ? `${BASE_URL}${product.productImages[0]}` : ""} 
+                          name={product.name} 
                         />
                         <div className="flex flex-col">
                           <span className="text-dark font-semibold">
