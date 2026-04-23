@@ -7,6 +7,7 @@ import OrderSummary from "../features/orders/ui/OrderSummary";
 import DeliveryTracker from "../features/orders/ui/DeliveryTracker";
 import { useProfile } from "../features/profile/hooks/useProfile";
 import type { itemT } from "../schemas/cartSchema";
+import { formatDate } from "../utils/date";
 
 const InfoField = ({
   label,
@@ -128,11 +129,7 @@ const OrderDetails = () => {
                     <span className="font-semibold text-[#1d4638]">
                       Initiated:
                     </span>{" "}
-                    {new Date(orderData.createdAt).toLocaleDateString("en-GB", {
-                      day: "numeric",
-                      month: "short",
-                      year: "numeric",
-                    })}
+                    {formatDate(orderData.createdAt, "en-GB")}
                   </p>
                   <p>
                     <span className="font-semibold text-[#1d4638]">

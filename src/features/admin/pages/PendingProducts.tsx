@@ -7,6 +7,7 @@ import type { pendingProductT } from "../../../schemas/adminSchema";
 import Modal from "../../../ui/Modal";
 import RejectionForm from "../ui/RejectionForm";
 import { useState } from "react";
+import { formatDate } from "../../../utils/date";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
@@ -119,11 +120,7 @@ const PendingProducts = () => {
                     <td className="px-4 py-4">
                       <div className="text-dark flex items-center gap-2 font-bold">
                         <LuCalendar size={16} className="text-gray-400" />
-                        {new Date(product.expiryDate).toLocaleDateString("en-US", {
-                          month: "short",
-                          day: "numeric",
-                          year: "numeric",
-                        })}
+                        {formatDate(product.expiryDate)}
                       </div>
                     </td>
                     <td className="px-4 py-4">

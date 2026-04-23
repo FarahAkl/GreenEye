@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import type { orderT } from "../../../schemas/ordersSchema";
 import Button from "../../../ui/Button";
 import DeliveryTracker from "./DeliveryTracker";
+import { formatDate } from "../../../utils/date";
 
 const OrderCard = ({
   order,
@@ -40,11 +41,7 @@ const OrderCard = ({
           </h3>
           <p className="text-[13px] text-[#7a9e8e]">
             Initiated:{" "}
-            {new Date(order.createdAt).toLocaleDateString("en-GB", {
-              day: "numeric",
-              month: "short",
-              year: "numeric",
-            })}
+            {formatDate(order.createdAt, "en-GB")}
           </p>
           <p className="flex items-center gap-1.5 text-[13px] font-semibold text-[#7a9e8e]">
             <span

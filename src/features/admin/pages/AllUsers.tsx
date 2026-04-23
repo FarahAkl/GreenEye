@@ -11,6 +11,7 @@ import {
 import Pagination from "../../../ui/Pagination";
 import Spinner from "../../../ui/Spinner";
 import type { userT } from "../../../schemas/adminSchema";
+import { formatDate } from "../../../utils/date";
 
 const tabs = [
   { id: "all", label: "ALL", role: undefined },
@@ -179,14 +180,7 @@ const AllUsers = () => {
                       <div className="text-dark flex items-center gap-2 font-bold">
                         <LuCalendar size={16} className="text-gray-400" />
                         {user.createdAt
-                          ? new Date(user.createdAt).toLocaleDateString(
-                              "en-US",
-                              {
-                                month: "short",
-                                day: "numeric",
-                                year: "numeric",
-                              },
-                            )
+                          ? formatDate(user.createdAt)
                           : index === 0
                             ? "Just now"
                             : index === 1

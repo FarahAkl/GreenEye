@@ -7,6 +7,7 @@ import Spinner from "../../../ui/Spinner";
 import type { pendingUserT } from "../../../schemas/adminSchema";
 import Modal from "../../../ui/Modal";
 import RejectionForm from "../ui/RejectionForm";
+import { formatDate } from "../../../utils/date";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
@@ -119,11 +120,7 @@ const PendingUsers = () => {
                     <td className="px-4 py-4">
                       <div className="text-dark flex items-center gap-2 font-bold">
                         <LuCalendar size={16} className="text-gray-400" />
-                        {new Date(user.createdAt).toLocaleDateString("en-US", {
-                          month: "short",
-                          day: "numeric",
-                          year: "numeric",
-                        })}
+                        {formatDate(user.createdAt)}
                       </div>
                     </td>
                     <td className="px-4 py-4">

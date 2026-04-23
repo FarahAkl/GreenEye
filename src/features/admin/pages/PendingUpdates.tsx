@@ -15,36 +15,9 @@ import { useUpdateRequestDetails } from "../hooks/useUpdateRequestDetails";
 import { useApproveUpdates } from "../hooks/useApproveUpdates";
 import { useRejectUpdate } from "../hooks/useRejectUpdate";
 import type { pendingProductUpdateT } from "../../../schemas/adminSchema";
+import { formatDate, formatDateTime } from "../../../utils/date";
 import Modal from "../../../ui/Modal";
 import Spinner from "../../../ui/Spinner";
-
-const formatDate = (value?: string | null) => {
-  if (!value) return "N/A";
-
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return value;
-
-  return date.toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
-};
-
-const formatDateTime = (value?: string | null) => {
-  if (!value) return "N/A";
-
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return value;
-
-  return date.toLocaleString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-  });
-};
 
 const formatLabel = (key: string) =>
   key
