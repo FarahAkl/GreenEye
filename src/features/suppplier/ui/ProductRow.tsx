@@ -12,7 +12,9 @@ interface SupplierProduct {
   productId: number;
   price: number;
   name: string;
+  description?: string | null;
   quantity: number;
+  expiryDate?: string | null;
   imageURL: string;
   supplierId: string;
   supplierLogo: string;

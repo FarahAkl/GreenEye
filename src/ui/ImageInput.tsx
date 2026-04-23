@@ -14,6 +14,7 @@ interface ImageInputProps<T extends FieldValues> {
   name: Path<T>;
   label: string;
   hint?: string;
+  defaultPreviewUrl?: string;
   error?: FieldError | { message?: string };
   register: UseFormRegister<T>;
   control: Control<T>;
@@ -24,6 +25,7 @@ const ImageInput = <T extends FieldValues>({
   name,
   label,
   hint = "JPG, PNG or WEBP · one image",
+  defaultPreviewUrl,
   error,
   register,
   control,
@@ -42,6 +44,7 @@ const ImageInput = <T extends FieldValues>({
       selectedFile instanceof File ? URL.createObjectURL(selectedFile) : null,
     [selectedFile],
   );
+  const displayedPreviewUrl = previewUrl || defaultPreviewUrl || null;
 
   const handleRemove = () => {
     // @ts-ignore
@@ -75,11 +78,11 @@ const ImageInput = <T extends FieldValues>({
             : "border-gray-200 bg-linear-to-b from-gray-50/90 to-white hover:border-primary/45 hover:from-primary/6 hover:shadow-sm"
         }`}
       >
-        {previewUrl && selectedFile ? (
+        {displayedPreviewUrl ? (
           <>
             <div className="relative w-full max-w-xs">
               <img
-                src={previewUrl}
+                src={displayedPreviewUrl}
                 alt={`Selected ${label.toLowerCase()} preview`}
                 className="mx-auto h-44 w-full rounded-xl object-cover shadow-md ring-1 ring-black/5"
               />
@@ -99,7 +102,7 @@ const ImageInput = <T extends FieldValues>({
             </div>
 
             <p className="text-primary text-sm font-medium underline-offset-2 group-hover:underline">
-              Choose a different image
+              {selectedFile ? "Choose a different image" : "Current image"}
             </p>
           </>
         ) : (

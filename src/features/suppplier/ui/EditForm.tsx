@@ -10,7 +10,9 @@ interface SupplierProduct {
   productId: number;
   price: number;
   name: string;
+  description?: string | null;
   quantity: number;
+  expiryDate?: string | null;
   imageURL: string;
   supplierId: string;
   supplierLogo: string;
@@ -32,6 +34,13 @@ const EditForm = ({
   isUpdating,
 }: EditFormProps) => {
   const [step, setStep] = useState<1 | 2>(1);
+  const defaultImageUrl =
+    product.imageURL && !product.imageURL.startsWith("http")
+      ? `${import.meta.env.VITE_API_URL}/${product.imageURL}`
+      : product.imageURL;
+  const defaultExpiryDate = product.expiryDate
+    ? product.expiryDate.split("T")[0]
+    : null;
 
   const {
     control,
@@ -43,10 +52,10 @@ const EditForm = ({
   } = useForm<updateProductT>({
     defaultValues: {
       Name: product.name,
-      Description: "", // Description is not in SupplierProduct interface, defaulting to empty
+      Description: product.description ?? "",
       Price: product.price,
       StockQuantity: product.quantity,
-      ExpiryDate: null,
+      ExpiryDate: defaultExpiryDate,
     },
   });
 
@@ -165,6 +174,7 @@ const EditForm = ({
             <ImageInput
               name="ImageFile"
               label="Update Product Image (Optional)"
+              defaultPreviewUrl={defaultImageUrl}
               register={register}
               control={control}
               setValue={setValue}
