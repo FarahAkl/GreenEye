@@ -25,6 +25,7 @@ import AdminDashboard from "../features/admin/pages/AdminDashboard";
 import AllUsers from "../features/admin/pages/AllUsers";
 import PendingUsers from "../features/admin/pages/PendingUsers";
 import PendingProducts from "../features/admin/pages/PendingProducts";
+import PendingUpdates from "../features/admin/pages/PendingUpdates";
 import Categories from "../features/admin/pages/Categories";
 import AddCategory from "../features/admin/pages/AddCategory";
 import SupplierDashboard from "../features/suppplier/pages/SupplierDashboard";
@@ -93,8 +94,8 @@ const router = createBrowserRouter([
             element: <AdminDashboard />,
           },
           {
-            path: "/admin-dashboard/products/update",
-            element: <AdminDashboard />,
+            path: "/admin-dashboard/products/updates",
+            element: <PendingUpdates />,
           },
           { path: "/admin-dashboard/categories", element: <Categories /> },
           { path: "/admin-dashboard/categories/add", element: <AddCategory /> },

@@ -23,6 +23,14 @@ const cards = [
     to: "/admin-dashboard/products/all",
   },
   {
+    title: "Pending Updates",
+    description: "Review supplier requests to update existing product details.",
+    icon: HiOutlineCube,
+    color: "#0f766e",
+    bg: "#ccfbf1",
+    to: "/admin-dashboard/products/updates",
+  },
+  {
     title: "Withdrawal Requests",
     description: "Manage pending supplier withdrawal requests.",
     icon: HiOutlineBanknotes,
