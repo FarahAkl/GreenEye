@@ -9,6 +9,7 @@ import ProductCard from "../features/products/ui/ProductCard";
 import { IoSearch } from "react-icons/io5";
 import Spinner from "../ui/Spinner";
 import Button from "../ui/Button";
+import SEO from "../ui/SEO";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
@@ -39,6 +40,7 @@ const MarketPlace = () => {
 
   return (
     <div className="flex flex-col">
+      <SEO title="Marketplace" description="Browse and shop for high-quality, sustainable agricultural products." />
       {/* Hero / Search */}
       <section className="relative min-h-80 w-full overflow-hidden px-4 sm:h-110 sm:px-8 md:h-130 md:px-16">
         <img

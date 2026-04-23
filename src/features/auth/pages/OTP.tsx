@@ -8,6 +8,7 @@ import SpinnerBtn from "../../../ui/SpinnerBtn";
 import { useOTP } from "../hooks/useOTP";
 import useResendOTP from "../hooks/useResendOTP";
 import { GoLocation } from "react-icons/go";
+import SEO from "../../../ui/SEO";
 
 const OTP = () => {
   const location = useLocation();
@@ -37,6 +38,7 @@ const OTP = () => {
 
   return (
     <>
+      <SEO title="Verify OTP" description="Verify your account using the one-time password sent to your email." />
       <div className="mb-8">
         <div className="mb-4 flex items-center gap-3 text-dark">
           <GoLocation size={26}/>

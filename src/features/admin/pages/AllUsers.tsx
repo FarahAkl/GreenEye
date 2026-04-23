@@ -10,6 +10,7 @@ import {
 // import { CgLockUnlock } from "react-icons/cg";
 import Pagination from "../../../ui/Pagination";
 import Spinner from "../../../ui/Spinner";
+import SEO from "../../../ui/SEO";
 import type { userT } from "../../../schemas/adminSchema";
 import { formatDate } from "../../../utils/date";
 
@@ -64,6 +65,7 @@ const AllUsers = () => {
   }
   return (
     <div className="flex flex-col gap-6 p-2">
+      <SEO title="Manage Users" />
       {/* Header */}
       <div className="bg-dark/90 rounded-2xl px-6 py-3.5">
         <h1 className="text-xl font-semibold tracking-wide text-white">

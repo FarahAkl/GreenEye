@@ -12,6 +12,7 @@ import {
   addItemToCartSchema,
   type addItemToCartT,
 } from "../schemas/cartSchema";
+import SEO from "../ui/SEO";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 const formatApiDate = (value?: string | null) => {
@@ -90,6 +91,7 @@ const ProductDetails = () => {
 
   return (
     <div className="flex flex-col gap-10 px-8 py-20 md:px-12 lg:px-24">
+      <SEO title={name} description={description} />
       <img
         src="/images/productsBg.png"
         alt=""

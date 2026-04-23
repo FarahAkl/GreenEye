@@ -5,6 +5,7 @@ import { type createCategoryRequestT } from "../../../schemas/categorySchema";
 import Input from "../../auth/ui/Input";
 import Button from "../../../ui/Button";
 import ImageInput from "../../../ui/ImageInput";
+import SEO from "../../../ui/SEO";
 
 const AddCategory = () => {
   const navigate = useNavigate();
@@ -32,6 +33,7 @@ const AddCategory = () => {
 
   return (
     <div className="flex flex-col gap-6">
+      <SEO title="Add New Category" />
       <div className="bg-dark/90 rounded-2xl px-6 py-3.5">
         <h2 className="text-xl font-semibold tracking-wide text-white">
           Adding New Category

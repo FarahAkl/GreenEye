@@ -7,6 +7,7 @@ import { GoLock } from "react-icons/go";
 import Input from "../ui/Input";
 import SpinnerBtn from "../../../ui/SpinnerBtn";
 import { loginSchema, type loginT } from "../../../schemas/authSchema";
+import SEO from "../../../ui/SEO";
 
 const Login = () => {
   const {
@@ -30,6 +31,7 @@ const Login = () => {
 
   return (
     <>
+      <SEO title="Login" description="Login to your GreenEye account to access the sustainable marketplace." />
       <p className="text-dark mt-3 mb-10 text-center text-4xl font-medium">
         Login
       </p>

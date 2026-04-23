@@ -12,6 +12,7 @@ import { BsPencil, BsTrash } from "react-icons/bs";
 import Input from "../../auth/ui/Input";
 import Button from "../../../ui/Button";
 import CustomSelect from "../../../ui/CustomSelect";
+import SEO from "../../../ui/SEO";
 
 const FieldError = ({ message }: { message?: string }) =>
   message ? <p className="mt-1 text-xs text-red-500">{message}</p> : null;
@@ -92,6 +93,7 @@ const AddProducts = () => {
 
   return (
     <>
+      <SEO title="Add New Product" description="List your sustainable agricultural products on the GreenEye marketplace." />
       <div className="bg-dark/90 rounded-2xl px-6 py-3.5">
         <h2 className="text-xl font-semibold tracking-wide text-white">
           Adding New Product

@@ -7,6 +7,7 @@ import Spinner from "../../../ui/Spinner";
 import type { pendingUserT } from "../../../schemas/adminSchema";
 import Modal from "../../../ui/Modal";
 import RejectionForm from "../ui/RejectionForm";
+import SEO from "../../../ui/SEO";
 import { formatDate } from "../../../utils/date";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
@@ -49,6 +50,7 @@ const PendingUsers = () => {
 
   return (
     <div className="flex flex-col gap-6 p-2">
+      <SEO title="Pending User Approvals" />
       {/* Header */}
       <div className="bg-dark/90 rounded-2xl px-6 py-3.5">
         <h1 className="text-xl font-semibold tracking-wide text-white">

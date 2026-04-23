@@ -4,6 +4,7 @@ import {
   HiOutlineClipboardDocumentList,
 } from "react-icons/hi2";
 import { Link } from "react-router-dom";
+import SEO from "../../../ui/SEO";
 
 const cards = [
   {
@@ -35,6 +36,7 @@ const cards = [
 const SupplierDashboard = () => {
   return (
     <div className="animate-[fadeInUp_0.4s_ease_both]">
+      <SEO title="Supplier Dashboard" description="Manage your products, orders, and wallet from your supplier dashboard." />
       <style>{`
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(24px); }

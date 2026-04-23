@@ -18,6 +18,7 @@ import ShippingDetailsForm from "../features/orders/ui/ShippingDetaisForm";
 import type { createOrderT } from "../schemas/ordersSchema";
 import ConfirmationStep from "../features/orders/ui/ConfirmationStep";
 import { useScrollToTop } from "../hooks/useScrollToTop";
+import SEO from "../ui/SEO";
 
 // Steps 1–3 are inside the stepper. Payment is a 4th phase outside it.
 type CheckoutStep = 1 | 2 | 3;
@@ -183,6 +184,7 @@ const Order = () => {
 
   return (
     <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+      <SEO title="Checkout" description="Complete your order to receive your fresh, sustainable agricultural products." />
       {/* Left side */}
       <div className="flex flex-col gap-4 px-14 py-12">
         <div

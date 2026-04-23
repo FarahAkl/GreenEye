@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../ui/Button";
 import { CgArrowRight } from "react-icons/cg";
 import { FaTrash } from "react-icons/fa";
+import SEO from "../ui/SEO";
 
 const Cart = () => {
   const { cart, isFetchingCart, isError,deteteCart } = useCart();
@@ -57,6 +58,7 @@ const Cart = () => {
 
   return (
     <div className="relative flex flex-col gap-10 px-8 py-20 md:px-12 lg:px-24">
+      <SEO title="Shopping Cart" description="Review your selected eco-friendly products before checkout." />
       <img
         src="/images/productsBg.png"
         alt=""

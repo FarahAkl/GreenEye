@@ -4,6 +4,7 @@ import useCancelOrder from "../features/orders/hooks/useCancelOrder";
 import useRefundOrder from "../features/orders/hooks/useRefundOrder";
 import type { orderT } from "../schemas/ordersSchema";
 import OrderCard from "../features/orders/ui/OrderCard";
+import SEO from "../ui/SEO";
 
 const SkeletonCard = () => {
   return (
@@ -53,6 +54,7 @@ const MyOrders = () => {
 
   return (
     <>
+      <SEO title="My Orders" description="View and manage your purchase history and ongoing orders." />
       <style>{`
         @keyframes slideUp {
           from { opacity: 0; transform: translateY(16px); }

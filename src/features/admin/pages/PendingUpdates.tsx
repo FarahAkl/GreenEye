@@ -18,6 +18,7 @@ import type { pendingProductUpdateT } from "../../../schemas/adminSchema";
 import { formatDate, formatDateTime } from "../../../utils/date";
 import Modal from "../../../ui/Modal";
 import Spinner from "../../../ui/Spinner";
+import SEO from "../../../ui/SEO";
 
 const formatLabel = (key: string) =>
   key
@@ -258,6 +259,7 @@ const PendingUpdates = () => {
 
   return (
     <div className="flex flex-col gap-6 p-2">
+      <SEO title="Pending Updates" description="Review and approve product update requests from suppliers." />
       <div className="bg-dark/90 rounded-2xl px-6 py-3.5">
         <h1 className="text-xl font-semibold tracking-wide text-white">
           Pending Updates

@@ -11,6 +11,7 @@ import {
 } from "../../../schemas/authSchema";
 import SpinnerBtn from "../../../ui/SpinnerBtn";
 import { FaEnvelope } from "react-icons/fa";
+import SEO from "../../../ui/SEO";
 
 const ResetPassword = () => {
   const location = useLocation();
@@ -35,6 +36,7 @@ const ResetPassword = () => {
 
   return (
     <>
+      <SEO title="Reset Password" description="Securely reset your GreenEye account password." />
       <p className="text-dark mt-3 mb-6 text-3xl font-medium">
         Reset Password
       </p>

@@ -14,6 +14,7 @@ import Spinner from "../ui/Spinner";
 import { IoSearch } from "react-icons/io5";
 import { MdSort } from "react-icons/md";
 import Pagination from "../ui/Pagination";
+import SEO from "../ui/SEO";
 
 type SortOrder = "ASC" | "DESC" | "";
 
@@ -152,6 +153,7 @@ const Products = () => {
 
   return (
     <div className="relative flex flex-col gap-8 px-4 py-20 sm:px-8 md:px-16">
+      <SEO title={activeCategory ? activeCategory.name : "Products"} description="Shop sustainable, fresh, and organic agricultural products directly from trusted farmers." />
       {/* Background */}
       <img
         src="/images/productsBg.png"

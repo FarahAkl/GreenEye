@@ -12,6 +12,7 @@ import type { updateProductT } from "../../../schemas/supplierSchema";
 import Button from "../../../ui/Button";
 import ProductRow from "../ui/ProductRow";
 import SkeletonRow from "../ui/SkeletonRow";
+import SEO from "../../../ui/SEO";
 
 const SupplierProducts = () => {
   const navigate = useNavigate();
@@ -41,6 +42,7 @@ const SupplierProducts = () => {
 
   return (
     <div className="min-h-screen animate-[fadeInUp_0.4s_ease_both] bg-[#f4f9f6] p-4 lg:p-8">
+      <SEO title="Manage My Products" />
       <style>{`
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(20px); }

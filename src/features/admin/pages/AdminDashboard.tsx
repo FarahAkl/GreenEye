@@ -4,6 +4,7 @@ import {
   HiOutlineBanknotes,
 } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
+import SEO from "../../../ui/SEO";
 
 const cards = [
   {
@@ -44,6 +45,7 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
   return (
     <div className="animate-[fadeInUp_0.4s_ease_both]">
+      <SEO title="Admin Dashboard" />
       <style>{`
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(24px); }

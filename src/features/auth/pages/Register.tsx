@@ -22,6 +22,7 @@ import { IoChevronDown } from "react-icons/io5";
 import type { ZodIssue } from "zod";
 import Button from "../../../ui/Button";
 import ImageInput from "../../../ui/ImageInput";
+import SEO from "../../../ui/SEO";
 
 const ROLE_OPTIONS = [
   { value: "farmer", label: "Farmer" },
@@ -107,6 +108,7 @@ const Register = () => {
 
   return (
     <>
+      <SEO title="Sign Up" description="Create a GreenEye account to start buying or selling sustainable products." />
       <p className="text-dark mt-3 mb-2 text-center text-4xl font-medium">
         SignUp
       </p>

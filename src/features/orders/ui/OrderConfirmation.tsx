@@ -9,6 +9,7 @@ import {
 import Spinner from "../../../ui/Spinner";
 import useGetOrderById from "../hooks/useGetOrderById";
 import OrderSummary from "./OrderSummary";
+import SEO from "../../../ui/SEO";
 
 const OrderConfirmation = () => {
   const { orderId } = useParams<{ orderId: string }>();
@@ -44,6 +45,7 @@ const OrderConfirmation = () => {
 
   return (
     <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+      <SEO title="Order Confirmed" description="Thank you for your order! Your sustainable products are on their way." />
       {/* Left — order summary */}
       <div className="flex flex-col gap-4 px-14 py-12">
         <OrderSummary

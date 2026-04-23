@@ -8,6 +8,7 @@ import { useProfile } from "../features/profile/hooks/useProfile";
 import { FaRegUser } from "react-icons/fa";
 import { CgPhone } from "react-icons/cg";
 import { GoLocation } from "react-icons/go";
+import SEO from "../ui/SEO";
 
 const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -46,6 +47,7 @@ const Profile = () => {
 
   return (
     <section className="bg-black-50 px-8 py-16 md:px-12 lg:px-24">
+      <SEO title="My Profile" description="Manage your personal information and preferences." />
       <div className="border-black-100 rounded-3xl border bg-white px-6 py-10">
         <div className="my-5 flex flex-wrap items-center justify-between gap-3">
           <h2 className="font-volkhov rtl:font-alexandria text-2xl">

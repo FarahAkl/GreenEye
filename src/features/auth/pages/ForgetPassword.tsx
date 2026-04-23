@@ -7,6 +7,7 @@ import {
   type forgetPasswordT,
 } from "../../../schemas/authSchema";
 import useForgetPassword from "../hooks/useForgetPassword";
+import SEO from "../../../ui/SEO";
 
 const ForgetPassword = () => {
   const {
@@ -24,6 +25,7 @@ const ForgetPassword = () => {
 
   return (
     <>
+      <SEO title="Forget Password" description="Recover your GreenEye account access by resetting your password." />
       <p className="text-dark mt-3 mb-6 text-3xl font-medium">
         Forget Password
       </p>

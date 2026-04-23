@@ -8,6 +8,7 @@ import DeliveryTracker from "../features/orders/ui/DeliveryTracker";
 import { useProfile } from "../features/profile/hooks/useProfile";
 import type { itemT } from "../schemas/cartSchema";
 import { formatDate } from "../utils/date";
+import SEO from "../ui/SEO";
 
 const InfoField = ({
   label,
@@ -90,6 +91,7 @@ const OrderDetails = () => {
 
   return (
     <section className="bg-primary/10 relative overflow-hidden px-4 py-12 sm:px-8 md:px-12 lg:px-16">
+      <SEO title={`Order #${orderId}`} description="Track and view details for your eco-friendly product order." />
       <div
         aria-hidden="true"
         className="absolute inset-0 -z-10 bg-[url('/images/productsBg.png')] bg-repeat opacity-6"
@@ -183,42 +185,6 @@ const OrderDetails = () => {
               </div>
 
               <div className="flex flex-col gap-4">
-                {/* <div className="rounded-[28px] p-5 shadow-sm">
-                  <div className="mb-4 flex items-center gap-3">
-                    <div className="bg-primary/10 text-primary rounded-2xl p-3">
-                      <FiTruck size={20} />
-                    </div>
-                    <div>
-                      <p className="font-semibold text-[#1d4638]">
-                        Shipment Info
-                      </p>
-                      <p className="text-sm text-[#6b8a7e]">
-                        Tracking and delivery details
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="space-y-3 text-sm text-[#355a4d]">
-                    <div className="flex items-center gap-2">
-                      <FiMapPin className="text-primary" />
-                      <span>
-                        {shippingAddress || "Shipping address not available"}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <FiPhone className="text-primary" />
-                      <span>
-                        {shippingInfo?.phoneNumber ||
-                          "Phone number not available"}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <FiCreditCard className="text-primary" />
-                      <span>{paymentMethod}</span>
-                    </div>
-                  </div>
-                </div> */}
-
                 <div className="rounded-[28px] p-5 shadow-sm">
                   <p className="mb-3 font-semibold text-[#1d4638]">
                     Tracking Number

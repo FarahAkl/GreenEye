@@ -8,10 +8,12 @@ import HeroSec from "../ui/HeroSec";
 import MarketSec from "../ui/MarketSec";
 import MeetUsSec from "../ui/MeetUsSec";
 import WhyMattersSec from "../ui/WhyMattersSec";
+import SEO from "../ui/SEO";
 
 const Home = () => {
   return (
     <>
+      <SEO title="Home" />
       <HeroSec />
       <ArticleSec />
       <ChallengesSec/>

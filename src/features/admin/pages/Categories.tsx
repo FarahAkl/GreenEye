@@ -7,6 +7,7 @@ import { useCategory } from "../../../hooks/useCategory";
 import Button from "../../../ui/Button";
 import CategoryRow from "../ui/CategoryRow";
 import SkeletonRow from "../../suppplier/ui/SkeletonRow";
+import SEO from "../../../ui/SEO";
 
 const Categories = () => {
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ const Categories = () => {
 
   return (
     <div className="min-h-screen animate-[fadeInUp_0.4s_ease_both] bg-[#f4f9f6] p-4 lg:p-8">
+      <SEO title="Categories" description="Manage and organize agricultural product categories." />
       <style>{`
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(20px); }
