@@ -14,8 +14,15 @@ const useCreateOrder = () => {
     reset,
   } = useMutation({
     mutationFn: (orderData: createOrderT) => createOrderApi(orderData),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["cart"] });
+    onSuccess: async (response) => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["cart"], refetchType: "all" }),
+        queryClient.invalidateQueries({ queryKey: ["orders"], refetchType: "all" }),
+        queryClient.invalidateQueries({
+          queryKey: ["order", String(response.data.orderId)],
+          refetchType: "all",
+        }),
+      ]);
     },
   });
 

@@ -21,6 +21,8 @@ const OrderCard = ({
   const navigate = useNavigate();
 
   const isPaid = order.status === "Paid";
+  const canResumePayment =
+    order.status === "Pending" && !!order.clientSecret && !!order.id;
   const canCancel =
     !isPaid &&
     order.status !== "Cancelled" &&
@@ -85,8 +87,19 @@ const OrderCard = ({
       </div>
 
       {/* Cancel / Refund action */}
-      {(canCancel || isPaid) && (
-        <div className="flex justify-end px-5 pt-1 pb-4">
+      {(canResumePayment || canCancel || isPaid) && (
+        <div className="flex flex-wrap justify-end gap-3 px-5 pt-1 pb-4">
+          {canResumePayment && (
+            <Button
+              btnLabel="Pay Now"
+              onClick={() =>
+                navigate(
+                  `/order?orderId=${order.id}&clientSecret=${encodeURIComponent(order.clientSecret ?? "")}`,
+                )
+              }
+              className="h-10! cursor-pointer rounded-lg bg-primary px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#034415]"
+            />
+          )}
           {isPaid ? (
             <Button
               btnLabel={isRefunding ? "Refunding…" : "Refund"}

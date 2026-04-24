@@ -1,9 +1,7 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getOrderById } from "../services/apiOrder";
 
 const useGetOrderById = ({orderId,userId}: {orderId:string,userId?:string}) => {
-  const queryClient = useQueryClient();
-
   const {
     data: order,
     isPending: isFetchingOrder,
@@ -14,9 +12,7 @@ const useGetOrderById = ({orderId,userId}: {orderId:string,userId?:string}) => {
     queryFn: () => getOrderById({ id: orderId, params: userId ? { userId } : undefined }),
     staleTime: 1000 * 60 * 5,
     enabled: !!orderId ,
-    initialData: () => {
-      return queryClient.getQueryData(["order", orderId]);
-    },
+    refetchOnMount: true,
   });
 
   return {

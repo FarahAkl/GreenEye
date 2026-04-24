@@ -12,6 +12,7 @@ const useGetUserOrders = () => {
     queryKey: ["orders"],
     queryFn: getUserOrders,
     staleTime: 1000 * 60 * 5,
+    refetchOnMount: true,
   });
 
   return {

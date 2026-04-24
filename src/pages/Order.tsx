@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Spinner from "../ui/Spinner";
@@ -27,10 +28,12 @@ type Phase = "checkout" | "payment";
 const Order = () => {
   useScrollToTop();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const stepFromUrl = (searchParams.get("step") as "1" | "2" | "3") || "1";
   const orderIdFromUrl = searchParams.get("orderId");
+  const clientSecretFromUrl = searchParams.get("clientSecret");
   const shouldRestoreCheckout = searchParams.has("step") || !!orderIdFromUrl;
   
   const [currentStep, setCurrentStep] = useState<CheckoutStep>(
@@ -72,7 +75,8 @@ const Order = () => {
   const activeOrderId = orderId ? String(orderId) : orderIdFromUrl;
   const derivedPhase: Phase = activeOrderId ? "payment" : "checkout";
   const { order } = useGetOrderById({ orderId: activeOrderId || "" });
-  const resolvedClientSecret = clientSecret ?? order?.data?.clientSecret ?? null;
+  const resolvedClientSecret =
+    clientSecretFromUrl ?? clientSecret ?? order?.data?.clientSecret ?? null;
 
   useEffect(() => {
     const hasCheckoutStep = searchParams.has("step");
@@ -150,9 +154,18 @@ const Order = () => {
   };
 
   // Payment success
-  const handlePaymentSuccess = (createdOrderId: number) => {
+  const handlePaymentSuccess = async (createdOrderId: number) => {
     localStorage.removeItem("checkoutShippingInfo");
     localStorage.removeItem("checkoutSelectedRate");
+
+    await Promise.all([
+      queryClient.invalidateQueries({ queryKey: ["orders"], refetchType: "all" }),
+      queryClient.invalidateQueries({
+        queryKey: ["order", String(createdOrderId)],
+        refetchType: "all",
+      }),
+    ]);
+
     navigate(`/order/${createdOrderId}/confirmation`);
   };
 
