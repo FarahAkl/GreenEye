@@ -1,16 +1,18 @@
 import { useState } from "react";
 import { useGetUsers } from "../hooks/useGetUsers";
+import { useChangeRole } from "../hooks/useChangeRole";
 import {
   // LuLock,
   // LuEye,
   // LuTrash2,
   LuCalendar,
-  LuUser
+  LuUser,
 } from "react-icons/lu";
 // import { CgLockUnlock } from "react-icons/cg";
 import Pagination from "../../../ui/Pagination";
 import Spinner from "../../../ui/Spinner";
 import SEO from "../../../ui/SEO";
+import CustomSelect from "../../../ui/CustomSelect";
 import type { userT } from "../../../schemas/adminSchema";
 import { formatDate } from "../../../utils/date";
 
@@ -22,12 +24,17 @@ const tabs = [
 ];
 
 const BASE_URL = import.meta.env.VITE_API_URL;
+const roleOptions = ["Farmer", "Supplier", "Expert", "Admin"] as const;
+const roleSelectOptions = roleOptions.map((role) => ({
+  value: role,
+  label: role,
+}));
 
 const UserImage = ({ src, name }: { src: string; name: string }) => {
   const [imgError, setImgError] = useState(false);
-  
+
   return (
-    <div className="h-8 w-8 shrink-0 overflow-hidden rounded-full border border-gray-100 bg-gray-50 flex items-center justify-center">
+    <div className="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full border border-gray-100 bg-gray-50">
       {!imgError && src ? (
         <img
           src={src}
@@ -47,6 +54,8 @@ const UserImage = ({ src, name }: { src: string; name: string }) => {
 const AllUsers = () => {
   const [activeTab, setActiveTab] = useState(tabs[0]);
   const [page, setPage] = useState(1);
+  const [changingUserId, setChangingUserId] = useState<string | null>(null);
+  const { changeRole, isChanging } = useChangeRole();
 
   const { users, isFetchingUsers, isFetching } = useGetUsers({
     role: activeTab.role,
@@ -55,6 +64,22 @@ const AllUsers = () => {
   });
 
   const totalPages = users?.data.totalPages;
+
+  const handleRoleChange = (
+    userId: string,
+    newRole: string,
+    currentRole: string,
+  ) => {
+    if (newRole === currentRole) return;
+
+    setChangingUserId(userId);
+    changeRole(
+      { userId, newRole },
+      {
+        onSettled: () => setChangingUserId(null),
+      },
+    );
+  };
 
   if (isFetchingUsers || isFetching) {
     return (
@@ -140,9 +165,13 @@ const AllUsers = () => {
                     </td>
                     <td className="px-4 py-4">
                       <div className="flex items-center gap-3">
-                        <UserImage 
-                          src={user.profileImage ? `${BASE_URL}${user.profileImage}` : ""} 
-                          name={user.name || "User"} 
+                        <UserImage
+                          src={
+                            user.profileImage
+                              ? `${BASE_URL}${user.profileImage}`
+                              : ""
+                          }
+                          name={user.name || "User"}
                         />
                         <span className="text-dark font-semibold">
                           {user.name || "lurem ipsum"}
@@ -156,13 +185,15 @@ const AllUsers = () => {
                       {user.email || ""}
                     </td>
                     <td className="px-4 py-4">
-                      <button className="hover:text-dark flex items-center gap-1 font-medium text-gray-600">
-                        {user.role}
-                        {/* <LuChevronDown
-                          size={14}
-                          className="font-bold text-[#9ca3af]"
-                        /> */}
-                      </button>
+                      <CustomSelect
+                        options={roleSelectOptions}
+                        value={user.role}
+                        onChange={(value) =>
+                          handleRoleChange(user.id, value, user.role)
+                        }
+                        disabled={isChanging && changingUserId === user.id}
+                        className="min-w-34"
+                      />
                     </td>
                     <td className="px-4 py-4">
                       {hasFile ? (

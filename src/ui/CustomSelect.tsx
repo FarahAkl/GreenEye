@@ -14,6 +14,7 @@ type CustomSelectProps<T extends string = string> = {
   icon?: ReactNode;
   placeholder?: string;
   className?: string;
+  disabled?: boolean;
 };
 
 const CustomSelect = <T extends string = string>({
@@ -23,6 +24,7 @@ const CustomSelect = <T extends string = string>({
   icon,
   placeholder = "Select an option",
   className = "",
+  disabled = false,
 }: CustomSelectProps<T>) => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -45,8 +47,16 @@ const CustomSelect = <T extends string = string>({
         type="button"
         aria-haspopup="listbox"
         aria-expanded={isOpen}
-        onClick={() => setIsOpen((prev) => !prev)}
+        disabled={disabled}
+        onClick={() => {
+          if (disabled) return;
+          setIsOpen((prev) => !prev);
+        }}
         className={`flex w-full items-center justify-between rounded-2xl border px-3 py-2.5 text-left transition focus:outline-none ${
+          disabled
+            ? "cursor-not-allowed bg-gray-100 text-gray-400 opacity-70"
+            : ""
+        } ${
           isOpen
             ? "border-primary ring-primary ring-1"
             : "border-gray-300 hover:border-gray-400"
