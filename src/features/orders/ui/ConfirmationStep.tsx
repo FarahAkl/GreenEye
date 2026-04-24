@@ -82,7 +82,7 @@ const ConfirmationStep = ({
             </p>
           </div>
           <span className="bg-primary/10 text-primary rounded-full px-3 py-1 text-sm font-bold">
-            {selectedShippingRate.amount} {selectedShippingRate.currency}
+            {selectedShippingRate.amount} EGP
           </span>
         </div>
       </div>

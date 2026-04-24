@@ -5,6 +5,7 @@ import Input from "../../auth/ui/Input";
 import ImageInput from "../../../ui/ImageInput";
 import type { updateProductT } from "../../../schemas/supplierSchema";
 import Button from "../../../ui/Button";
+import DateInput from "../../../ui/DateInput";
 
 interface SupplierProduct {
   productId: number;
@@ -77,11 +78,6 @@ const EditForm = ({
     }
   };
 
-  // const imageFile = useWatch({
-  //   control,
-  //   name: "imageFile",
-  // });
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="mt-5 w-full max-w-md">
       <div className="mb-6 flex items-center justify-center gap-2">
@@ -140,11 +136,10 @@ const EditForm = ({
             error={errors.StockQuantity?.message}
           />
 
-          <Input<updateProductT>
+          <DateInput<updateProductT>
             name="ExpiryDate"
+            control={control}
             label="Expiry Date"
-            type="date"
-            register={register}
             error={errors.ExpiryDate?.message}
           />
 

@@ -65,6 +65,7 @@ const Login = () => {
 
         <button
           type="submit"
+          disabled={isLogin}
           className="bg-primary mt-5 mb-2 h-12 w-full cursor-pointer rounded-2xl px-5 text-sm font-medium text-white transition-all duration-300 hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {isLogin ? <SpinnerBtn /> : "Login"}

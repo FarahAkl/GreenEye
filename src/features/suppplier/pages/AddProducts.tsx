@@ -10,9 +10,10 @@ import {
 import type { categoryT } from "../../../schemas/categorySchema";
 import { BsPencil, BsTrash } from "react-icons/bs";
 import Input from "../../auth/ui/Input";
-import Button from "../../../ui/Button";
 import CustomSelect from "../../../ui/CustomSelect";
 import SEO from "../../../ui/SEO";
+import DateInput from "../../../ui/DateInput";
+import Button from "../../../ui/Button";
 
 const FieldError = ({ message }: { message?: string }) =>
   message ? <p className="mt-1 text-xs text-red-500">{message}</p> : null;
@@ -93,7 +94,10 @@ const AddProducts = () => {
 
   return (
     <>
-      <SEO title="Add New Product" description="List your sustainable agricultural products on the GreenEye marketplace." />
+      <SEO
+        title="Add New Product"
+        description="List your sustainable agricultural products on the GreenEye marketplace."
+      />
       <div className="bg-dark/90 rounded-2xl px-6 py-3.5">
         <h2 className="text-xl font-semibold tracking-wide text-white">
           Adding New Product
@@ -234,14 +238,13 @@ const AddProducts = () => {
               </div>
               <FieldError message={errors.stockQuantity?.message} />
             </div>
-            <div>
-              <Input
-                type="date"
-                register={register}
-                name="expiryDate"
-                error={errors.expiryDate?.message}
-              />
-            </div>
+            <DateInput
+              name="expiryDate"
+              control={control}
+              label="Expiry date"
+              placeholder="Select expiry date"
+              error={errors.expiryDate?.message}
+            />
           </div>
 
           <div className="flex flex-col items-center gap-3">
@@ -320,6 +323,7 @@ const AddProducts = () => {
         </div>
 
         <div className="px-6">
+          <p className="mx-2 mb-1.5 text-gray-600">Description</p>
           <textarea
             {...register("description")}
             placeholder="Product Description.."
