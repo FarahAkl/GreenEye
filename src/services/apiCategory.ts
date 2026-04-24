@@ -1,7 +1,7 @@
 import { isAxiosError } from "axios";
 import {
-  createCategoryRequestSchema,
-  createCategoryResponse,
+  // createCategoryRequestSchema,
+  // createCategoryResponse,
   type createCategoryRequestT,
 } from "../schemas/categorySchema";
 import axiosInstance from "./axiosInstance";
@@ -23,12 +23,12 @@ export const deleteCategory = async (id: string) => {
 };
 
 export const createCategory = async (data: createCategoryRequestT) => {
-  const validateDate = createCategoryRequestSchema.parse(data);
-  const payload = objectToFormData(validateDate);
+  // const validateDate = createCategoryRequestSchema.parse(data);
+  const payload = objectToFormData(data);
   try {
     const res = await axiosInstance.post(`/api/marketplace/Category`, payload);
-    const validatedRes = createCategoryResponse.parse(res.data);
-    return validatedRes;
+    // const validatedRes = createCategoryResponse.parse(res.data);
+    return res.data;
   } catch (err) {
     if (isAxiosError(err)) {
       const message =
@@ -50,15 +50,14 @@ export const updateCategory = async ({
   id: string;
   data: createCategoryRequestT;
 }) => {
-  const validateDate = createCategoryRequestSchema.parse(data);
-  const payload = objectToFormData(validateDate);
+  const payload = objectToFormData(data);
   try {
     const res = await axiosInstance.put(
       `/api/marketplace/Category/${id}`,
       payload,
     );
-    const validatedRes = createCategoryResponse.parse(res.data);
-    return validatedRes;
+    // const validatedRes = createCategoryResponse.parse(res.data);
+    return res.data;
   } catch (err) {
     if (isAxiosError(err)) {
       const message =
