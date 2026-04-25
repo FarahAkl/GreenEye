@@ -35,7 +35,9 @@ export const transactionResponseSchema = z.object({
   data: z.array(transactionSchema),
 });
 
-export const withdrawalSchema = z.object({
+export const withdrawalRequestSchema = z.object({
   amount: z.number(),
   bankAccount: z.string(),
 });
+
+export type withdrawalRequestT = z.infer<typeof withdrawalRequestSchema>
