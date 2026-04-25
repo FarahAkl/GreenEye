@@ -63,6 +63,13 @@ export const orderSchema = z.object({
   items: z.array(orderItemSchema).nullable(),
 });
 
+export const supplierOrdersResponseSchema = z.object({
+  isSuccess: z.boolean(),
+  message: z.string(),
+  data: z.union([z.array(orderSchema), orderSchema]),
+});
+
 export type createOrderT = z.infer<typeof createOrderRequestSchema>;
 export type createOrderSuccessT = z.infer<typeof createOrderResponseSchema>;
 export type orderT = z.infer<typeof orderSchema>;
+export type supplierOrdersResponseT = z.infer<typeof supplierOrdersResponseSchema>;

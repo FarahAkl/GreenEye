@@ -61,10 +61,8 @@ export const deleteProduct = async (productId: string) => {
   return res.data;
 };
 
-export const getSupplierOrders = async (supplierId: string) => {
-  const res = await axiosInstance.get(
-    `/api/Supplier/supplier/${supplierId}/orders`,
-  );
+export const getSupplierOrders = async () => {
+  const res = await axiosInstance.get(`/api/Supplier/products-in-orders`);
   return res.data;
 };
 

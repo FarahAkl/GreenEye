@@ -1,16 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { getSupplierOrders } from "../services/apiSupplier";
 
-export const useSupplierOrders = (supplierId: string) => {
+export const useSupplierOrders = () => {
   const {
     data: supplierOrders,
     isPending: isFetchingOrders,
     isError,
     error,
   } = useQuery({
-    queryKey: ["supplier-orders", supplierId],
-    queryFn: () => getSupplierOrders(supplierId),
-    enabled: !!supplierId,
+    queryKey: ["supplier-orders"],
+    queryFn: getSupplierOrders,
     staleTime: 1000 * 60 * 5,
   });
 
