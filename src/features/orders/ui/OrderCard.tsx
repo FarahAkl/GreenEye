@@ -21,8 +21,7 @@ const OrderCard = ({
   const navigate = useNavigate();
 
   const isPaid = order.status === "Paid";
-  const canResumePayment =
-    order.status === "Pending" && !!order.clientSecret && !!order.id;
+  const canResumePayment = order.status === "Pending" && !!order.id;
   const canCancel =
     !isPaid &&
     order.status !== "Cancelled" &&
@@ -92,11 +91,7 @@ const OrderCard = ({
           {canResumePayment && (
             <Button
               btnLabel="Pay Now"
-              onClick={() =>
-                navigate(
-                  `/order?orderId=${order.id}&clientSecret=${encodeURIComponent(order.clientSecret ?? "")}`,
-                )
-              }
+              onClick={() => navigate(`/order?orderId=${order.id}`)}
               className="h-10! cursor-pointer rounded-lg bg-primary px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#034415]"
             />
           )}

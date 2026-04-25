@@ -33,7 +33,6 @@ const Order = () => {
 
   const stepFromUrl = (searchParams.get("step") as "1" | "2" | "3") || "1";
   const orderIdFromUrl = searchParams.get("orderId");
-  const clientSecretFromUrl = searchParams.get("clientSecret");
   const shouldRestoreCheckout = searchParams.has("step") || !!orderIdFromUrl;
   
   const [currentStep, setCurrentStep] = useState<CheckoutStep>(
@@ -74,9 +73,8 @@ const Order = () => {
 
   const activeOrderId = orderId ? String(orderId) : orderIdFromUrl;
   const derivedPhase: Phase = activeOrderId ? "payment" : "checkout";
-  const { order } = useGetOrderById({ orderId: activeOrderId || "" });
-  const resolvedClientSecret =
-    clientSecretFromUrl ?? clientSecret ?? order?.data?.clientSecret ?? null;
+  const { order, isFetchingOrder } = useGetOrderById({ orderId: activeOrderId || "" });
+  const resolvedClientSecret = clientSecret ?? order?.data?.clientSecret ?? null;
 
   useEffect(() => {
     const hasCheckoutStep = searchParams.has("step");
@@ -185,7 +183,7 @@ const Order = () => {
     }
   };
 
-  if (isLoading) {
+  if (isLoading || (derivedPhase === "payment" && activeOrderId && isFetchingOrder && !clientSecret)) {
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -280,6 +278,11 @@ const Order = () => {
               clientSecret={resolvedClientSecret}
               onSuccess={handlePaymentSuccess}
             />
+          )}
+          {derivedPhase === "payment" && activeOrderId && !isFetchingOrder && !resolvedClientSecret && (
+            <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
+              Unable to start payment for this order right now. Please try again from your orders page.
+            </div>
           )}
         </div>
       </div>
