@@ -145,39 +145,20 @@ const SupplierWallet = () => {
       </div>
 
       <div className="rounded-3xl border border-[#e0f0e9] bg-white p-6 shadow-sm">
-        <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-          <div className="flex items-center gap-4">
-            <div className="text-primary flex h-14 w-14 items-center justify-center rounded-2xl bg-[#ebf5f0]">
-              <LuWallet size={26} />
-            </div>
-            <div>
-              <p className="text-sm font-medium tracking-wide text-[#7a9e8e] uppercase">
-                Available Balance
-              </p>
-              <p className="mt-1 text-3xl font-bold text-[#1a3a2e]">
-                {walletData.balance.toLocaleString()} EGP
-              </p>
-            </div>
-            <div className="grid gap-3 sm:grid-cols-2">
-              <div className="rounded-2xl border border-[#e0f0e9] bg-[#fafcfb] p-4">
-                <p className="text-xs font-medium tracking-wide text-[#7a9e8e] uppercase">
-                  Last Updated
-                </p>
-                <div className="mt-2 flex items-center gap-2 text-[#1a3a2e]">
-                  <LuCalendar size={16} className="text-gray-400" />
-                  <span className="font-semibold">
-                    {formatDate(walletData.lastUpdatedAt, "en-GB")}
-                  </span>
-                </div>
+        <div className="flex flex-col gap-6">
+          {/* Balance + Withdrawal button */}
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-4">
+              <div className="text-primary flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#ebf5f0]">
+                <LuWallet size={24} />
               </div>
-              <div className="rounded-2xl border border-[#e0f0e9] bg-[#fafcfb] p-4">
-                <p className="text-xs font-medium tracking-wide text-[#7a9e8e] uppercase">
-                  Wallet Status
+              <div>
+                <p className="text-sm font-medium tracking-wide text-[#7a9e8e] uppercase">
+                  Available Balance
                 </p>
-                <div className="mt-2 flex items-center gap-2 text-[#1a3a2e]">
-                  <LuClock3 size={16} className="text-gray-400" />
-                  <span className="font-semibold">Active</span>
-                </div>
+                <p className="mt-1 text-xl font-bold text-[#1a3a2e]">
+                  {walletData.balance.toLocaleString()} EGP
+                </p>
               </div>
             </div>
 
@@ -198,6 +179,30 @@ const SupplierWallet = () => {
                 <WithdrawalForm />
               </Modal.Window>
             </Modal>
+          </div>
+
+          {/* Stat cards */}
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div className="rounded-2xl border border-[#e0f0e9] bg-[#fafcfb] p-4">
+              <p className="text-xs font-medium tracking-wide text-[#7a9e8e] uppercase">
+                Last Updated
+              </p>
+              <div className="mt-2 flex items-center gap-2 text-[#1a3a2e]">
+                <LuCalendar size={16} className="text-gray-400" />
+                <span className="font-semibold">
+                  {formatDate(walletData.lastUpdatedAt, "en-GB")}
+                </span>
+              </div>
+            </div>
+            <div className="rounded-2xl border border-[#e0f0e9] bg-[#fafcfb] p-4">
+              <p className="text-xs font-medium tracking-wide text-[#7a9e8e] uppercase">
+                Wallet Status
+              </p>
+              <div className="mt-2 flex items-center gap-2 text-[#1a3a2e]">
+                <LuClock3 size={16} className="text-gray-400" />
+                <span className="font-semibold">Active</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
