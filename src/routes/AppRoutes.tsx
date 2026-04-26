@@ -29,6 +29,7 @@ import PendingUpdates from "../features/admin/pages/PendingUpdates";
 import Categories from "../features/admin/pages/Categories";
 import AddCategory from "../features/admin/pages/AddCategory";
 import AllWallets from "../features/admin/pages/AllWallets";
+import PendingWithdrawals from "../features/admin/pages/PendingWithdrawals";
 import SupplierWallet from "../features/supplier/pages/SupplierWallet";
 import SupplierDashboard from "../features/supplier/pages/SupplierDashboard";
 import SupplierProducts from "../features/supplier/pages/SupplierProducts";
@@ -104,7 +105,7 @@ const router = createBrowserRouter([
           { path: "/admin-dashboard/orders", element: <AdminDashboard /> },
           {
             path: "/admin-dashboard/withdrawals/requests",
-            element: <AdminDashboard />,
+            element: <PendingWithdrawals />,
           },
           {
             path: "/admin-dashboard/withdrawals/wallets",

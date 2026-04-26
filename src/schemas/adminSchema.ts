@@ -106,6 +106,7 @@ export type userT = z.infer<typeof userSchema>;
 export type pendingUserT = z.infer<typeof pendingUserSchema>;
 export type pendingProductT = z.infer<typeof pendingProductSchema>;
 export type pendingProductUpdateT = z.infer<typeof pendingProductUpdateSchema>;
+export type pendingWithdrawalT = z.infer<typeof pendingWithdrawalRequestSchema>;
 export type changeRoleT = z.infer<typeof changeRoleRequestSchema>;
 export type freezeUserT = z.infer<typeof freezeUserSchema>;
 export type unfreezeUserT = z.infer<typeof unfreezeUserSchema>;

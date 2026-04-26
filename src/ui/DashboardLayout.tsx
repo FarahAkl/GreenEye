@@ -131,11 +131,11 @@ const DashboardLayout = () => {
       label: "User Management",
       icon: LuUser,
       subLinks: [
+        { to: "/admin-dashboard/users/all", label: "All Users" },
         {
           to: "/admin-dashboard/users/pending",
           label: "Pending Users",
         },
-        { to: "/admin-dashboard/users/all", label: "All Users" },
       ],
     },
     {
