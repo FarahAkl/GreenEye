@@ -2,9 +2,13 @@ import {
   HiOutlineUsers,
   HiOutlineCube,
   HiOutlineBanknotes,
+  HiOutlineShoppingCart,
 } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 import SEO from "../../../ui/SEO";
+import { useProductsCount } from "../hooks/useProductsCount";
+import { useOrdersCount } from "../hooks/useOrdersCount";
+import Spinner from "../../../ui/Spinner";
 
 const cards = [
   {
@@ -43,6 +47,12 @@ const cards = [
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
+  const { productsCount, isFetchingProductsCount } = useProductsCount();
+  const { ordersCount, isFetchingOrdersCount } = useOrdersCount();
+
+  const pCount = productsCount?.data ?? productsCount ?? 0;
+  const oCount = ordersCount?.data ?? ordersCount ?? 0;
+
   return (
     <div className="animate-[fadeInUp_0.4s_ease_both]">
       <SEO title="Admin Dashboard" />
@@ -63,7 +73,34 @@ const AdminDashboard = () => {
         </p>
       </div>
 
-      {/* Cards */}
+      {/* Metrics Section */}
+      <div className="mb-8 grid gap-6 sm:grid-cols-2">
+        <div className="flex items-center gap-4 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-orange-50 text-orange-500">
+            <HiOutlineCube size={28} />
+          </div>
+          <div>
+            <p className="text-sm font-medium text-gray-500">Total Products</p>
+            <div className="text-2xl font-bold text-gray-900">
+              {isFetchingProductsCount ? <Spinner size="sm"/> : pCount}
+            </div>
+          </div>
+        </div>
+        
+        <div className="flex items-center gap-4 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-500">
+            <HiOutlineShoppingCart size={28} />
+          </div>
+          <div>
+            <p className="text-sm font-medium text-gray-500">Total Orders</p>
+            <div className="text-2xl font-bold text-gray-900">
+              {isFetchingOrdersCount ? <Spinner size="sm" /> : oCount}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Action Cards */}
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {cards.map((card, i) => (
           <div
