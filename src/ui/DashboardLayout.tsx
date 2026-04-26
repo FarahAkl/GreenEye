@@ -7,7 +7,7 @@ import {
   LuPackage,
   LuWallet,
   LuClipboardList,
-  LuShoppingBag,
+  // LuShoppingBag,
   LuLayoutGrid,
   LuChevronDown,
   LuChevronRight,
@@ -150,7 +150,7 @@ const DashboardLayout = () => {
         { to: "/admin-dashboard/products/updates", label: "Pending Updates" },
       ],
     },
-    { to: "/admin-dashboard/orders", label: "Orders", icon: LuShoppingBag },
+    // { to: "/admin-dashboard/orders", label: "Orders", icon: LuShoppingBag },
     {
       label: "Wallets & Cash Flow",
       icon: LuWallet,

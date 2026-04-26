@@ -103,7 +103,7 @@ const router = createBrowserRouter([
           },
           { path: "/admin-dashboard/categories", element: <Categories /> },
           { path: "/admin-dashboard/categories/add", element: <AddCategory /> },
-          { path: "/admin-dashboard/orders", element: <AdminDashboard /> },
+          // { path: "/admin-dashboard/orders", element: <AdminDashboard /> },
           {
             path: "/admin-dashboard/withdrawals/requests",
             element: <PendingWithdrawals />,
