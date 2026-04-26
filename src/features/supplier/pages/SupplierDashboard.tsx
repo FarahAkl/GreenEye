@@ -1,10 +1,16 @@
+import { useState } from "react";
 import {
   HiOutlineCube,
   HiOutlineWallet,
   HiOutlineClipboardDocumentList,
+  HiOutlineBanknotes,
 } from "react-icons/hi2";
 import { Link } from "react-router-dom";
 import SEO from "../../../ui/SEO";
+import { useProfile } from "../../profile/hooks/useProfile";
+import { useGetSupplierProfits } from "../hooks/useGetSupplierProfits";
+import Spinner from "../../../ui/Spinner";
+import CustomSelect from "../../../ui/CustomSelect";
 
 const cards = [
   {
@@ -34,6 +40,30 @@ const cards = [
 ];
 
 const SupplierDashboard = () => {
+  const { profileData } = useProfile();
+  const supplierId = profileData?.data?.id || "";
+
+  const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
+  const [selectedMonth, setSelectedMonth] = useState<number>(new Date().getMonth() + 1);
+
+  const monthOptions = Array.from({ length: 12 }, (_, i) => i + 1).map((month) => ({
+    value: month.toString(),
+    label: new Date(0, month - 1).toLocaleString("default", { month: "long" }),
+  }));
+
+  const yearOptions = Array.from({ length: 5 }, (_, i) => new Date().getFullYear() - i).map((year) => ({
+    value: year.toString(),
+    label: year.toString(),
+  }));
+
+  const { profits, isFetchingProfits } = useGetSupplierProfits(supplierId, {
+    year: selectedYear,
+    month: selectedMonth,
+  });
+
+  const yearlyProfits = profits?.data?.yearlyProfits ?? 0;
+  const monthlyProfits = profits?.data?.monthlyProfits ?? 0;
+
   return (
     <div className="animate-[fadeInUp_0.4s_ease_both]">
       <SEO title="Supplier Dashboard" description="Manage your products, orders, and wallet from your supplier dashboard." />
@@ -44,12 +74,61 @@ const SupplierDashboard = () => {
         }
       `}</style>
 
-      {/* Header */}
-      <div className="mb-10">
-        <h1 className="mb-2 text-3xl font-bold text-[#1a3a2e]">Supplier Overview</h1>
-        <p className="text-[#7a9e8e]">
-          Welcome back! Manage your business activities here.
-        </p>
+      {/* Header & Filters */}
+      <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+        <div>
+          <h1 className="mb-2 text-3xl font-bold text-[#1a3a2e]">Supplier Overview</h1>
+          <p className="text-[#7a9e8e]">
+            Welcome back! Manage your business activities here.
+          </p>
+        </div>
+
+        {/* Date Filters */}
+        <div className="flex items-center gap-3">
+          <div className="flex flex-col gap-1.5 w-36">
+            <label className="text-xs font-semibold text-[#7a9e8e] ml-1">Month</label>
+            <CustomSelect
+              options={monthOptions}
+              value={selectedMonth.toString()}
+              onChange={(val) => setSelectedMonth(Number(val))}
+            />
+          </div>
+          <div className="flex flex-col gap-1.5 w-32">
+            <label className="text-xs font-semibold text-[#7a9e8e] ml-1">Year</label>
+            <CustomSelect
+              options={yearOptions}
+              value={selectedYear.toString()}
+              onChange={(val) => setSelectedYear(Number(val))}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Metrics Section */}
+      <div className="mb-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="flex items-center gap-4 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-500">
+            <HiOutlineBanknotes size={28} />
+          </div>
+          <div>
+            <p className="text-sm font-medium text-gray-500">Monthly Profits</p>
+            <div className="text-2xl font-bold text-gray-900">
+              {isFetchingProfits ? <Spinner size="sm" /> : `${monthlyProfits.toLocaleString()} EGP`}
+            </div>
+          </div>
+        </div>
+        
+        <div className="flex items-center gap-4 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-500">
+            <HiOutlineBanknotes size={28} />
+          </div>
+          <div>
+            <p className="text-sm font-medium text-gray-500">Yearly Profits</p>
+            <div className="text-2xl font-bold text-gray-900">
+              {isFetchingProfits ? <Spinner size="sm" /> : `${yearlyProfits.toLocaleString()} EGP`}
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Cards */}
