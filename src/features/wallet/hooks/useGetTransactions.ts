@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getWalletTransactions } from "../services/apiWallets";
 
-export const useGetTransactions = (walletId: string) => {
+export const useGetTransactions = (walletId?: string) => {
   const {
     data: walletTransactions,
     isPending: isFetchingTransactions,
@@ -10,7 +10,7 @@ export const useGetTransactions = (walletId: string) => {
   } = useQuery({
     queryKey: ["wallet-tansactions", walletId],
     queryFn: () => getWalletTransactions(walletId),
-    enabled: !!walletId,
+    // enabled: !!walletId,
     staleTime: 1000 * 60 * 5,
   });
 

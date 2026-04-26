@@ -29,10 +29,11 @@ import PendingUpdates from "../features/admin/pages/PendingUpdates";
 import Categories from "../features/admin/pages/Categories";
 import AddCategory from "../features/admin/pages/AddCategory";
 import AllWallets from "../features/admin/pages/AllWallets";
-import SupplierDashboard from "../features/suppplier/pages/SupplierDashboard";
-import SupplierProducts from "../features/suppplier/pages/SupplierProducts";
-import SupplierOrders from "../features/suppplier/pages/SupplierOrders";
-import AddProducts from "../features/suppplier/pages/AddProducts";
+import SupplierWallet from "../features/supplier/pages/SupplierWallet";
+import SupplierDashboard from "../features/supplier/pages/SupplierDashboard";
+import SupplierProducts from "../features/supplier/pages/SupplierProducts";
+import SupplierOrders from "../features/supplier/pages/SupplierOrders";
+import AddProducts from "../features/supplier/pages/AddProducts";
 
 const router = createBrowserRouter([
   {
@@ -130,7 +131,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/supplier-dashboard/wallet",
-            element: <SupplierDashboard />,
+            element: <SupplierWallet />,
           },
         ],
       },

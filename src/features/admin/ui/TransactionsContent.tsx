@@ -11,9 +11,11 @@ const getTransactionTypeTone = (type: string) =>
 const TransactionsContent = ({
   walletId,
   supplierId,
+  variant = "modal",
 }: {
   walletId: string;
   supplierId: string;
+  variant?: "modal" | "embedded";
   onCloseModal?: () => void;
 }) => {
   const { walletTransactions, isFetchingTransactions, isError } =
@@ -21,7 +23,11 @@ const TransactionsContent = ({
 
   if (isFetchingTransactions) {
     return (
-      <div className="flex min-h-50 w-[min(92vw,56rem)] items-center justify-center">
+      <div
+        className={`flex min-h-50 items-center justify-center ${
+          variant === "modal" ? "w-[min(92vw,56rem)]" : "w-full"
+        }`}
+      >
         <Spinner />
       </div>
     );
@@ -30,7 +36,11 @@ const TransactionsContent = ({
   const transactions = walletTransactions?.data ?? [];
 
   return (
-    <div className="mt-6 flex w-[min(92vw,56rem)] max-w-4xl flex-col gap-5">
+    <div
+      className={`flex max-w-4xl flex-col gap-5 ${
+        variant === "modal" ? "mt-6 w-[min(92vw,56rem)]" : "w-full"
+      }`}
+    >
       <div className="max-h-[70vh] overflow-y-auto pr-1">
         <div className="grid gap-3 sm:grid-cols-2">
           <div className="rounded-2xl border border-[#e0f0e9] bg-[#fafcfb] p-4">

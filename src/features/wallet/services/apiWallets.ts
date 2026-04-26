@@ -12,8 +12,8 @@ export const getSupplierWallet = async () => {
   return res.data;
 };
 
-export const getWalletTransactions = async (walletId: string) => {
-  const res = await axiosInstance.get(`/api/Wallet/${walletId}/transactions`);
+export const getWalletTransactions = async (walletId?: string) => {
+  const res = await axiosInstance.get(`/api/Wallet${walletId?`/${walletId}`:''}/transactions`);
   return res.data;
 };
 

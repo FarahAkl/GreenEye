@@ -46,3 +46,4 @@ export type walletT = z.infer<typeof walletSchema>;
 export type walletsResponseT = z.infer<typeof walletsResponseSchema>;
 export type transactionT = z.infer<typeof transactionSchema>;
 export type transactionsResponseT = z.infer<typeof transactionResponseSchema>;
+export type supplierWalletResponseT = z.infer<typeof supplierWalletsResponseSchema>;

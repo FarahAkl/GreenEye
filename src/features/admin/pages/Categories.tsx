@@ -6,7 +6,7 @@ import { HiOutlineViewGridAdd } from "react-icons/hi";
 import { useCategory } from "../../../hooks/useCategory";
 import Button from "../../../ui/Button";
 import CategoryRow from "../ui/CategoryRow";
-import SkeletonRow from "../../suppplier/ui/SkeletonRow";
+import SkeletonRow from "../../supplier/ui/SkeletonRow";
 import SEO from "../../../ui/SEO";
 
 const Categories = () => {
