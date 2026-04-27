@@ -38,7 +38,7 @@ const TransactionsContent = ({
   return (
     <div
       className={`flex max-w-4xl flex-col gap-5 ${
-        variant === "modal" ? "mt-6 w-[min(92vw,56rem)]" : "w-full"
+        variant === "modal" ? "mt-6" : "w-full"
       }`}
     >
       <div className="max-h-[70vh] overflow-y-auto pr-1">
