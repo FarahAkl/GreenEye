@@ -85,22 +85,22 @@ const MarketPlace = () => {
 
       {/* Categories grid */}
       <section className="px-4 py-10 sm:px-8 md:px-16">
-        <p className="text-dark mb-6 text-2xl">Search By Categories</p>
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+        <p className="text-dark mb-6 text-2xl font-bold">Shop by Category</p>
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
           {categories?.data.map((category: categoryT) => (
             <div
               key={category.id}
               onClick={() => handleCategoryClick(category.id)}
-              className="flex cursor-pointer flex-col items-center justify-center rounded-2xl border border-gray-200 bg-white py-5 shadow-sm transition hover:shadow-md"
+              className="flex cursor-pointer flex-col items-center justify-center rounded-2xl border border-gray-100 bg-white p-5 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md"
             >
-              <div className="h-16 w-16 overflow-hidden sm:h-20 sm:w-20 md:h-24 md:w-24">
+              <div className="h-16 w-16 overflow-hidden sm:h-20 sm:w-20">
                 <img
                   src={`${BASE_URL}${category.imageUrl}`}
                   alt={category.name}
-                  className="w-full object-cover"
+                  className="h-full w-full object-contain"
                 />
               </div>
-              <p className="text-dark mt-3 px-2 text-center text-xs font-semibold sm:text-sm">
+              <p className="text-dark mt-3 text-center text-sm font-semibold">
                 {category.name}
               </p>
             </div>
@@ -110,16 +110,16 @@ const MarketPlace = () => {
 
       {/* Products preview */}
       <div className="flex items-center justify-between px-4 sm:px-8 md:px-16">
-        <p className="text-dark text-xl sm:text-2xl">Discover Products</p>
+        <p className="text-dark text-xl font-bold sm:text-2xl">Discover Products</p>
         <Link
           to={"/products"}
-          className="text-primary flex items-center gap-0.5 text-sm sm:text-base"
+          className="text-primary flex items-center gap-1 font-semibold transition-colors hover:text-primary/80"
         >
           <p>View All</p>
-          <MdKeyboardArrowRight size={20} />
+          <MdKeyboardArrowRight size={22} />
         </Link>
       </div>
-      <div className="mx-4 my-10 grid grid-cols-1 gap-5 sm:mx-8 sm:grid-cols-2 md:mx-14 md:grid-cols-3 lg:grid-cols-4">
+      <div className="mx-4 my-8 grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-6 sm:mx-8 md:mx-16">
         {products?.data?.data.map((product: productsT) => (
           <ProductCard key={product.id} {...product} />
         ))}

@@ -18,7 +18,7 @@ const ProductCard = (product: productsT) => {
     reviewCount,
   } = product;
   return (
-    <div className="flex h-full max-w-80 flex-col overflow-hidden rounded-2xl border border-gray-300 bg-white shadow-md">
+    <div className="flex h-full w-full flex-col overflow-hidden rounded-2xl border border-gray-300 bg-white shadow-md transition-all hover:shadow-lg">
       {/* Image Section */}
       <div className="relative h-56">
         <img
