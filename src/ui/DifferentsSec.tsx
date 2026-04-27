@@ -1,6 +1,7 @@
 import Slider from "react-slick";
 import useWindowSize from "../hooks/useWindowSize";
 import Card from "./Card";
+import { motion } from "framer-motion";
 
 const DifferentsSec = () => {
   const { width } = useWindowSize();
@@ -58,10 +59,20 @@ const DifferentsSec = () => {
   return (
     <section className="px-8 py-20 shadow-xl md:px-12 lg:px-24">
       <div className="flex flex-col gap-4">
-        <p className="text-dark mb-4 text-center text-4xl">
+        <motion.p 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="text-dark mb-4 text-center text-4xl"
+        >
           What Makes GreenEye Different
-        </p>
-        <div
+        </motion.p>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, delay: 0.2 }}
           className={`grid grid-cols-2 gap-4 lg:grid-cols-3 ${width > 560 ? "grid" : "hidden"}`}
         >
           {content.map((cardContent) => (
@@ -72,9 +83,15 @@ const DifferentsSec = () => {
               key={cardContent.label}
             />
           ))}
-        </div>
+        </motion.div>
         {width <= 560 && (
-          <Slider {...settings} className="features-slider">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <Slider {...settings} className="features-slider">
             {content.map((cardContent) => (
               <div className="px-5">
                 <Card
@@ -85,7 +102,8 @@ const DifferentsSec = () => {
                 />
               </div>
             ))}
-          </Slider>
+            </Slider>
+          </motion.div>
         )}
       </div>
     </section>

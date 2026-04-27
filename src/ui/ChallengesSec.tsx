@@ -1,5 +1,6 @@
 import Slider from "react-slick";
 import useWindowSize from "../hooks/useWindowSize";
+import { motion } from "framer-motion";
 
 const ChallengesSec = () => {
   const { width } = useWindowSize();
@@ -26,23 +27,36 @@ const ChallengesSec = () => {
   };
   return (
     <section className="px-8 py-20 md:px-12 lg:px-24">
-      <div className="text-center">
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6 }}
+        className="text-center"
+      >
         <p className="text-dark text-4xl font-bold">Challenges</p>
         <p className="my-2 font-semibold text-gray-600">
           There are lots of factors, making agriculture harder everyday
         </p>
-      </div>
+      </motion.div>
 
-      <Slider {...settings} className="features-slider">
-        {[1, 2, 3, 4, 5, 6, 7].map((i) => (
-          <img
-            src={`/images/challenge${i}.avif`}
-            alt="challenge"
-            className="transition-all hover:translate-y-5"
-            key={i}
-          />
-        ))}
-      </Slider>
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8, delay: 0.3 }}
+      >
+        <Slider {...settings} className="features-slider">
+          {[1, 2, 3, 4, 5, 6, 7].map((i) => (
+            <img
+              src={`/images/challenge${i}.avif`}
+              alt="challenge"
+              className="transition-all hover:translate-y-5"
+              key={i}
+            />
+          ))}
+        </Slider>
+      </motion.div>
     </section>
   );
 };

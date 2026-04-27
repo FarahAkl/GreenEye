@@ -1,4 +1,5 @@
 import Button from "./Button";
+import { motion } from "framer-motion";
 
 const AppSec = () => {
   const appSteps = [
@@ -36,28 +37,72 @@ const AppSec = () => {
   return (
     <section className="px-8 py-20 shadow-[0_10px_30px_rgba(0,149,102,0.15)] md:px-12 lg:px-24">
       <div className="grid items-center gap-12 lg:grid-cols-2">
-        <div className="flex flex-col gap-4">
-          <p className="text-dark text-4xl font-bold">The GreenEye App</p>
-          <p className="text-lg text-gray-600">
+        <motion.div 
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, staggerChildren: 0.15 }}
+          className="flex flex-col gap-4"
+        >
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-dark text-4xl font-bold"
+          >
+            The GreenEye App
+          </motion.p>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-lg text-gray-600"
+          >
             GreenEye is designed to be simple, intuitive, and practical. Farmers
             and decision-makers can access powerful insights through a clear
             visual interface — without technical complexity.
-          </p>
-          <p className="text-2xl text-[#004630]">What you can do:</p>
+          </motion.p>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-2xl text-[#004630]"
+          >
+            What you can do:
+          </motion.p>
           {appSteps.map((step) => (
-            <div className="flex flex-col gap-3" key={step.label}>
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="flex flex-col gap-3" 
+              key={step.label}
+            >
               <div className="flex items-end gap-2">
                 <img src={step.icon} alt="plant" key={step.label} />
                 <p className="text-xl">{step.label}</p>
               </div>
               <p className="text-lg text-gray-700">{step.describtion}</p>
-            </div>
+            </motion.div>
           ))}
-        </div>
-        <div className="flex h-full w-full items-center justify-center">
+        </motion.div>
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9, x: 50 }}
+          whileInView={{ opacity: 1, scale: 1, x: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="flex h-full w-full items-center justify-center"
+        >
           <img src="/images/application.avif" alt="application screens" />
-        </div>
-        <Button btnLabel="Download App" className="md:w-1/2" />
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5 }}
+        >
+          <Button btnLabel="Download App" className="md:w-1/2" />
+        </motion.div>
       </div>
     </section>
   );

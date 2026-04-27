@@ -4,6 +4,7 @@ import useWindowSize from "../hooks/useWindowSize";
 import FeatureCard from "./FeatureCard";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { motion } from "framer-motion";
 
 const NextArrow = ({ onClick }: CustomArrowProps) => (
   <button
@@ -76,11 +77,23 @@ const FeatureSec = () => {
 
   return (
     <section className="px-8 pt-24 pb-12 md:px-12 lg:px-20 lg:pt-24">
-      <div className="text-center">
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6 }}
+        className="text-center"
+      >
         <p className="text-dark text-4xl font-bold">Core Capabilities</p>
         <p className="my-2 font-semibold text-gray-600">What GreenEye Offers</p>
-      </div>
-      <div className="relative my-10">
+      </motion.div>
+      <motion.div 
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        className="relative my-10"
+      >
         <Slider {...settings} className="features-slider">
           {cardsContent.map((card) => (
             <div className="px-4">
@@ -93,7 +106,7 @@ const FeatureSec = () => {
             </div>
           ))}
         </Slider>
-      </div>
+      </motion.div>
     </section>
   );
 };

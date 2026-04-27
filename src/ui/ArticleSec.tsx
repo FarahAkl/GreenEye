@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Button from "./Button";
+import { motion } from "framer-motion";
 
 const ArticleSec = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -21,7 +22,13 @@ declining and conditions are becoming increasingly unpredictable.`;
 
   return (
     <section className="grid grid-cols-1 items-center justify-between gap-8 px-8 pt-24 pb-12 shadow-[0_10px_30px_rgba(0,149,102,0.15)] md:grid-cols-2 md:px-12 lg:px-20 lg:pt-24">
-      <div className="flex justify-center">
+      <motion.div 
+        initial={{ opacity: 0, x: -50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="flex justify-center"
+      >
         <svg viewBox="0 0 200 200" className="h-115 w-115 md:h-120 md:w-120">
           <defs>
             <clipPath id="blobClip">
@@ -40,9 +47,15 @@ declining and conditions are becoming increasingly unpredictable.`;
             preserveAspectRatio="xMidYMid slice"
           />
         </svg>
-      </div>
+      </motion.div>
 
-      <div className="flex flex-col items-center gap-5 text-center md:items-start md:text-start">
+      <motion.div 
+        initial={{ opacity: 0, x: 50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+        className="flex flex-col items-center gap-5 text-center md:items-start md:text-start"
+      >
         <p className="text-dark text-4xl font-bold">
           Agriculture at a Turning Point
         </p>
@@ -54,7 +67,7 @@ declining and conditions are becoming increasingly unpredictable.`;
           className="mt-4 md:w-1/2"
           onClick={() => setIsExpanded((prev) => !prev)}
         />
-      </div>
+      </motion.div>
     </section>
   );
 };
