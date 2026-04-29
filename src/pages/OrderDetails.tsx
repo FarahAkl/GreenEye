@@ -91,7 +91,10 @@ const OrderDetails = () => {
 
   return (
     <section className="bg-primary/10 relative overflow-hidden px-4 py-12 sm:px-8 md:px-12 lg:px-16">
-      <SEO title={`Order #${orderId}`} description="Track and view details for your eco-friendly product order." />
+      <SEO
+        title={`Order #${orderId}`}
+        description="Track and view details for your eco-friendly product order."
+      />
       <div
         aria-hidden="true"
         className="absolute inset-0 -z-10 bg-[url('/images/productsBg.png')] bg-repeat opacity-6"
@@ -139,13 +142,21 @@ const OrderDetails = () => {
                     </span>{" "}
                     <span className="text-primary">{orderData.status}</span>
                   </p>
+                  <p>
+                    <span className="font-semibold text-[#1d4638]">
+                      Delivery Status:
+                    </span>{" "}
+                    <span className="text-primary">
+                      {orderData.deliveryStatus}
+                    </span>
+                  </p>
                 </div>
               </div>
 
               <div className="w-full max-w-3xl rounded-3xl px-4 py-5">
                 <DeliveryTracker
                   deliveryStatus={
-                    shippingInfo?.status ?? orderData.deliveryStatus
+                    orderData.deliveryStatus 
                   }
                   createdAt={shippingInfo?.deliveredAt || orderData.createdAt}
                 />

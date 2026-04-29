@@ -3,6 +3,7 @@ import type { productsT } from "../../../schemas/productsSchema";
 import { CgAdd } from "react-icons/cg";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../cart/hooks/useCart";
+import LazyImage from "../../../ui/LazyImage";
 
 const ProductCard = (product: productsT) => {
   const BASE_URL = import.meta.env.VITE_API_URL;
@@ -20,11 +21,12 @@ const ProductCard = (product: productsT) => {
   return (
     <div className="flex h-full w-full flex-col overflow-hidden rounded-2xl border border-gray-300 bg-white shadow-md transition-all hover:shadow-lg">
       {/* Image Section */}
-      <div className="relative h-56">
-        <img
-          src={`${BASE_URL}${image}`}
+      <div className="relative h-56 bg-gray-50">
+        <LazyImage
+          src={image ? `${BASE_URL}${image}` : null}
           alt={name}
           className="h-full w-full object-contain"
+          iconSize={48}
         />
       </div>
 

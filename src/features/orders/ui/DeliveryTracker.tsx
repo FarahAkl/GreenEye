@@ -7,8 +7,8 @@ const DELIVERY_STEPS = [
 
 const DELIVERY_STEP_ORDER: Record<string, number> = {
   Pending: 0,
-  LabelGenerated: 1,
   PickedUp: 1,
+  Packaged:1,
   InTransit: 2,
   OutForDelivery: 2,
   Delivered: 3,

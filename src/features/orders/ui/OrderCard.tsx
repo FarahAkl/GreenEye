@@ -1,8 +1,12 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { orderT } from "../../../schemas/ordersSchema";
 import Button from "../../../ui/Button";
 import DeliveryTracker from "./DeliveryTracker";
 import { formatDate } from "../../../utils/date";
+import { motion, AnimatePresence } from "framer-motion";
+import { HiChevronDown, HiChevronUp } from "react-icons/hi2";
+import LazyImage from "../../../ui/LazyImage";
 
 const OrderCard = ({
   order,
@@ -17,8 +21,10 @@ const OrderCard = ({
   onRefund: (id: string) => void;
   isRefunding: boolean;
 }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
   const itemCount = order.items?.length ?? 0;
   const navigate = useNavigate();
+  const BASE_URL = import.meta.env.VITE_API_URL;
 
   const isPaid = order.status === "Paid";
   const canResumePayment = order.status === "Pending" && !!order.id;
@@ -64,9 +70,56 @@ const OrderCard = ({
       </div>
 
       {/* Products bar */}
-      <div className="bg-[#e8f7f1] py-1.5 text-center text-sm font-semibold text-[#2d9e7a]">
+      <button
+        onClick={() => setIsExpanded(!isExpanded)}
+        className="flex w-full cursor-pointer items-center justify-center gap-2 bg-[#e8f7f1] py-2 text-sm font-semibold text-[#2d9e7a] transition-colors hover:bg-[#d9f2e7]"
+      >
         {itemCount} Product{itemCount !== 1 ? "s" : ""}
-      </div>
+        {isExpanded ? <HiChevronUp size={18} /> : <HiChevronDown size={18} />}
+      </button>
+
+      {/* Expanded Products List */}
+      <AnimatePresence>
+        {isExpanded && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="overflow-hidden border-b border-[#e0f0e9]"
+          >
+            <div className="flex flex-col gap-3 px-5 py-4">
+              {order.items?.map((item) => (
+                <div key={item.id} className="flex items-center gap-4">
+                  <div className="h-14 w-14 shrink-0 overflow-hidden rounded-lg border border-gray-100 bg-gray-50">
+                    <LazyImage
+                      src={
+                        item.productImage
+                          ? `${BASE_URL}${item.productImage}`
+                          : null
+                      }
+                      alt={item.productName ?? "Product"}
+                      className="h-full w-full object-contain"
+                      iconSize={24}
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col gap-0.5">
+                    <h4 className="text-sm font-bold text-[#1a3a2e]">
+                      {item.productName}
+                    </h4>
+                    <p className="text-xs text-[#7a9e8e]">
+                      Qty: {item.quantity} × {item.unitPrice.toLocaleString()} EGP
+                    </p>
+                  </div>
+                  <div className="text-sm font-bold text-[#2d9e7a]">
+                    {item.totalPrice.toLocaleString()} EGP
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Price + Tracker */}
       <div className="px-5 pt-4 pb-3">
