@@ -80,7 +80,7 @@ const Window = ({ name, icon, title, description, children }: WindowProps) => {
     <div className="fixed inset-0 z-999 flex h-full items-center justify-center bg-black/20 backdrop-blur-sm transition-all">
       <div
         ref={ref}
-        className="relative mx-4 w-fit max-w-[calc(100vw-2rem)] overflow-hidden rounded-xl bg-white p-8 shadow-xl"
+        className="relative mx-4 w-fit max-h-8/9 overflow-scroll max-w-[calc(100vw-2rem)] rounded-xl bg-white p-8 shadow-xl"
       >
         <div className="flex items-center gap-2">
           <div className="border-black-400 flex h-12 w-12 shrink-0 items-center justify-center rounded-full border">
