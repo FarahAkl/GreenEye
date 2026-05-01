@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AuthContext } from "./context/AuthContext";
+import { AuthContext, type AuthUser } from "./context/AuthContext";
 import { getCookie, setCookie, deleteCookie } from "../utils/TS-Cookie";
 import { logout as logoutapi } from "../features/auth/services/apiAuth";
 
@@ -7,14 +7,24 @@ interface ProviderProps {
   children: React.ReactNode;
 }
 
-const parseRolesCookie = (): string[] => {
+// const parseRolesCookie = (): string[] => {
+//   try {
+//     const raw = getCookie({ name: "roles" });
+//     if (!raw) return [];
+//     const parsed = JSON.parse(decodeURIComponent(raw));
+//     return Array.isArray(parsed) ? parsed : [];
+//   } catch {
+//     return [];
+//   }
+// };
+
+const parseUserCookie = (): AuthUser | null => {
   try {
-    const raw = getCookie({ name: "roles" });
-    if (!raw) return [];
-    const parsed = JSON.parse(decodeURIComponent(raw));
-    return Array.isArray(parsed) ? parsed : [];
+    const raw = getCookie({ name: "user" });
+    if (!raw) return null;
+    return JSON.parse(decodeURIComponent(raw));
   } catch {
-    return [];
+    return null;
   }
 };
 
@@ -23,22 +33,32 @@ export const AuthProvider = ({ children }: ProviderProps) => {
     return !!getCookie({ name: "token" });
   });
 
-  const [roles, setRoles] = useState<string[]>(parseRolesCookie);
+  const [user, setUser] = useState<AuthUser | null>(parseUserCookie);
+  const [roles, setRoles] = useState<string[]>(() => user?.roles ?? []);
 
   useEffect(() => {
     const token = getCookie({ name: "token" });
     setIsAuthenticated(!!token);
     if (!token) {
       setRoles([]);
+      setUser(null);
     }
   }, []);
 
-  const login = (newRoles: string[]) => {
+  const login = (userData: AuthUser) => {
     setIsAuthenticated(true);
-    setRoles(newRoles);
+    setUser(userData);
+    setRoles(userData.roles);
+    
     setCookie({
       name: "roles",
-      value: encodeURIComponent(JSON.stringify(newRoles)),
+      value: encodeURIComponent(JSON.stringify(userData.roles)),
+      days: 14,
+    });
+    
+    setCookie({
+      name: "user",
+      value: encodeURIComponent(JSON.stringify(userData)),
       days: 14,
     });
   };
@@ -49,13 +69,17 @@ export const AuthProvider = ({ children }: ProviderProps) => {
     } finally {
       setIsAuthenticated(false);
       setRoles([]);
+      setUser(null);
       deleteCookie({ name: "roles" });
+      deleteCookie({ name: "user" });
     }
   };
 
   const value = {
     isAuthenticated,
     roles,
+    userId: user?.userId ?? null,
+    user,
     login,
     logout,
   };

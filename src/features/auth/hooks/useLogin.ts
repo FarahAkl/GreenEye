@@ -19,8 +19,8 @@ const useLogin = () => {
         return;
       }
 
-      const roles = data.data.roles ?? [];
-      authLogin(roles);
+      const userData = data.data;
+      authLogin(userData);
 
       toast.success(data.message || "Login Successfully");
 
@@ -40,7 +40,7 @@ const useLogin = () => {
       }
 
       // Redirect based on role
-      const lowerRoles = roles.map((r) => r.toLowerCase());
+      const lowerRoles = userData.roles.map((r) => r.toLowerCase());
       if (lowerRoles.includes("admin")) {
         navigate("/admin-dashboard", { replace: true });
       } else if (lowerRoles.includes("supplier")) {
