@@ -5,6 +5,7 @@ export const walletSchema = z.object({
   supplierId: z.string(),
   balance: z.number(),
   lastUpdatedAt: z.string(),
+  supplierName: z.string().nullable(),
 });
 
 export const walletsResponseSchema = z.object({
@@ -41,9 +42,11 @@ export const withdrawalRequestSchema = z.object({
   bankAccount: z.string(),
 });
 
-export type withdrawalRequestT = z.infer<typeof withdrawalRequestSchema>
+export type withdrawalRequestT = z.infer<typeof withdrawalRequestSchema>;
 export type walletT = z.infer<typeof walletSchema>;
 export type walletsResponseT = z.infer<typeof walletsResponseSchema>;
 export type transactionT = z.infer<typeof transactionSchema>;
 export type transactionsResponseT = z.infer<typeof transactionResponseSchema>;
-export type supplierWalletResponseT = z.infer<typeof supplierWalletsResponseSchema>;
+export type supplierWalletResponseT = z.infer<
+  typeof supplierWalletsResponseSchema
+>;

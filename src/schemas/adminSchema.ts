@@ -19,6 +19,7 @@ export const userSchema = z.object({
   phoneNumber: z.string(),
   profileImage: z.string().nullable(),
   logoImage: z.string().nullable,
+  isFrozen: z.boolean(),
   role: z.string(),
   createdAt: z.string(),
 });
@@ -40,6 +41,7 @@ export const pendingWithdrawalRequestSchema = z.object({
   bankAccount: z.string(),
   createdAt: z.string(),
   walletId: z.string(),
+  supplierName: z.string().nullable(),
 });
 
 export const withdrawalApproveRequestSchema = z.object({
@@ -77,7 +79,7 @@ export const changeRoleRequestSchema = z.object({
 export const freezeUserSchema = z.object({
   userId: z.string(),
   reason: z.string(),
-  days: z.number(),
+  days: z.number().nullable(),
 });
 
 export const unfreezeUserSchema = z.object({
@@ -90,6 +92,7 @@ export const pendingProductUpdateSchema = z.object({
   productId: z.number(),
   productName: z.string(),
   requestedByUserId: z.string(),
+  supplierName: z.string(),
   requestedAt: z.string(),
 });
 
