@@ -7,7 +7,7 @@ import {
   type shippingRateRequestT,
 } from "../../../schemas/shippingSchema";
 import Input from "../../auth/ui/Input";
-import { useProfile } from "../../profile/hooks/useProfile";
+import { useAuth } from "../../auth/hooks/useAuth";
 
 type Props = {
   onSuccess: (data: shippingRateRequestT) => void;
@@ -33,7 +33,7 @@ const OrderInfoForm = ({
   onSuccess,
   initialData,
 }: Props) => {
-  const { profileData } = useProfile();
+  const { user } = useAuth();
   const {
     register,
     handleSubmit,
@@ -56,12 +56,12 @@ const OrderInfoForm = ({
   });
 
   useEffect(() => {
-    if (!profileData?.data) return;
+    if (!user) return;
 
-    setValue("name", profileData.data.name);
-    setValue("email", profileData.data.email);
-    setValue("phone", profileData.data.phoneNumber);
-  }, [profileData, setValue]);
+    setValue("name", user.userName || "");
+    setValue("email", user.email || "");
+    setValue("phone", user.phoneNumber || "");
+  }, [user, setValue]);
 
   const onSubmit = async () => {
     clearErrors();

@@ -5,7 +5,7 @@ import useGetOrderById from "../features/orders/hooks/useGetOrderById";
 import useShippingInfo from "../features/orders/hooks/useShippingInfo";
 import OrderSummary from "../features/orders/ui/OrderSummary";
 import DeliveryTracker from "../features/orders/ui/DeliveryTracker";
-import { useProfile } from "../features/profile/hooks/useProfile";
+import { useAuth } from "../features/auth/hooks/useAuth";
 import type { itemT } from "../schemas/cartSchema";
 import { formatDate } from "../utils/date";
 import SEO from "../ui/SEO";
@@ -37,7 +37,7 @@ const OrderDetails = () => {
     orderId: orderId ?? "",
   });
   const { shippingInfo, isFetchShippingInfo } = useShippingInfo(orderId ?? "");
-  const { profileData } = useProfile();
+  const { user } = useAuth();
 
   if (isFetchingOrder || isFetchShippingInfo) {
     return (
@@ -67,8 +67,8 @@ const OrderDetails = () => {
     );
   }
 
-  const customerName = profileData?.data.name;
-  const customerEmail = profileData?.data.email;
+  const customerName = user?.userName;
+  const customerEmail = user?.email;
   const shippingAddress = [
     shippingInfo?.street,
     shippingInfo?.city,

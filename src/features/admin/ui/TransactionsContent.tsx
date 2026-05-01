@@ -10,11 +10,11 @@ const getTransactionTypeTone = (type: string) =>
 
 const TransactionsContent = ({
   walletId,
-  supplierId,
+  supplierName,
   variant = "modal",
 }: {
   walletId: string;
-  supplierId: string;
+  supplierName: string;
   variant?: "modal" | "embedded";
   onCloseModal?: () => void;
 }) => {
@@ -45,10 +45,10 @@ const TransactionsContent = ({
         <div className="grid gap-3 sm:grid-cols-2">
           <div className="rounded-2xl border border-[#e0f0e9] bg-[#fafcfb] p-4">
             <p className="text-xs font-medium tracking-wide text-[#7a9e8e] uppercase">
-              Supplier ID
+              Supplier
             </p>
             <p className="mt-2 text-base font-bold text-[#1a3a2e]">
-              {supplierId}
+              {supplierName}
             </p>
           </div>
           <div className="rounded-2xl border border-[#e0f0e9] bg-[#fafcfb] p-4">

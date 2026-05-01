@@ -36,6 +36,13 @@ export const getUserOrders = async () => {
   return res.data;
 };
 
+export const getUserOrdersById = async (userId: string) => {
+  const res = await axiosInstance.get(
+    `/api/marketplace/Order/user/${userId}/orders`,
+  );
+  return res.data;
+};  
+
 export const getOrderById = async ({
   id,
   params,

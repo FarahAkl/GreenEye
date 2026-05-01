@@ -31,6 +31,8 @@ import Categories from "../features/admin/pages/Categories";
 import AddCategory from "../features/admin/pages/AddCategory";
 import AllWallets from "../features/admin/pages/AllWallets";
 import PendingWithdrawals from "../features/admin/pages/PendingWithdrawals";
+import UserActivity from "../features/admin/pages/UserActivity";
+import SupplierActivity from "../features/admin/pages/SupplierActivity";
 import SupplierWallet from "../features/supplier/pages/SupplierWallet";
 import SupplierDashboard from "../features/supplier/pages/SupplierDashboard";
 import SupplierProducts from "../features/supplier/pages/SupplierProducts";
@@ -89,6 +91,8 @@ const router = createBrowserRouter([
           { path: "/admin-dashboard", element: <AdminDashboard /> },
           { path: "/admin-dashboard/users/pending", element: <PendingUsers /> },
           { path: "/admin-dashboard/users/all", element: <AllUsers /> },
+          { path: "/admin-dashboard/users/:userId/activity", element: <UserActivity /> },
+          { path: "/admin-dashboard/users/:userId/supplier-activity", element: <SupplierActivity /> },
           {
             path: "/admin-dashboard/products/pending",
             element: <PendingProducts />,
@@ -113,6 +117,7 @@ const router = createBrowserRouter([
             element: <AllWallets />,
           },
           { path: "/admin-dashboard/categories", element: <AdminDashboard /> },
+          { path: "/admin-dashboard/profile", element: <Profile /> },
         ],
       },
       {
@@ -135,6 +140,7 @@ const router = createBrowserRouter([
             path: "/supplier-dashboard/wallet",
             element: <SupplierWallet />,
           },
+          { path: "/supplier-dashboard/profile", element: <Profile /> },
         ],
       },
     ],

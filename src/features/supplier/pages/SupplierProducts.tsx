@@ -6,7 +6,7 @@ import { HiOutlineViewGridAdd } from "react-icons/hi";
 import { useSupplierProducts } from "../hooks/useSupplierProducts";
 import useDeleteProduct from "../hooks/useDeleteProduct";
 import { useUpdateProduct } from "../hooks/useUpdateProduct";
-import { useProfile } from "../../profile/hooks/useProfile";
+import { useAuth } from "../../auth/hooks/useAuth";
 import type { updateProductT } from "../../../schemas/supplierSchema";
 
 import Button from "../../../ui/Button";
@@ -16,8 +16,8 @@ import SEO from "../../../ui/SEO";
 
 const SupplierProducts = () => {
   const navigate = useNavigate();
-  const { profileData } = useProfile();
-  const supplierId = profileData?.data?.id || "";
+  const { userId } = useAuth();
+  const supplierId = userId || "";
 
   const { supplierProducts, isFetchingProducts } =
     useSupplierProducts(supplierId);

@@ -7,7 +7,7 @@ import {
 } from "react-icons/hi2";
 import { Link } from "react-router-dom";
 import SEO from "../../../ui/SEO";
-import { useProfile } from "../../profile/hooks/useProfile";
+import { useAuth } from "../../auth/hooks/useAuth";
 import { useGetSupplierProfits } from "../hooks/useGetSupplierProfits";
 import Spinner from "../../../ui/Spinner";
 import CustomSelect from "../../../ui/CustomSelect";
@@ -40,8 +40,8 @@ const cards = [
 ];
 
 const SupplierDashboard = () => {
-  const { profileData } = useProfile();
-  const supplierId = profileData?.data?.id || "";
+  const { userId } = useAuth();
+  const supplierId = userId || "";
 
   const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
   const [selectedMonth, setSelectedMonth] = useState<number>(new Date().getMonth() + 1);
