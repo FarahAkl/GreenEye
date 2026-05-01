@@ -1,38 +1,40 @@
 import { isAxiosError } from "axios";
 import type { updateProfileT } from "../../../schemas/profileSchema";
 import axiosInstance from "../../../services/axiosInstance";
+import { objectToFormData } from "../../../utils/objectToFormData";
 
-export const getProfile = async () => {
-  const res = await axiosInstance.get("/api/Profile");
+export const getProfile = async (userId?: string) => {
+  const res = await axiosInstance.get(`/api/Profile/${userId}`);
   return res.data;
 };
 
 export const updateProfile = async (data: updateProfileT) => {
   try {
-    const formData = new FormData();
+    const payload = objectToFormData(data);
 
-    formData.append("name", data.name);
-    formData.append("address", data.address);
-    formData.append("phoneNumber", data.phoneNumber);
-
-    if (data.newImage) {
-      formData.append("newImage", data.newImage);
-    }
-
-    const res = await axiosInstance.put("/api/Profile/update", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    const res = await axiosInstance.put("/api/Profile/update", payload);
 
     return res.data;
   } catch (err) {
     if (isAxiosError(err)) {
       throw new Error(
-        err.response?.data?.message || "Failed to update profile"
+        err.response?.data?.message || "Failed to update profile",
       );
     }
     throw err;
   }
 };
 
+export const deleteProfile = async () => {
+  try {
+    const res = await axiosInstance.delete("/api/Profile/delete");
+    return res.data;
+  } catch (err) {
+    if (isAxiosError(err)) {
+      throw new Error(
+        err.response?.data?.message || "Failed to delete profile",
+      );
+    }
+    throw err;
+  }
+};

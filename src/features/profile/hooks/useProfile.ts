@@ -6,12 +6,13 @@ import {
 import toast from "react-hot-toast";
 import type { updateProfileT } from "../../../schemas/profileSchema";
 
-const useProfile = () => {
+const useProfile = (userId?: string, enabled = true) => {
   const queryClient = useQueryClient();
-  const { data: profileData, isError: getProfileError } = useQuery({
-    queryKey: ["profile"],
-    queryFn: getProfile,
+  const { data: profileData, isPending: isFetchingProfile, isError: getProfileError } = useQuery({
+    queryKey: ["profile", userId],
+    queryFn: () => getProfile(userId),
     retry: false,
+    enabled: enabled,
   });
 
   const { mutate: updateProfile, isPending: isUpdating } = useMutation({
@@ -23,7 +24,7 @@ const useProfile = () => {
     onError: (error: Error) => toast.error(error.message),
   });
 
-  return { profileData, updateProfile, isUpdating, getProfileError };
+  return { profileData, updateProfile, isUpdating, getProfileError, isFetchingProfile };
 };
 
 export { useProfile };

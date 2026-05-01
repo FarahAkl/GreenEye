@@ -1,5 +1,6 @@
-import { Outlet, NavLink, useLocation } from "react-router-dom";
+import { Outlet, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../features/auth/hooks/useAuth";
+import { useProfile } from "../features/profile/hooks/useProfile";
 import { logout } from "../features/auth/services/apiAuth";
 import {
   LuLogOut,
@@ -18,6 +19,8 @@ import { useState } from "react";
 import { HiMenu, HiX } from "react-icons/hi";
 import { useScrollToTop } from "../hooks/useScrollToTop";
 import type { IconType } from "react-icons";
+
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 interface SubLink {
   to: string;
@@ -114,9 +117,13 @@ const SidebarItem = ({
   );
 };
 
+
 const DashboardLayout = () => {
-  const { roles } = useAuth();
+  const { roles, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+  const { profileData } = useProfile(undefined, isAuthenticated);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [imgError, setImgError] = useState(false);
   const location = useLocation();
   const pathname = location.pathname;
   useScrollToTop();
@@ -194,6 +201,8 @@ const DashboardLayout = () => {
     logout();
   };
 
+  const userAvatar = profileData?.data?.profileImageUrl;
+
   return (
     <div className="flex h-screen bg-[#f4f9f6]">
       {/* Sidebar - Desktop */}
@@ -252,10 +261,45 @@ const DashboardLayout = () => {
           </button>
         </header>
 
-        {/* Top bar - Desktop (optional, for notifications/profile etc) */}
+        {/* Top bar - Desktop */}
         <header className="hidden h-16 items-center justify-between border-b border-[#e0f0e9] bg-white px-8 lg:flex">
-          <h2 className="text-lg font-semibold text-[#1a3a2e]">Dashboard</h2>
-          {/* Add profile info here if needed */}
+          <div className="flex flex-col">
+            <h2 className="text-lg font-bold text-[#1a3a2e]">
+              {dashboardLabel}
+            </h2>
+            <p className="text-xs text-[#7a9e8e]">
+              Welcome back to your dashboard
+            </p>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => navigate(isAdmin ? "/admin-dashboard/profile" : "/supplier-dashboard/profile")}
+              className="group relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-[#e0f0e9] bg-white transition-all hover:border-primary/50"
+              title="Profile"
+            >
+              {userAvatar && !imgError ? (
+                <img
+                  src={`${BASE_URL}${userAvatar}`}
+                  alt="Profile"
+                  className="h-full w-full object-cover"
+                  onError={() => setImgError(true)}
+                />
+              ) : (
+                <LuUser
+                  size={20}
+                  className="group-hover:text-primary text-[#5d8a7d] transition-colors"
+                />
+              )}
+            </button>
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-2 rounded-xl border border-red-100 bg-red-50 px-4 py-2 text-sm font-semibold text-red-500 transition-all hover:bg-red-100"
+            >
+              <LuLogOut size={18} />
+              <span>Logout</span>
+            </button>
+          </div>
         </header>
 
         {/* Scrollable content */}

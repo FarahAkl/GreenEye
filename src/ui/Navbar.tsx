@@ -2,8 +2,9 @@ import { useMemo, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { HiMenu, HiX } from "react-icons/hi";
 import { TiShoppingCart } from "react-icons/ti";
-import { LuLogOut } from "react-icons/lu";
+import { LuLogOut, LuUser } from "react-icons/lu";
 import { useAuth } from "../features/auth/hooks/useAuth";
+import { useProfile } from "../features/profile/hooks/useProfile";
 import useOutsideClick from "../hooks/useOutsideClick";
 import ScrollToHash from "./ScrollToHash";
 import Button from "./Button";
@@ -14,6 +15,8 @@ type NavItem = {
   to: string;
   match: (pathname: string, hash: string) => boolean;
 };
+
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 const navItems: NavItem[] = [
   {
@@ -49,7 +52,9 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { isAuthenticated } = useAuth();
+  const { profileData } = useProfile(undefined, isAuthenticated);
   const [open, setOpen] = useState(false);
+  const [imgError, setImgError] = useState(false);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   useOutsideClick(mobileMenuRef, () => setOpen(false));
@@ -79,6 +84,8 @@ const Navbar = () => {
     closeMenu();
     logout();
   };
+
+  const userAvatar = profileData?.data?.profileImageUrl || '';
 
   return (
     <header className="sticky top-0 left-0 z-1000 border-b border-gray-300/60 bg-gray-200/50 px-4 shadow-[0_10px_40px_rgba(0,47,32,0.1)] backdrop-blur-2xl sm:px-6 md:px-10 lg:px-16">
@@ -123,6 +130,22 @@ const Navbar = () => {
                 aria-label="Cart"
               >
                 <TiShoppingCart size={24} />
+              </button>
+              <button
+                onClick={() => navigate("/profile")}
+                className="group relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-full border border-[#e0f0e9] bg-white transition-all hover:border-primary/50"
+                aria-label="Profile"
+              >
+                {userAvatar && !imgError ? (
+                  <img 
+                    src={`${BASE_URL}${userAvatar}`} 
+                    alt="Profile" 
+                    className="h-full w-full object-cover" 
+                    onError={() => setImgError(true)}
+                  />
+                ) : (
+                  <LuUser size={24} className="text-gray-600 transition-colors group-hover:text-primary" />
+                )}
               </button>
               <button
                 onClick={handleLogout}
@@ -194,8 +217,18 @@ const Navbar = () => {
                       Cart
                     </button>
                     <button
+                      onClick={() => {
+                        navigate("/profile");
+                        closeMenu();
+                      }}
+                      className="flex h-12 cursor-pointer items-center justify-center gap-2 rounded-2xl bg-[#f4f9f6] text-sm font-semibold text-[#355a4d] transition-all hover:bg-[#ebf5f0]"
+                    >
+                      <LuUser size={20} />
+                      Profile
+                    </button>
+                    <button
                       onClick={handleLogout}
-                      className="flex h-12 cursor-pointer items-center justify-center gap-2 rounded-2xl bg-red-50 text-sm font-semibold text-red-500 transition-all hover:bg-red-100"
+                      className="col-span-2 flex h-12 cursor-pointer items-center justify-center gap-2 rounded-2xl bg-red-50 text-sm font-semibold text-red-500 transition-all hover:bg-red-100"
                     >
                       <LuLogOut size={18} />
                       Logout
