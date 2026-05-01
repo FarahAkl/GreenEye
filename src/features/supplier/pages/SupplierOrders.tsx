@@ -29,7 +29,7 @@ const statusTone: Record<orderT["status"], string> = {
 const tabs = [
   { id: "all", label: "ALL", status: undefined },
   { id: "pending", label: "Pending", status: "Pending" },
-  { id: "processing", label: "Processing", status: "Processing" },
+  { id: "packaged", label: "Packaged", status: "Packaged" },
   { id: "delivered", label: "Delivered", status: "Delivered" },
   { id: "cancelled", label: "Cancelled", status: "Cancelled" },
 ] as const;
@@ -49,7 +49,9 @@ const SupplierOrders = () => {
 
   const filteredOrders = useMemo(() => {
     if (!activeTab.status) return orders;
-    return orders.filter((order: orderT) => order.status === activeTab.status);
+    return orders.filter(
+      (order: orderT) => order.deliveryStatus === activeTab.status,
+    );
   }, [activeTab.status, orders]);
 
   if (isFetchingOrders) {
@@ -78,9 +80,9 @@ const SupplierOrders = () => {
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab)}
-            className={`rounded-full px-8 py-1.5 text-sm font-bold transition-all ${
+            className={`rounded-full px-8 py-2.5 text-sm font-bold transition-all ${
               activeTab.id === tab.id
-                ? "border-secondary text-dark border-2"
+                ? "bg-primary border-2 text-white"
                 : "border-primary/80 text-dark hover:border-primary border-2"
             }`}
           >
