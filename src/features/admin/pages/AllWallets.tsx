@@ -68,7 +68,7 @@ const AllWallets = () => {
                             <LuWallet size={18} />
                           </div>
                           <span className="text-dark font-semibold">
-                            {wallet.supplierId}
+                            {wallet.supplierName}
                           </span>
                         </div>
                       </td>
@@ -106,11 +106,11 @@ const AllWallets = () => {
                                   />
                                 }
                                 title="Wallet Transactions"
-                                description={`Review the transaction history for supplier ${wallet.supplierId}.`}
+                                description={`Review the transaction history for ${wallet.supplierName}.`}
                               >
                                 <TransactionsContent
                                   walletId={walletIdentifier}
-                                  supplierId={wallet.supplierId}
+                                  supplierName={wallet.supplierName||''}
                                 />
                               </Modal.Window>
                             </>

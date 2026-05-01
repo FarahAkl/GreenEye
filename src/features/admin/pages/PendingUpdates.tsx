@@ -313,7 +313,7 @@ const PendingUpdates = () => {
                     <td className="px-4 py-4">
                       <div className="text-dark flex items-center gap-2 font-medium">
                         <LuUser size={16} className="text-gray-400" />
-                        {update.requestedByUserId}
+                        {update.supplierName}
                       </div>
                     </td>
                     <td className="px-4 py-4">

@@ -75,7 +75,7 @@ const PendingWithdrawals = () => {
                           <LuWallet size={18} />
                         </div>
                         <span className="text-dark font-semibold">
-                          {withdrawal.walletId}
+                          {withdrawal.supplierName ||'Supplier'}
                         </span>
                       </div>
                     </td>

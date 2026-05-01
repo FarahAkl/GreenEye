@@ -1,20 +1,25 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useGetUsers } from "../hooks/useGetUsers";
 import { useChangeRole } from "../hooks/useChangeRole";
+import { useFreezeUser } from "../hooks/useFreezeUser";
 import {
-  // LuLock,
-  // LuEye,
-  // LuTrash2,
+  LuLock,
+  LuEye,
   LuCalendar,
   LuUser,
+  LuLockKeyholeOpen,
+  LuTriangleAlert,
 } from "react-icons/lu";
-// import { CgLockUnlock } from "react-icons/cg";
 import Pagination from "../../../ui/Pagination";
 import Spinner from "../../../ui/Spinner";
 import SEO from "../../../ui/SEO";
 import CustomSelect from "../../../ui/CustomSelect";
-import type { userT } from "../../../schemas/adminSchema";
+import type { freezeUserT, userT } from "../../../schemas/adminSchema";
 import { formatDate } from "../../../utils/date";
+import Modal from "../../../ui/Modal";
+import FreezeUserForm from "../ui/FreezeUserForm";
+import ConfirmDelete from "../../../ui/ConfirmDelete";
 
 const tabs = [
   { id: "all", label: "ALL", role: undefined },
@@ -52,10 +57,13 @@ const UserImage = ({ src, name }: { src: string; name: string }) => {
 };
 
 const AllUsers = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState(tabs[0]);
   const [page, setPage] = useState(1);
   const [changingUserId, setChangingUserId] = useState<string | null>(null);
   const { changeRole, isChanging } = useChangeRole();
+  const { freezeUser, unfreezeUser, isFreezing, isUnfreezing } =
+    useFreezeUser();
 
   const { users, isFetchingUsers, isFetching } = useGetUsers({
     role: activeTab.role,
@@ -77,6 +85,24 @@ const AllUsers = () => {
       { userId, newRole },
       {
         onSettled: () => setChangingUserId(null),
+      },
+    );
+  };
+
+  const onFreezeConfirm = (data: freezeUserT, onClose?: () => void) => {
+    freezeUser(data, {
+      onSuccess: () => onClose?.(),
+    });
+  };
+
+  const onUnfreezeConfirm = (userId: string, onClose?: () => void) => {
+    unfreezeUser(
+      {
+        userId,
+        message: "Account unfreezed by admin",
+      },
+      {
+        onSuccess: () => onClose?.(),
       },
     );
   };
@@ -130,7 +156,7 @@ const AllUsers = () => {
               <th className="px-4 py-4 font-medium">Role</th>
               <th className="px-4 py-4 font-medium">File Attached</th>
               <th className="px-4 py-4 font-medium">Join Date</th>
-              {/* <th className="px-4 py-4 text-center font-medium"></th> */}
+              <th className="px-4 py-4 text-center font-medium">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -150,18 +176,65 @@ const AllUsers = () => {
                     className="hover:bg-primary/15 border-b border-[#f3f4f6] transition-colors"
                   >
                     <td className="px-4 py-4">
-                      {/* {isBanned ? (
-                        <div className="relative flex items-center justify-center text-[#eab308]">
-                          <LuLock size={20} />
-                          <span className="absolute -right-1 -bottom-1 flex h-3 w-3 items-center justify-center rounded-full bg-white">
-                            <span className="flex h-2.5 w-2.5 items-center justify-center rounded-full bg-red-500 text-[8px] font-bold text-white">
-                              ✕
-                            </span>
-                          </span>
-                        </div>
-                      ) : (
-                        <CgLockUnlock size={20} className="text-[#d1d5db]" />
-                      )} */}
+                      <Modal>
+                        <Modal.Open
+                          opens={user.isFrozen ? "unfreeze" : "freeze"}
+                        >
+                          <button
+                            className={`flex h-8 w-8 items-center justify-center rounded-full transition-colors ${
+                              user.isFrozen
+                                ? "bg-red-50 text-red-500 hover:bg-red-100"
+                                : "hover:text-primary bg-gray-50 text-gray-400 hover:bg-gray-100"
+                            }`}
+                            title={
+                              user.isFrozen ? "Unfreeze user" : "Freeze user"
+                            }
+                            disabled={isFreezing || isUnfreezing}
+                          >
+                            {user.isFrozen ? (
+                              <LuLock size={18} />
+                            ) : (
+                              <LuLockKeyholeOpen size={18} />
+                            )}
+                          </button>
+                        </Modal.Open>
+
+                        <Modal.Window
+                          name="freeze"
+                          title="Freeze User Account"
+                          description="Restrict user access for a specific duration or permanently."
+                          icon={
+                            <LuTriangleAlert
+                              className="text-red-600"
+                              size={24}
+                            />
+                          }
+                        >
+                          <FreezeUserForm
+                            userId={user.id}
+                            isPending={isFreezing}
+                            onConfirm={onFreezeConfirm}
+                          />
+                        </Modal.Window>
+
+                        <Modal.Window
+                          name="unfreeze"
+                          title="Unfreeze User Account"
+                          description="Restore full access to this user account."
+                          icon={
+                            <LuLockKeyholeOpen
+                              className="text-primary"
+                              size={24}
+                            />
+                          }
+                        >
+                          <ConfirmDelete
+                            resourceName="user account restriction"
+                            onConfirm={() => onUnfreezeConfirm(user.id)}
+                            disabled={isUnfreezing}
+                          />
+                        </Modal.Window>
+                      </Modal>
                     </td>
                     <td className="px-4 py-4">
                       <div className="flex items-center gap-3">
@@ -225,13 +298,24 @@ const AllUsers = () => {
                                   : "Feb 2, 2023"}
                       </div>
                     </td>
-                    {/* <td className="px-4 py-4">
-                      <div className="flex items-center justify-end gap-6 pr-4">
-                        <button className="flex items-center justify-center rounded-lg bg-[#ef4444] p-1.5 text-white shadow-sm transition-colors hover:bg-[#dc2626]">
-                          <LuTrash2 size={18} />
+                    <td className="px-4 py-4">
+                      <div className="flex items-center justify-center gap-2">
+                        <button
+                          onClick={() => {
+                            const path =
+                              user.role === "Supplier"
+                                ? `/admin-dashboard/users/${user.id}/supplier-activity`
+                                : `/admin-dashboard/users/${user.id}/activity`;
+                            navigate(path);
+                          }}
+                          className="bg-primary hover:bg-secondary flex items-center justify-center gap-2 rounded-full px-3 py-2 text-xs font-semibold text-white transition-colors"
+                          title="View user activity"
+                        >
+                          <LuEye size={16} />
+                          Activity
                         </button>
                       </div>
-                    </td> */}
+                    </td>
                   </tr>
                 );
               })
@@ -244,6 +328,7 @@ const AllUsers = () => {
         totalPages={totalPages}
         onPageChange={(newPage) => setPage(newPage)}
       />
+      <div id="modal-root"></div>
     </div>
   );
 };
