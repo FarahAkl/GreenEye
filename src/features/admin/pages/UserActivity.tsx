@@ -44,7 +44,7 @@ const UserActivity = () => {
           onClick={() => navigate(-1)}
           className="text-primary flex items-center gap-2 font-semibold hover:underline"
         >
-          <LuArrowLeft size={18} /> Back to Users
+          <LuArrowLeft size={18} /> Back
         </button>
       </div>
     );
@@ -183,7 +183,7 @@ const UserActivity = () => {
                           order.status === "Cancelled" ||
                           order.status === "Refunded"
                             ? "bg-red-50 text-red-600"
-                            : "bg-teal-50 text-primary"
+                            : "text-primary bg-teal-50"
                         }`}
                       >
                         {order.status}

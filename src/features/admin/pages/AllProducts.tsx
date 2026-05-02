@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import { LuCalendar, LuPackage } from "react-icons/lu";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { LuCalendar, LuPackage, LuUserRound } from "react-icons/lu";
 import { formatDate } from "../../../utils/date";
 import { useProducts } from "../../products/hooks/useProducts";
 import type { productsT } from "../../../schemas/productsSchema";
@@ -32,6 +32,7 @@ const ProductImage = ({ src, name }: { src: string; name: string }) => {
 };
 
 const AllProducts = () => {
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const pageNumber = Number(searchParams.get("page")) || 1;
   const pageSize = 10;
@@ -68,6 +69,7 @@ const AllProducts = () => {
           <thead>
             <tr className="border-b-2 border-gray-200 text-gray-600">
               <th className="px-4 py-4 font-medium">Product</th>
+              <th className="px-4 py-4 font-medium">Supplier</th>
               <th className="px-4 py-4 font-medium">Category</th>
               <th className="px-4 py-4 font-medium">Price</th>
               <th className="px-4 py-4 font-medium">Quantity</th>
@@ -107,6 +109,28 @@ const AllProducts = () => {
                         </span>
                       </div>
                     </div>
+                  </td>
+                  <td className="px-4 py-4">
+                    {product.userId ? (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          navigate(
+                            `/admin-dashboard/users/${product.userId}/supplier-activity`,
+                          )
+                        }
+                        className="text-primary hover:text-dark inline-flex items-center gap-2 font-semibold underline underline-offset-2 transition-colors"
+                        title="View supplier activity"
+                      >
+                        <LuUserRound size={16} className="text-gray-400" />
+                        {product.userName || "Supplier"}
+                      </button>
+                    ) : (
+                      <span className="inline-flex items-center gap-2 text-gray-500">
+                        <LuUserRound size={16} className="text-gray-300" />
+                        {product.userName || "Supplier"}
+                      </span>
+                    )}
                   </td>
                   <td className="px-4 py-4">
                     <span className="bg-primary/10 text-primary inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium">

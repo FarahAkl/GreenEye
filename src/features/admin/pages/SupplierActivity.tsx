@@ -62,7 +62,7 @@ const SupplierActivity = () => {
         className="text-dark hover:text-primary flex items-center gap-2 font-semibold transition-colors"
       >
         <LuArrowLeft size={20} />
-        Back to Users
+        Back
       </button>
       <div className="bg-dark/90 rounded-2xl px-6 py-2">
         <h1 className="text-lg font-semibold text-white">Supplier Activity</h1>
