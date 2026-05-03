@@ -109,17 +109,17 @@ const SupplierOrders = () => {
             <tbody>
               {isError ? (
                 <tr>
-                  <td colSpan={8} className="py-10 text-center text-[#6b7280]">
+                  <td colSpan={8} className="py-10 text-center text-gray-muted">
                     Something went wrong while loading your orders.
                   </td>
                 </tr>
               ) : filteredOrders.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="py-10 text-center text-[#6b7280]">
+                  <td colSpan={8} className="py-10 text-center text-gray-muted">
                     <div className="flex flex-col items-center gap-3">
                       <HiOutlineClipboardList
                         size={34}
-                        className="text-[#9ca3af]"
+                        className="text-gray-soft"
                       />
                       <span>No orders found for this filter.</span>
                     </div>
@@ -129,11 +129,11 @@ const SupplierOrders = () => {
                 filteredOrders.map((order: orderT) => (
                   <tr
                     key={order.id}
-                    className="hover:bg-primary/15 border-b border-[#f3f4f6] transition-colors"
+                    className="hover:bg-primary/15 border-b border-row-border transition-colors"
                   >
                     <td className="px-4 py-4">
                       <div className="flex items-center gap-3">
-                        <div className="text-primary flex h-10 w-10 items-center justify-center rounded-xl bg-[#ebf5f0]">
+                        <div className="text-primary flex h-10 w-10 items-center justify-center rounded-xl bg-pale-green">
                           <LuShoppingCart size={18} />
                         </div>
                         <div>

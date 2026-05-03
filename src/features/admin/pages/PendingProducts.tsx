@@ -76,7 +76,7 @@ const PendingProducts = () => {
             <tbody>
               {productsList?.length === 0 || productsList === null ? (
                 <tr>
-                  <td colSpan={7} className="py-10 text-center text-[#6b7280]">
+                  <td colSpan={7} className="py-10 text-center text-gray-muted">
                     No pending products found.
                   </td>
                 </tr>
@@ -84,7 +84,7 @@ const PendingProducts = () => {
                 productsList.map((product: pendingProductT) => (
                   <tr
                     key={product.id}
-                    className="hover:bg-primary/15 border-b border-[#f3f4f6] transition-colors"
+                    className="hover:bg-primary/15 border-b border-row-border transition-colors"
                   >
                     <td className="px-4 py-4">
                       <div className="flex items-center gap-3">

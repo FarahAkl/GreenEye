@@ -62,8 +62,8 @@ const SidebarItem = ({
         className={({ isActive }) =>
           `flex items-center gap-2 rounded-xl px-2 py-3 text-[15px] font-semibold transition-all duration-200 ${
             isActive
-              ? "bg-[#e9f2ee] text-[#3b8768]"
-              : "text-[#6b7280] hover:bg-[#f0fdf4] hover:text-[#3b8768]"
+              ? "bg-badge-green-bg text-accent-green"
+              : "text-gray-muted hover:bg-soft-green-3 hover:text-accent-green"
           }`
         }
       >
@@ -78,9 +78,9 @@ const SidebarItem = ({
     <div className="space-y-1">
       <button
         onClick={() => setIsUserToggled(!isOpen)}
-        className={`flex w-full items-center gap-2 rounded-xl px-2 py-3 text-[15px] font-semibold text-[#6b7280] transition-all duration-200 hover:bg-[#f0fdf4] hover:text-[#3b8768]`}
+        className={`flex w-full items-center gap-2 rounded-xl px-2 py-3 text-[15px] font-semibold text-gray-muted transition-all duration-200 hover:bg-soft-green-3 hover:text-accent-green`}
       >
-        <span className="flex w-4 justify-center text-[#9ca3af]">
+        <span className="flex w-4 justify-center text-gray-soft">
           {isOpen ? <LuChevronDown size={16} /> : <LuChevronRight size={16} />}
         </span>
         <item.icon size={22} />
@@ -96,15 +96,15 @@ const SidebarItem = ({
               className={({ isActive }) =>
                 `flex items-center justify-between rounded-xl py-2.5 pr-4 pl-13 text-[15px] font-semibold transition-all duration-200 ${
                   isActive
-                    ? "bg-[#e9f2ee] text-[#3b8768]"
-                    : "text-[#6b7280] hover:text-[#3b8768]"
+                    ? "bg-badge-green-bg text-accent-green"
+                    : "text-gray-muted hover:text-accent-green"
                 }`
               }
             >
               <span>- {subLink.label}</span>
               {subLink.badge && (
                 <span
-                  className={`flex h-5 w-5 items-center justify-center rounded-full text-[11px] font-bold text-white ${subLink.badgeColor || "bg-[#de4436]"}`}
+                  className={`flex h-5 w-5 items-center justify-center rounded-full text-[11px] font-bold text-white ${subLink.badgeColor || "bg-danger"}`}
                 >
                   {subLink.badge}
                 </span>
@@ -203,16 +203,16 @@ const DashboardLayout = () => {
   const userAvatar = profileData?.data?.profileImageUrl;
 
   return (
-    <div className="flex h-screen bg-[#f4f9f6]">
+    <div className="flex h-screen bg-page-green">
       {/* Sidebar - Desktop */}
       <aside
-        className={`no-scrollbar fixed inset-y-0 left-0 z-50 w-64 transform overflow-y-scroll border-r border-[#e0f0e9] bg-white transition-transform duration-300 lg:static lg:translate-x-0 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
+        className={`no-scrollbar fixed inset-y-0 left-0 z-50 w-64 transform overflow-y-scroll border-r border-border-green bg-white transition-transform duration-300 lg:static lg:translate-x-0 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
-        <div className="flex h-16 items-center border-b border-[#e0f0e9] px-6">
+        <div className="flex h-16 items-center border-b border-border-green px-6">
           <div className="flex items-center gap-2">
             <img src="/images/logo.png" alt="logo" className="h-8 shrink-0" />
             <div className="flex flex-col">
-              <span className="text-lg leading-none font-bold text-[#04591B]">
+              <span className="text-lg leading-none font-bold text-brand-green">
                 GreenEye
               </span>
               <span className="text-light-green text-[10px] font-medium tracking-wider uppercase">
@@ -233,7 +233,7 @@ const DashboardLayout = () => {
           ))}
         </nav>
 
-        <div className="border-t border-[#e0f0e9] p-4">
+        <div className="border-t border-border-green p-4">
           <button
             onClick={handleLogout}
             className="text-light-green flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-200 hover:bg-red-50 hover:text-red-500"
@@ -247,21 +247,21 @@ const DashboardLayout = () => {
       {/* Main Content Area */}
       <div className="flex flex-1 flex-col overflow-hidden">
         {/* Mobile Header */}
-        <header className="flex h-16 items-center justify-between border-b border-[#e0f0e9] bg-white px-4 lg:hidden">
+        <header className="flex h-16 items-center justify-between border-b border-border-green bg-white px-4 lg:hidden">
           <div className="flex items-center gap-2">
             <img src="/images/logo.png" alt="logo" className="h-8 shrink-0" />
-            <span className="font-bold text-[#04591B]">GreenEye</span>
+            <span className="font-bold text-brand-green">GreenEye</span>
           </div>
           <button
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="rounded-lg p-2 text-[#5d8a7d] hover:bg-[#ebf5f0]"
+            className="rounded-lg p-2 text-muted-green hover:bg-pale-green"
           >
             {isSidebarOpen ? <HiX size={24} /> : <HiMenu size={24} />}
           </button>
         </header>
 
         {/* Top bar - Desktop */}
-        <header className="hidden h-16 items-center justify-between border-b border-[#e0f0e9] bg-white px-8 lg:flex">
+        <header className="hidden h-16 items-center justify-between border-b border-border-green bg-white px-8 lg:flex">
           <div className="flex flex-col">
             <h2 className="text-deep-green text-lg font-bold">
               {dashboardLabel}
@@ -280,7 +280,7 @@ const DashboardLayout = () => {
                     : "/supplier-dashboard/profile",
                 )
               }
-              className="group hover:border-primary/50 relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-[#e0f0e9] bg-white transition-all"
+              className="group hover:border-primary/50 relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-border-green bg-white transition-all"
               title="Profile"
             >
               {userAvatar && !imgError ? (
@@ -293,7 +293,7 @@ const DashboardLayout = () => {
               ) : (
                 <LuUser
                   size={20}
-                  className="group-hover:text-primary text-[#5d8a7d] transition-colors"
+                  className="group-hover:text-primary text-muted-green transition-colors"
                 />
               )}
             </button>

@@ -8,7 +8,7 @@ import SEO from "../ui/SEO";
 
 const SkeletonCard = () => {
   return (
-    <div className="h-48 animate-[shimmer_1.3s_infinite] overflow-hidden rounded-2xl border border-[#e0f0e9] bg-linear-to-r from-[#f0f7f4] via-[#e0f0e9] to-[#f0f7f4] bg-size-[200%_100%]" />
+    <div className="h-48 animate-[shimmer_1.3s_infinite] overflow-hidden rounded-2xl border border-border-green bg-linear-to-r from-soft-green-2 via-border-green to-soft-green-2 bg-size-[200%_100%]" />
   );
 };
 
@@ -90,7 +90,7 @@ const MyOrders = () => {
               className={`flex-1 cursor-pointer rounded-lg py-2 text-[15px] font-semibold capitalize transition-all duration-200 ${
                 tab === t
                   ? "bg-primary text-white shadow"
-                  : "bg-transparent text-[#6b8a7e]"
+                  : "bg-transparent text-muted-green-2"
               }`}
             >
               {t}

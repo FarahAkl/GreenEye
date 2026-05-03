@@ -42,7 +42,7 @@ const AddCategory = () => {
 
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="overflow-hidden rounded-3xl border border-[#e0f0e9] bg-white shadow-sm"
+        className="overflow-hidden rounded-3xl border border-border-green bg-white shadow-sm"
       >
         <div className="grid grid-cols-1 gap-10 p-8 lg:grid-cols-2">
           {/* Left Column: Inputs */}
@@ -58,7 +58,7 @@ const AddCategory = () => {
             />
 
             <div className="flex flex-col gap-1.5">
-              <label className="text-sm font-semibold text-[#5d8a7d]">
+              <label className="text-sm font-semibold text-muted-green">
                 Description
               </label>
               <textarea
@@ -91,7 +91,7 @@ const AddCategory = () => {
           </div>
         </div>
 
-        <div className="flex justify-center gap-4 border-t border-[#e0f0e9] bg-[#fcfdfc] px-8 py-6">
+        <div className="flex justify-center gap-4 border-t border-border-green bg-panel-green px-8 py-6">
           <Button
             type="button"
             btnLabel="Cancel"

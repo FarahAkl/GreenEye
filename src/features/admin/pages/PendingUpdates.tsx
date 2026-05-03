@@ -42,12 +42,12 @@ const renderPrimitiveValue = (value: unknown) => {
 
 const renderDetailValue = (value: unknown) => {
   if (value === null || value === undefined || value === "") {
-    return <span className="text-[#9ca3af]">Not provided</span>;
+    return <span className="text-gray-soft">Not provided</span>;
   }
 
   if (Array.isArray(value)) {
     if (value.length === 0) {
-      return <span className="text-[#9ca3af]">No items</span>;
+      return <span className="text-gray-soft">No items</span>;
     }
 
     return (
@@ -55,7 +55,7 @@ const renderDetailValue = (value: unknown) => {
         {value.map((item, index) => (
           <span
             key={`${String(item)}-${index}`}
-            className="text-primary rounded-full bg-[#ebf5f0] px-2.5 py-1 text-xs font-medium"
+            className="text-primary rounded-full bg-pale-green px-2.5 py-1 text-xs font-medium"
           >
             {typeof item === "object" ? JSON.stringify(item) : String(item)}
           </span>
@@ -68,17 +68,17 @@ const renderDetailValue = (value: unknown) => {
     const entries = Object.entries(value);
 
     if (entries.length === 0) {
-      return <span className="text-[#9ca3af]">No data</span>;
+      return <span className="text-gray-soft">No data</span>;
     }
 
     return (
-      <div className="space-y-2 rounded-xl border border-[#e0f0e9] bg-[#fafcfb] p-3">
+      <div className="space-y-2 rounded-xl border border-border-green bg-card-green p-3">
         {entries.map(([nestedKey, nestedValue]) => (
           <div
             key={nestedKey}
             className="flex flex-col gap-1 text-sm sm:flex-row sm:items-start sm:justify-between"
           >
-            <span className="font-medium text-[#5d8a7d]">
+            <span className="font-medium text-muted-green">
               {formatLabel(nestedKey)}
             </span>
             <span className="text-deep-green sm:max-w-[65%] sm:text-right">
@@ -149,7 +149,7 @@ const UpdateDetailsContent = ({
   return (
     <div className="mt-6 flex w-full max-w-2xl min-w-[320px] flex-col gap-6 md:min-w-170">
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="rounded-2xl border border-[#e0f0e9] bg-[#fafcfb] p-4">
+        <div className="rounded-2xl border border-border-green bg-card-green p-4">
           <p className="text-xs font-medium tracking-wide text-light-green uppercase">
             Request ID
           </p>
@@ -157,7 +157,7 @@ const UpdateDetailsContent = ({
             #{requestId}
           </p>
         </div>
-        <div className="rounded-2xl border border-[#e0f0e9] bg-[#fafcfb] p-4">
+        <div className="rounded-2xl border border-border-green bg-card-green p-4">
           <p className="text-xs font-medium tracking-wide text-light-green uppercase">
             Product
           </p>
@@ -165,7 +165,7 @@ const UpdateDetailsContent = ({
             {productName}
           </p>
         </div>
-        <div className="rounded-2xl border border-[#e0f0e9] bg-[#fafcfb] p-4">
+        <div className="rounded-2xl border border-border-green bg-card-green p-4">
           <p className="text-xs font-medium tracking-wide text-light-green uppercase">
             Records
           </p>
@@ -173,7 +173,7 @@ const UpdateDetailsContent = ({
             {detailEntries.length}
           </p>
         </div>
-        <div className="rounded-2xl border border-[#e0f0e9] bg-[#fafcfb] p-4">
+        <div className="rounded-2xl border border-border-green bg-card-green p-4">
           <p className="text-xs font-medium tracking-wide text-light-green uppercase">
             Status
           </p>
@@ -184,7 +184,7 @@ const UpdateDetailsContent = ({
       </div>
 
       {detailEntries.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-[#d4e8de] bg-[#fcfdfc] px-6 py-10 text-center">
+        <div className="rounded-2xl border border-dashed border-dashed-green bg-panel-green px-6 py-10 text-center">
           <p className="font-semibold text-deep-green">
             No update details returned
           </p>
@@ -197,7 +197,7 @@ const UpdateDetailsContent = ({
           {detailEntries.map(([key, value]) => (
             <div
               key={key}
-              className="rounded-2xl border border-[#e0f0e9] bg-white p-4 shadow-sm"
+              className="rounded-2xl border border-border-green bg-white p-4 shadow-sm"
             >
               <p className="text-xs font-semibold tracking-wide text-light-green uppercase">
                 {formatLabel(key)}
@@ -210,7 +210,7 @@ const UpdateDetailsContent = ({
         </div>
       )}
 
-      <div className="flex flex-col gap-3 border-t border-[#eef5f1] pt-2 sm:flex-row sm:justify-end">
+      <div className="flex flex-col gap-3 border-t border-border-green-light pt-2 sm:flex-row sm:justify-end">
         <button
           type="button"
           onClick={handleReject}
@@ -282,7 +282,7 @@ const PendingUpdates = () => {
             <tbody>
               {updatesList.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="py-10 text-center text-[#6b7280]">
+                  <td colSpan={6} className="py-10 text-center text-gray-muted">
                     No pending update requests found.
                   </td>
                 </tr>
@@ -290,16 +290,16 @@ const PendingUpdates = () => {
                 updatesList.map((update: pendingProductUpdateT) => (
                   <tr
                     key={update.requestId}
-                    className="hover:bg-primary/15 border-b border-[#f3f4f6] transition-colors"
+                    className="hover:bg-primary/15 border-b border-row-border transition-colors"
                   >
                     <td className="px-4 py-4">
-                      <span className="text-primary rounded-full bg-[#ebf5f0] px-3 py-1 text-lg font-bold">
+                      <span className="text-primary rounded-full bg-pale-green px-3 py-1 text-lg font-bold">
                         #{update.requestId}
                       </span>
                     </td>
                     <td className="px-4 py-4">
                       <div className="flex items-center gap-3">
-                        <div className="text-primary flex h-10 w-10 items-center justify-center rounded-xl bg-[#ebf5f0]">
+                        <div className="text-primary flex h-10 w-10 items-center justify-center rounded-xl bg-pale-green">
                           <LuPackage size={18} />
                         </div>
                         <span className="text-dark font-semibold">
@@ -330,7 +330,7 @@ const PendingUpdates = () => {
                       <div className="flex items-center justify-center gap-2">
                         <Modal.Open opens={`details-${update.requestId}`}>
                           <button
-                            className="flex items-center justify-center gap-2 rounded-lg border border-[#dbece4] bg-white px-3 py-1.5 text-xs font-semibold text-deep-green shadow-sm transition-colors hover:bg-[#f6fbf8]"
+                            className="flex items-center justify-center gap-2 rounded-lg border border-button-border-green bg-white px-3 py-1.5 text-xs font-semibold text-deep-green shadow-sm transition-colors hover:bg-button-hover-green"
                             title="View details"
                           >
                             <LuEye size={16} />

@@ -15,32 +15,32 @@ const cards = [
     title: "All Users",
     description: "Review and approve new supplier and expert registrations.",
     icon: HiOutlineUsers,
-    color: "#2d9e7a",
-    bg: "#e8f7f1",
+    color: "var(--color-success-green)",
+    bg: "var(--color-success-bg)",
     to: "/admin-dashboard/users/all",
   },
   {
     title: "All Products",
     description: "Approve or reject products submitted by suppliers.",
     icon: HiOutlineCube,
-    color: "#d97706",
-    bg: "#fef3c7",
+    color: "var(--color-warning)",
+    bg: "var(--color-warning-bg)",
     to: "/admin-dashboard/products/all",
   },
   {
     title: "Pending Updates",
     description: "Review supplier requests to update existing product details.",
     icon: HiOutlineCube,
-    color: "#0f766e",
-    bg: "#ccfbf1",
+    color: "var(--color-teal)",
+    bg: "var(--color-teal-bg)",
     to: "/admin-dashboard/products/updates",
   },
   {
     title: "Withdrawal Requests",
     description: "Manage pending supplier withdrawal requests.",
     icon: HiOutlineBanknotes,
-    color: "#6366f1",
-    bg: "#e0e7ff",
+    color: "var(--color-indigo)",
+    bg: "var(--color-indigo-bg)",
     to: "/admin-dashboard/withdrawals/requests",
   },
 ];
@@ -105,7 +105,7 @@ const AdminDashboard = () => {
         {cards.map((card, i) => (
           <div
             key={card.title}
-            className="group overflow-hidden rounded-2xl border border-[#e0f0e9] bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+            className="group overflow-hidden rounded-2xl border border-border-green bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
             style={{
               animation: `fadeInUp 0.4s ease ${i * 0.1}s both`,
             }}

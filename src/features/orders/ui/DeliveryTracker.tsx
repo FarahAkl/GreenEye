@@ -29,19 +29,19 @@ interface StepIconProps {
 const StepIcon = ({ filled, isCurrent, isLast, label }: StepIconProps) => {
   if (isLast && !filled) {
     return (
-      <div className="relative z-10 h-5.5 w-5.5 rounded-full bg-[#c8d8d0]" />
+      <div className="relative z-10 h-5.5 w-5.5 rounded-full bg-step-empty" />
     );
   }
 
   return (
     <div className="relative z-10 flex items-center justify-center">
       {isCurrent && (
-        <span className="pointer-events-none absolute inset-0 animate-ping rounded-full bg-[#1D9E75]/25" />
+        <span className="pointer-events-none absolute inset-0 animate-ping rounded-full bg-strong-green/25" />
       )}
       <img
         src={filled ? "/icons/active-status.svg" : "/icons/inactive-status.svg"}
         alt={label}
-        className={`relative z-10 h-6 w-6 transition-all duration-500 ${filled ? "drop-shadow-[0_2px_8px_rgba(29,158,117,0.45)]" : "opacity-50"} ${isCurrent ? "scale-110" : "scale-100"} `}
+        className={`relative z-10 h-6 w-6 transition-all duration-500 ${filled ? "delivery-drop-shadow" : "opacity-50"} ${isCurrent ? "scale-110" : "scale-100"} `}
       />
     </div>
   );
@@ -78,7 +78,7 @@ const DeliveryTracker = ({
                 />
                 <span
                   className={`text-[11px] font-semibold tracking-wide uppercase transition-colors duration-500 ${
-                    filled ? "text-deep-green" : "text-[#b0c9bc]"
+                    filled ? "text-deep-green" : "text-step-muted"
                   }`}
                 >
                   {step.label}
@@ -89,7 +89,7 @@ const DeliveryTracker = ({
               {!isLast && (
                 <div className="relative mx-1 -top-2.5 h-0.5 flex-1 overflow-hidden rounded-sm bg-gray-300">
                   <div
-                    className={`h-full origin-left rounded-sm bg-[#1D9E75] transition-transform duration-500 ease-out ${
+                    className={`h-full origin-left rounded-sm bg-strong-green transition-transform duration-500 ease-out ${
                       i < currentStep ? "scale-x-100" : "scale-x-0"
                     }`}
                     style={{ transitionDelay: `${i * 150}ms` }}

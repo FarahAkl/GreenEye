@@ -53,7 +53,7 @@ const Stepper = ({ steps, currentStep, className }: StepperProps) => {
                 initial={false}
                 animate={{
                   scale: isCurrent ? 1.1 : 1,
-                  backgroundColor: isActive ? "#379b89" : "#9ca3af",
+                  backgroundColor: isActive ? "var(--color-primary)" : "var(--color-gray-soft)",
                 }}
               >
                 {index + 1}

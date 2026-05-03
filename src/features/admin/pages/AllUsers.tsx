@@ -162,7 +162,7 @@ const AllUsers = () => {
           <tbody>
             {users?.data.data.length === 0 ? (
               <tr>
-                <td colSpan={8} className="py-10 text-center text-[#6b7280]">
+                <td colSpan={8} className="py-10 text-center text-gray-muted">
                   No users found for this filter.
                 </td>
               </tr>
@@ -173,7 +173,7 @@ const AllUsers = () => {
                 return (
                   <tr
                     key={user.id || index}
-                    className="hover:bg-primary/15 border-b border-[#f3f4f6] transition-colors"
+                    className="hover:bg-primary/15 border-b border-row-border transition-colors"
                   >
                     <td className="px-4 py-4">
                       <Modal>

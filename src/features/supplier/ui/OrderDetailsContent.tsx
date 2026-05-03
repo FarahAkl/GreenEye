@@ -21,13 +21,13 @@ const OrderDetailsContent = ({
   return (
     <div className="mt-6 flex w-full max-w-2xl min-w-[320px] flex-col gap-6 md:min-w-170">
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="rounded-2xl border border-[#e0f0e9] bg-[#fafcfb] p-4">
+        <div className="rounded-2xl border border-border-green bg-card-green p-4">
           <p className="text-xs font-medium tracking-wide text-light-green uppercase">
             Order ID
           </p>
           <p className="mt-2 text-base font-bold text-deep-green">#{order.id}</p>
         </div>
-        <div className="rounded-2xl border border-[#e0f0e9] bg-[#fafcfb] p-4">
+        <div className="rounded-2xl border border-border-green bg-card-green p-4">
           <p className="text-xs font-medium tracking-wide text-light-green uppercase">
             Status
           </p>
@@ -37,7 +37,7 @@ const OrderDetailsContent = ({
             {order.status}
           </span>
         </div>
-        <div className="rounded-2xl border border-[#e0f0e9] bg-[#fafcfb] p-4">
+        <div className="rounded-2xl border border-border-green bg-card-green p-4">
           <p className="text-xs font-medium tracking-wide text-light-green uppercase">
             Delivery
           </p>
@@ -45,7 +45,7 @@ const OrderDetailsContent = ({
             {order.deliveryStatus}
           </p>
         </div>
-        <div className="rounded-2xl border border-[#e0f0e9] bg-[#fafcfb] p-4">
+        <div className="rounded-2xl border border-border-green bg-card-green p-4">
           <p className="text-xs font-medium tracking-wide text-light-green uppercase">
             Total
           </p>
@@ -56,17 +56,17 @@ const OrderDetailsContent = ({
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
-        <div className="rounded-2xl border border-[#e0f0e9] bg-white p-4 shadow-sm">
+        <div className="rounded-2xl border border-border-green bg-white p-4 shadow-sm">
           <p className="text-xs font-semibold tracking-wide text-light-green uppercase">
             Timeline
           </p>
           <div className="mt-3 space-y-3 text-sm text-deep-green">
             <div className="flex items-center justify-between gap-3">
-              <span className="font-medium text-[#5d8a7d]">Created At</span>
+              <span className="font-medium text-muted-green">Created At</span>
               <span>{formatDate(order.createdAt, "en-GB")}</span>
             </div>
             <div className="flex items-center justify-between gap-3">
-              <span className="font-medium text-[#5d8a7d]">
+              <span className="font-medium text-muted-green">
                 Tracking Number
               </span>
               <span>{order.trackingNumber || "Not assigned"}</span>
@@ -75,28 +75,28 @@ const OrderDetailsContent = ({
           </div>
         </div>
 
-        <div className="rounded-2xl border border-[#e0f0e9] bg-white p-4 shadow-sm">
+        <div className="rounded-2xl border border-border-green bg-white p-4 shadow-sm">
           <p className="text-xs font-semibold tracking-wide text-light-green uppercase">
             Totals
           </p>
           <div className="mt-3 space-y-3 text-sm text-deep-green">
             <div className="flex items-center justify-between gap-3">
-              <span className="font-medium text-[#5d8a7d]">Subtotal</span>
+              <span className="font-medium text-muted-green">Subtotal</span>
               <span>{order.subTotal.toLocaleString()} EGP</span>
             </div>
             <div className="flex items-center justify-between gap-3">
-              <span className="font-medium text-[#5d8a7d]">Delivery Fee</span>
+              <span className="font-medium text-muted-green">Delivery Fee</span>
               <span>{order.deliveryFee.toLocaleString()} EGP</span>
             </div>
             <div className="flex items-center justify-between gap-3">
-              <span className="font-medium text-[#5d8a7d]">Items Count</span>
+              <span className="font-medium text-muted-green">Items Count</span>
               <span>{order.items?.length ?? 0}</span>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="rounded-2xl border border-[#e0f0e9] bg-white p-4 shadow-sm">
+      <div className="rounded-2xl border border-border-green bg-white p-4 shadow-sm">
         <p className="text-xs font-semibold tracking-wide text-light-green uppercase">
           Ordered Products
         </p>
@@ -106,7 +106,7 @@ const OrderDetailsContent = ({
             {order.items.map((item) => (
               <div
                 key={item.id}
-                className="flex flex-col gap-2 rounded-2xl border border-[#eef6f2] bg-[#fafcfb] px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
+                className="flex flex-col gap-2 rounded-2xl border border-border-green-lighter bg-card-green px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
               >
                 <div>
                   <p className="font-semibold text-deep-green">
@@ -124,7 +124,7 @@ const OrderDetailsContent = ({
             ))}
           </div>
         ) : (
-          <div className="mt-4 rounded-2xl border border-dashed border-[#d4e8de] bg-[#fcfdfc] px-6 py-8 text-center text-sm text-light-green">
+          <div className="mt-4 rounded-2xl border border-dashed border-dashed-green bg-panel-green px-6 py-8 text-center text-sm text-light-green">
             No order items were returned for this order.
           </div>
         )}

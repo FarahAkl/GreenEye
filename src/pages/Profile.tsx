@@ -82,7 +82,7 @@ const Profile = () => {
   };
 
   return (
-    <section className="min-h-screen bg-[#f4f9f6] px-4 py-12 md:px-12 lg:px-24">
+    <section className="min-h-screen bg-page-green px-4 py-12 md:px-12 lg:px-24">
       <SEO
         title="My Profile"
         description="Manage your personal information and preferences."
@@ -132,9 +132,9 @@ const Profile = () => {
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           {/* Left Column - Avatar & Summary */}
           <div className="lg:col-span-1">
-            <div className="overflow-hidden rounded-3xl border border-[#e0f0e9] bg-white p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+            <div className="overflow-hidden rounded-3xl border border-border-green bg-white p-8 shadow-card-soft">
               <div className="relative mx-auto h-48 w-48">
-                <div className="h-full w-full overflow-hidden rounded-full border-4 border-[#f0fdf4] bg-gray-100 shadow-inner ring-4 ring-white">
+                <div className="h-full w-full overflow-hidden rounded-full border-4 border-soft-green-3 bg-gray-100 shadow-inner ring-4 ring-white">
                   {displayedImage && displayedImage !== "" ? (
                     <img
                       src={
@@ -171,7 +171,7 @@ const Profile = () => {
                 <p className="text-sm text-light-green">
                   {profileData?.data.email}
                 </p>
-                <div className="mt-4 inline-flex items-center rounded-full bg-[#e9f2ee] px-4 py-1 text-xs font-semibold tracking-wider text-[#3b8768] uppercase">
+                <div className="mt-4 inline-flex items-center rounded-full bg-badge-green-bg px-4 py-1 text-xs font-semibold tracking-wider text-accent-green uppercase">
                   Member
                 </div>
               </div>
@@ -180,14 +180,14 @@ const Profile = () => {
 
           {/* Right Column - Form Fields */}
           <div className="space-y-8 lg:col-span-2">
-            <div className="rounded-3xl border border-[#e0f0e9] bg-white p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+            <div className="rounded-3xl border border-border-green bg-white p-8 shadow-card-soft">
               <h2 className="mb-6 text-xl font-bold text-deep-green">
                 Personal Information
               </h2>
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                   <div className="space-y-1">
-                    <label className="ml-1 text-sm font-semibold text-[#5d8a7d]">
+                    <label className="ml-1 text-sm font-semibold text-muted-green">
                       Full Name
                     </label>
                     <Input
@@ -200,7 +200,7 @@ const Profile = () => {
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="ml-1 text-sm font-semibold text-[#5d8a7d]">
+                    <label className="ml-1 text-sm font-semibold text-muted-green">
                       Email Address
                     </label>
                     <Input
@@ -214,7 +214,7 @@ const Profile = () => {
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="ml-1 text-sm font-semibold text-[#5d8a7d]">
+                    <label className="ml-1 text-sm font-semibold text-muted-green">
                       Phone Number
                     </label>
                     <Input
@@ -228,7 +228,7 @@ const Profile = () => {
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="ml-1 text-sm font-semibold text-[#5d8a7d]">
+                    <label className="ml-1 text-sm font-semibold text-muted-green">
                       Address
                     </label>
                     <Input
@@ -246,7 +246,7 @@ const Profile = () => {
             </div>
 
             {/* Danger Zone */}
-            <div className="rounded-3xl border border-red-100 bg-white p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+            <div className="rounded-3xl border border-red-100 bg-white p-8 shadow-card-soft">
               <h2 className="mb-1 text-xl font-bold text-red-600">
                 Danger Zone
               </h2>

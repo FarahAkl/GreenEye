@@ -39,7 +39,7 @@ const OrderCard = ({
     order.status === "Cancelled" || order.status === "Refunded";
 
   return (
-    <div className="animate-[slideUp_0.3s_ease_both] overflow-hidden rounded-2xl border border-[#e0f0e9] bg-white shadow-sm">
+    <div className="animate-[slideUp_0.3s_ease_both] overflow-hidden rounded-2xl border border-border-green bg-white shadow-sm">
       {/* Header */}
       <div className="flex items-start justify-between px-5 pt-4 pb-3">
         <div className="flex flex-col gap-0.5">
@@ -72,7 +72,7 @@ const OrderCard = ({
       {/* Products bar */}
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="flex w-full cursor-pointer items-center justify-center gap-2 bg-[#e8f7f1] py-2 text-sm font-semibold text-[#2d9e7a] transition-colors hover:bg-[#d9f2e7]"
+        className="flex w-full cursor-pointer items-center justify-center gap-2 bg-success-bg py-2 text-sm font-semibold text-success-green transition-colors hover:bg-success-hover"
       >
         {itemCount} Product{itemCount !== 1 ? "s" : ""}
         {isExpanded ? <HiChevronUp size={18} /> : <HiChevronDown size={18} />}
@@ -86,7 +86,7 @@ const OrderCard = ({
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="overflow-hidden border-b border-[#e0f0e9]"
+            className="overflow-hidden border-b border-border-green"
           >
             <div className="flex flex-col gap-3 px-5 py-4">
               {order.items?.map((item) => (
@@ -111,7 +111,7 @@ const OrderCard = ({
                       Qty: {item.quantity} × {item.unitPrice.toLocaleString()} EGP
                     </p>
                   </div>
-                  <div className="text-sm font-bold text-[#2d9e7a]">
+                  <div className="text-sm font-bold text-success-green">
                     {item.totalPrice.toLocaleString()} EGP
                   </div>
                 </div>
@@ -145,7 +145,7 @@ const OrderCard = ({
             <Button
               btnLabel="Pay Now"
               onClick={() => navigate(`/order?orderId=${order.id}`)}
-              className="h-10! cursor-pointer rounded-lg bg-primary px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#034415]"
+              className="h-10! cursor-pointer rounded-lg bg-primary px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-dark-hover"
             />
           )}
           {isPaid ? (

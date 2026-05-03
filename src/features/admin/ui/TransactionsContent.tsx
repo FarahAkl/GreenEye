@@ -43,7 +43,7 @@ const TransactionsContent = ({
     >
       <div className="max-h-[70vh] overflow-y-auto pr-1">
         <div className="grid gap-3 sm:grid-cols-2">
-          <div className="rounded-2xl border border-[#e0f0e9] bg-[#fafcfb] p-4">
+          <div className="rounded-2xl border border-border-green bg-card-green p-4">
             <p className="text-xs font-medium tracking-wide text-light-green uppercase">
               Supplier
             </p>
@@ -51,7 +51,7 @@ const TransactionsContent = ({
               {supplierName}
             </p>
           </div>
-          <div className="rounded-2xl border border-[#e0f0e9] bg-[#fafcfb] p-4">
+          <div className="rounded-2xl border border-border-green bg-card-green p-4">
             <p className="text-xs font-medium tracking-wide text-light-green uppercase">
               Transactions
             </p>
@@ -67,7 +67,7 @@ const TransactionsContent = ({
               Something went wrong while loading wallet transactions.
             </div>
           ) : transactions.length === 0 ? (
-            <div className="rounded-2xl border border-dashed border-[#d4e8de] bg-[#fcfdfc] px-6 py-10 text-center">
+            <div className="rounded-2xl border border-dashed border-dashed-green bg-panel-green px-6 py-10 text-center">
               <p className="font-semibold text-deep-green">
                 No transactions found
               </p>
@@ -82,7 +82,7 @@ const TransactionsContent = ({
                   (transaction: transactionT, index: number) => (
                     <div
                       key={`${transaction.createdAt}-${transaction.type}-${index}`}
-                      className="rounded-2xl border border-[#e0f0e9] bg-white p-4 shadow-sm"
+                      className="rounded-2xl border border-border-green bg-white p-4 shadow-sm"
                     >
                       <div className="flex items-start justify-between gap-3">
                         <span
@@ -97,7 +97,7 @@ const TransactionsContent = ({
                       <p className="mt-3 text-sm font-semibold text-deep-green">
                         {transaction.description}
                       </p>
-                      <div className="mt-3 grid gap-2 text-sm text-[#5d8a7d]">
+                      <div className="mt-3 grid gap-2 text-sm text-muted-green">
                         <p>
                           Order:{" "}
                           <span className="font-medium text-deep-green">
@@ -118,10 +118,10 @@ const TransactionsContent = ({
                 )}
               </div>
 
-              <div className="hidden overflow-x-auto rounded-2xl border border-[#e0f0e9] md:block">
+              <div className="hidden overflow-x-auto rounded-2xl border border-border-green md:block">
                 <table className="w-full text-left text-sm whitespace-nowrap">
-                  <thead className="bg-[#fafcfb] text-gray-600">
-                    <tr className="border-b border-[#e0f0e9]">
+                  <thead className="bg-card-green text-gray-600">
+                    <tr className="border-b border-border-green">
                       <th className="px-4 py-3 font-medium">Type</th>
                       <th className="px-4 py-3 font-medium">Description</th>
                       <th className="px-4 py-3 font-medium">Order</th>
@@ -134,7 +134,7 @@ const TransactionsContent = ({
                       (transaction: transactionT, index: number) => (
                         <tr
                           key={`${transaction.createdAt}-${transaction.type}-${index}`}
-                          className="border-b border-[#f3f4f6] last:border-b-0"
+                          className="border-b border-row-border last:border-b-0"
                         >
                           <td className="px-4 py-3">
                             <span

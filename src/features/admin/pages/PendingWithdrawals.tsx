@@ -59,7 +59,7 @@ const PendingWithdrawals = () => {
             <tbody>
               {withdrawalsList?.length === 0 || withdrawalsList === null ? (
                 <tr>
-                  <td colSpan={6} className="py-10 text-center text-[#6b7280]">
+                  <td colSpan={6} className="py-10 text-center text-gray-muted">
                     No pending withdrawal requests found.
                   </td>
                 </tr>
@@ -67,11 +67,11 @@ const PendingWithdrawals = () => {
                 withdrawalsList.map((withdrawal: pendingWithdrawalT) => (
                   <tr
                     key={withdrawal.id}
-                    className="hover:bg-primary/15 border-b border-[#f3f4f6] transition-colors"
+                    className="hover:bg-primary/15 border-b border-row-border transition-colors"
                   >
                     <td className="px-4 py-4">
                       <div className="flex items-center gap-3">
-                        <div className="text-primary flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#ebf5f0]">
+                        <div className="text-primary flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-pale-green">
                           <LuWallet size={18} />
                         </div>
                         <span className="text-dark font-semibold">

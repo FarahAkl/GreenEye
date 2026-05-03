@@ -1,16 +1,85 @@
 @import "tailwindcss";
 
 @theme {
+  --color-white: #fff;
   --color-primary: #379b89;
   --color-secondary: #009566;
   --color-light-green: #7a9e8e;
   --color-deep-green: #1a3a2e;
+  --color-pale-green: #ebf5f0;
   --color-dark: #002f20;
+  --color-dark-green: #004630;
+  --color-brand-green: #04591b;
+  --color-brand-lime: #79c010;
+  --color-dark-hover: #034415;
+  --color-heading-green: #345e52;
+  --color-nav-green: #355a4d;
+  --color-accent-green: #3b8768;
+  --color-muted-green: #5d8a7d;
+  --color-muted-green-2: #6b8a7e;
+  --color-hover-green: #1d4638;
+  --color-strong-green: #1d9e75;
+  --color-success-green: #2d9e7a;
+  --color-success-bg: #e8f7f1;
+  --color-success-hover: #d9f2e7;
+  --color-warning: #d97706;
+  --color-warning-bg: #fef3c7;
+  --color-teal: #0f766e;
+  --color-teal-bg: #ccfbf1;
+  --color-indigo: #6366f1;
+  --color-indigo-bg: #e0e7ff;
+  --color-gray-muted: #6b7280;
+  --color-gray-soft: #9ca3af;
+  --color-gray-light: #d1d5db;
+  --color-gray-ring: #e5e7eb;
+  --color-row-border: #f3f4f6;
+  --color-page-green: #f4f9f6;
+  --color-border-green: #e0f0e9;
+  --color-soft-green: #f0f7f3;
+  --color-soft-green-2: #f0f7f4;
+  --color-soft-green-3: #f0fdf4;
+  --color-card-green: #fafcfb;
+  --color-panel-green: #fcfdfc;
+  --color-badge-green-bg: #e9f2ee;
+  --color-icon-green-bg: #e4f2e8;
+  --color-dashed-green: #d4e8de;
+  --color-button-border-green: #dbece4;
+  --color-border-green-light: #eef5f1;
+  --color-border-green-lighter: #eef6f2;
+  --color-button-hover-green: #f6fbf8;
+  --color-footer-text: #f8fcfb;
+  --color-step-empty: #c8d8d0;
+  --color-step-muted: #b0c9bc;
+  --color-plant-bg: #c8e6d8;
+  --color-plant-stroke: #9abfad;
+  --color-danger: #de4436;
+  --color-success-ring: #bbf7d0;
+  --color-danger-ring: #fee2e2;
   --color-bg: #f0f6f2;
+  --shadow-calendar: 0 10px 25px -5px rgba(0, 47, 32, 0.1), 0 8px 10px -6px rgba(0, 47, 32, 0.1);
+  --shadow-section-green: 0 10px 30px rgba(0, 149, 102, 0.15);
+  --shadow-card-soft: 0 8px 30px rgb(0, 0, 0, 0.04);
+  --shadow-order-panel: 0 20px 60px rgba(0, 47, 32, 0.1);
+  --shadow-feature-card: 0px 4px 30px rgba(0, 0, 0, 0.1);
+  --shadow-feature-card-hover: 0px 4px 30px rgba(0, 0, 0, 0.25);
+  --shadow-navbar: 0 10px 40px rgba(0, 47, 32, 0.1);
+  --shadow-primary-button: 0 12px 24px rgba(55, 155, 137, 0.18);
+  --shadow-mobile-menu: 0 24px 60px rgba(0, 47, 32, 0.18);
+  --shadow-mobile-active: 0 10px 24px rgba(55, 155, 137, 0.2);
+  --shadow-footer: 0 -2px 10px rgba(0, 0, 0, 0.12);
+  --drop-shadow-delivery: 0 2px 8px rgba(29, 158, 117, 0.45);
 }
 
 .features-slider .slick-list{
   padding-block: 3rem;
+}
+
+.hero-gradient {
+  background-image: linear-gradient(to right, var(--color-dark), var(--color-secondary));
+}
+
+.delivery-drop-shadow {
+  filter: drop-shadow(var(--drop-shadow-delivery));
 }
 
 * {
@@ -41,7 +110,7 @@
 .premium-calendar {
   border: none !important;
   border-radius: 1.5rem !important;
-  box-shadow: 0 10px 25px -5px rgba(0, 47, 32, 0.1), 0 8px 10px -6px rgba(0, 47, 32, 0.1) !important;
+  box-shadow: var(--shadow-calendar) !important;
   font-family: inherit !important;
   padding: 0.5rem !important;
   background-color: white !important;
@@ -49,7 +118,7 @@
 
 .react-datepicker__header {
   background-color: white !important;
-  border-bottom: 1px solid #f0f6f2 !important;
+  border-bottom: 1px solid var(--color-bg) !important;
   border-top-left-radius: 1.5rem !important;
   border-top-right-radius: 1.5rem !important;
   padding-top: 1rem !important;
@@ -73,7 +142,7 @@
 }
 
 .react-datepicker__day:hover {
-  background-color: #ebf5f0 !important;
+  background-color: var(--color-pale-green) !important;
   color: var(--color-primary) !important;
 }
 
@@ -84,12 +153,12 @@
 }
 
 .react-datepicker__day--keyboard-selected {
-  background-color: #ebf5f0 !important;
+  background-color: var(--color-pale-green) !important;
   color: var(--color-primary) !important;
 }
 
 .react-datepicker__day--disabled {
-  color: #d1d5db !important;
+  color: var(--color-gray-light) !important;
 }
 
 .react-datepicker__navigation {

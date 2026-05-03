@@ -80,7 +80,7 @@ const AllProducts = () => {
           <tbody>
             {productsList.length === 0 ? (
               <tr>
-                <td colSpan={7} className="py-10 text-center text-[#6b7280]">
+                <td colSpan={7} className="py-10 text-center text-gray-muted">
                   No products found.
                 </td>
               </tr>
@@ -88,7 +88,7 @@ const AllProducts = () => {
               productsList.map((product: productsT) => (
                 <tr
                   key={product.id}
-                  className="hover:bg-primary/15 border-b border-[#f3f4f6] transition-colors"
+                  className="hover:bg-primary/15 border-b border-row-border transition-colors"
                 >
                   <td className="px-4 py-4">
                     <div className="flex items-center gap-3">

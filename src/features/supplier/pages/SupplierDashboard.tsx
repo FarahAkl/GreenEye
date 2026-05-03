@@ -17,24 +17,24 @@ const cards = [
     title: "My Products",
     description: "View and manage your listed products and inventory.",
     icon: HiOutlineCube,
-    color: "#2d9e7a",
-    bg: "#e8f7f1",
+    color: "var(--color-success-green)",
+    bg: "var(--color-success-bg)",
     to: "/supplier-dashboard/my-products",
   },
   {
     title: "Wallet",
     description: "Check your balance, transactions, and request withdrawals.",
     icon: HiOutlineWallet,
-    color: "#d97706",
-    bg: "#fef3c7",
+    color: "var(--color-warning)",
+    bg: "var(--color-warning-bg)",
     to: "/supplier-dashboard/wallet",
   },
   {
     title: "Orders",
     description: "Track incoming orders and manage fulfillment.",
     icon: HiOutlineClipboardDocumentList,
-    color: "#6366f1",
-    bg: "#e0e7ff",
+    color: "var(--color-indigo)",
+    bg: "var(--color-indigo-bg)",
     to: "/supplier-dashboard/orders",
   },
 ];
@@ -136,7 +136,7 @@ const SupplierDashboard = () => {
         {cards.map((card, i) => (
           <div
             key={card.title}
-            className="group overflow-hidden rounded-2xl border border-[#e0f0e9] bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+            className="group overflow-hidden rounded-2xl border border-border-green bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
             style={{
               animation: `fadeInUp 0.4s ease ${i * 0.1}s both`,
             }}

@@ -82,10 +82,10 @@ const EditForm = ({
     <form onSubmit={handleSubmit(onSubmit)} className="mt-5 w-full max-w-md">
       <div className="mb-6 flex items-center justify-center gap-2">
         <div
-          className={`h-2 w-12 rounded-full transition-colors ${step === 1 ? "bg-primary" : "bg-[#e0f0e9]"}`}
+          className={`h-2 w-12 rounded-full transition-colors ${step === 1 ? "bg-primary" : "bg-border-green"}`}
         />
         <div
-          className={`h-2 w-12 rounded-full transition-colors ${step === 2 ? "bg-primary" : "bg-[#e0f0e9]"}`}
+          className={`h-2 w-12 rounded-full transition-colors ${step === 2 ? "bg-primary" : "bg-border-green"}`}
         />
       </div>
 
@@ -155,7 +155,7 @@ const EditForm = ({
             <button
               type="button"
               onClick={handleNextStep}
-              className="bg-primary flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 font-semibold text-white transition-colors hover:bg-[#034415]"
+              className="bg-primary flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 font-semibold text-white transition-colors hover:bg-dark-hover"
             >
               Next Step <FiArrowRight />
             </button>
@@ -185,7 +185,7 @@ const EditForm = ({
             <button
               type="button"
               onClick={() => setStep(1)}
-              className="flex w-full items-center justify-center gap-2 rounded-xl border border-[#e0f0e9] px-4 py-3 font-semibold text-[#5d8a7d] transition-colors hover:bg-[#ebf5f0]"
+              className="flex w-full items-center justify-center gap-2 rounded-xl border border-border-green px-4 py-3 font-semibold text-muted-green transition-colors hover:bg-pale-green"
             >
               <FiArrowLeft /> Back
             </button>

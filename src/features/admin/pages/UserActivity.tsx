@@ -141,7 +141,7 @@ const UserActivity = () => {
                 <h3 className="text-dark text-lg font-bold">
                   Purchase History
                 </h3>
-                <p className="text-sm text-light-green">
+                <p className="text-light-green text-sm">
                   Recent orders placed by this user
                 </p>
               </div>
@@ -167,14 +167,14 @@ const UserActivity = () => {
                 {userOrders.map((order: orderT) => (
                   <div
                     key={order.id}
-                    className="overflow-hidden rounded-2xl border border-[#e0f0e9] bg-white p-4 shadow-sm"
+                    className="border-border-green overflow-hidden rounded-2xl border bg-white p-4 shadow-sm"
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div>
-                        <p className="text-base font-bold text-deep-green">
+                        <p className="text-deep-green text-base font-bold">
                           Order #{order.id}
                         </p>
-                        <p className="text-xs text-light-green">
+                        <p className="text-light-green text-xs">
                           {formatDate(order.createdAt)}
                         </p>
                       </div>
@@ -203,7 +203,7 @@ const UserActivity = () => {
                         <span className="text-[10px] font-bold tracking-widest text-gray-400 uppercase">
                           Delivery
                         </span>
-                        <p className="text-xs font-bold text-deep-green">
+                        <p className="text-deep-green text-xs font-bold">
                           {order.deliveryStatus}
                         </p>
                       </div>
@@ -213,37 +213,37 @@ const UserActivity = () => {
               </div>
 
               {/* Desktop View: Table */}
-              <div className="hidden overflow-x-auto rounded-2xl border border-[#e0f0e9] lg:block">
+              <div className="border-border-green hidden overflow-x-auto rounded-2xl border lg:block">
                 <table className="w-full text-left text-sm whitespace-nowrap">
-                  <thead className="bg-[#fafcfb] text-gray-600">
-                    <tr className="border-b border-[#e0f0e9]">
-                      <th className="px-6 py-4 font-bold text-deep-green">
+                  <thead className="bg-card-green text-gray-600">
+                    <tr className="border-border-green border-b">
+                      <th className="text-deep-green px-6 py-4 font-bold">
                         Order ID
                       </th>
-                      <th className="px-6 py-4 font-bold text-deep-green">
+                      <th className="text-deep-green px-6 py-4 font-bold">
                         Date
                       </th>
-                      <th className="px-6 py-4 font-bold text-deep-green">
+                      <th className="text-deep-green px-6 py-4 font-bold">
                         Status
                       </th>
-                      <th className="px-6 py-4 font-bold text-deep-green">
+                      <th className="text-deep-green px-6 py-4 font-bold">
                         Delivery
                       </th>
-                      <th className="px-6 py-4 font-bold text-deep-green">
+                      <th className="text-deep-green px-6 py-4 font-bold">
                         Total Price
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[#f3f4f6]">
+                  <tbody className="divide-row-border divide-y">
                     {userOrders.map((order: orderT) => (
                       <tr
                         key={order.id}
-                        className="transition-colors hover:bg-[#fcfdfc]"
+                        className="hover:bg-panel-green transition-colors"
                       >
-                        <td className="px-6 py-4 font-bold text-deep-green">
+                        <td className="text-deep-green px-6 py-4 font-bold">
                           #{order.id}
                         </td>
-                        <td className="px-6 py-4 text-light-green">
+                        <td className="text-light-green px-6 py-4">
                           {formatDate(order.createdAt)}
                         </td>
                         <td className="px-6 py-4">
@@ -269,7 +269,7 @@ const UserActivity = () => {
                           </span>
                         </td>
                         <td className="px-6 py-4">
-                          <span className="font-semibold text-deep-green">
+                          <span className="text-deep-green font-semibold">
                             {order.deliveryStatus}
                           </span>
                         </td>

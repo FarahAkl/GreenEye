@@ -98,7 +98,7 @@ const ProductRow = ({
                 inStock ? "bg-primary" : "bg-red-500"
               }`}
               style={{
-                boxShadow: inStock ? "0 0 0 3px #bbf7d0" : "0 0 0 3px #fee2e2",
+                boxShadow: inStock ? "0 0 0 3px var(--color-success-ring)" : "0 0 0 3px var(--color-danger-ring)",
               }}
             />
             {inStock ? "In-stock" : "Out of stock"}

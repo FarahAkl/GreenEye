@@ -35,7 +35,7 @@ const AppSec = () => {
     },
   ];
   return (
-    <section className="px-8 py-20 shadow-[0_10px_30px_rgba(0,149,102,0.15)] md:px-12 lg:px-24">
+    <section className="px-8 py-20 shadow-section-green md:px-12 lg:px-24">
       <div className="grid items-center gap-12 lg:grid-cols-2">
         <motion.div 
           initial={{ opacity: 0, x: -50 }}
@@ -66,7 +66,7 @@ const AppSec = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-2xl text-[#004630]"
+            className="text-2xl text-dark-green"
           >
             What you can do:
           </motion.p>

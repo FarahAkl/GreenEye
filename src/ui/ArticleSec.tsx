@@ -21,7 +21,7 @@ declining and conditions are becoming increasingly unpredictable.`;
   const displayedText = isExpanded ? text : text.slice(0, limit) + "...";
 
   return (
-    <section className="grid grid-cols-1 items-center justify-between gap-8 px-8 pt-24 pb-12 shadow-[0_10px_30px_rgba(0,149,102,0.15)] md:grid-cols-2 md:px-12 lg:px-20 lg:pt-24">
+    <section className="grid grid-cols-1 items-center justify-between gap-8 px-8 pt-24 pb-12 shadow-section-green md:grid-cols-2 md:px-12 lg:px-20 lg:pt-24">
       <motion.div 
         initial={{ opacity: 0, x: -50 }}
         whileInView={{ opacity: 1, x: 0 }}

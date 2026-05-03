@@ -76,7 +76,7 @@ const PendingUsers = () => {
             <tbody>
               {usersList?.length === 0 || usersList === null ? (
                 <tr>
-                  <td colSpan={7} className="py-10 text-center text-[#6b7280]">
+                  <td colSpan={7} className="py-10 text-center text-gray-muted">
                     No pending users found.
                   </td>
                 </tr>
@@ -84,7 +84,7 @@ const PendingUsers = () => {
                 usersList.map((user: pendingUserT) => (
                   <tr
                     key={user.id}
-                    className="hover:bg-primary/15 border-b border-[#f3f4f6] transition-colors"
+                    className="hover:bg-primary/15 border-b border-row-border transition-colors"
                   >
                     <td className="px-4 py-4">
                       <div className="flex items-center gap-3">

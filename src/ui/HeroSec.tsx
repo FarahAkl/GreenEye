@@ -7,7 +7,7 @@ const HeroSec = () => {
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   return (
-    <section className="relative grid min-h-[80vh] grid-cols-1 bg-[linear-gradient(to_right,#002F20,#009566)] md:grid-cols-2">
+    <section className="relative grid min-h-[80vh] grid-cols-1 hero-gradient md:grid-cols-2">
       {/* Text Content */}
       <motion.div 
         initial={{ opacity: 0, x: -50 }}

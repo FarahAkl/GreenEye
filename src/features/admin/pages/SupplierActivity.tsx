@@ -184,7 +184,7 @@ const SupplierActivity = () => {
                 {products.map((product: productT) => (
                   <div
                     key={product.productId}
-                    className="overflow-hidden rounded-2xl border border-[#e0f0e9] bg-white p-4 shadow-sm"
+                    className="overflow-hidden rounded-2xl border border-border-green bg-white p-4 shadow-sm"
                   >
                     <div className="flex gap-4">
                       <div className="h-20 w-20 shrink-0 overflow-hidden rounded-xl">
@@ -225,10 +225,10 @@ const SupplierActivity = () => {
               </div>
 
               {/* Desktop View: Table */}
-              <div className="hidden overflow-x-auto rounded-2xl border border-[#e0f0e9] lg:block">
+              <div className="hidden overflow-x-auto rounded-2xl border border-border-green lg:block">
                 <table className="w-full text-left text-sm whitespace-nowrap">
-                  <thead className="bg-[#fafcfb] text-gray-600">
-                    <tr className="border-b border-[#e0f0e9]">
+                  <thead className="bg-card-green text-gray-600">
+                    <tr className="border-b border-border-green">
                       <th className="px-6 py-4 font-bold text-deep-green">
                         Product
                       </th>
@@ -241,11 +241,11 @@ const SupplierActivity = () => {
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[#f3f4f6]">
+                  <tbody className="divide-y divide-row-border">
                     {products.map((product: productT) => (
                       <tr
                         key={product.productId}
-                        className="transition-colors hover:bg-[#fcfdfc]"
+                        className="transition-colors hover:bg-panel-green"
                       >
                         <td className="px-6 py-4">
                           <div className="flex items-center gap-4">

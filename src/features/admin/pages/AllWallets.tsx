@@ -43,13 +43,13 @@ const AllWallets = () => {
             <tbody>
               {isError ? (
                 <tr>
-                  <td colSpan={4} className="py-10 text-center text-[#6b7280]">
+                  <td colSpan={4} className="py-10 text-center text-gray-muted">
                     Something went wrong while loading wallets.
                   </td>
                 </tr>
               ) : walletsList.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className="py-10 text-center text-[#6b7280]">
+                  <td colSpan={4} className="py-10 text-center text-gray-muted">
                     No wallets found.
                   </td>
                 </tr>
@@ -60,11 +60,11 @@ const AllWallets = () => {
                   return (
                     <tr
                       key={`${wallet.supplierId}-${index}`}
-                      className="hover:bg-primary/15 border-b border-[#f3f4f6] transition-colors"
+                      className="hover:bg-primary/15 border-b border-row-border transition-colors"
                     >
                       <td className="px-4 py-4">
                         <div className="flex items-center gap-3">
-                          <div className="text-primary flex h-10 w-10 items-center justify-center rounded-xl bg-[#ebf5f0]">
+                          <div className="text-primary flex h-10 w-10 items-center justify-center rounded-xl bg-pale-green">
                             <LuWallet size={18} />
                           </div>
                           <span className="text-dark font-semibold">
@@ -115,7 +115,7 @@ const AllWallets = () => {
                               </Modal.Window>
                             </>
                           ) : (
-                            <span className="text-xs text-[#9ca3af]">
+                            <span className="text-xs text-gray-soft">
                               No wallet reference
                             </span>
                           )}

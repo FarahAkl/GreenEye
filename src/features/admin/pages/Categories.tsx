@@ -31,7 +31,7 @@ const Categories = () => {
     : [];
 
   return (
-    <div className="min-h-screen animate-[fadeInUp_0.4s_ease_both] bg-[#f4f9f6] p-4 lg:p-8">
+    <div className="min-h-screen animate-[fadeInUp_0.4s_ease_both] bg-page-green p-4 lg:p-8">
       <SEO title="Categories" description="Manage and organize agricultural product categories." />
       <style>{`
         @keyframes fadeInUp {
@@ -65,11 +65,11 @@ const Categories = () => {
       </div>
 
       {/* Categories Table/List */}
-      <div className="overflow-hidden rounded-3xl border border-[#e0f0e9] bg-white shadow-sm">
+      <div className="overflow-hidden rounded-3xl border border-border-green bg-white shadow-sm">
         {/* Table Header / Filter Bar */}
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#e0f0e9] bg-[#fcfdfc] px-6 py-4">
+        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border-green bg-panel-green px-6 py-4">
           <div className="flex items-center gap-2">
-            <div className="text-primary flex h-10 w-10 items-center justify-center rounded-xl bg-[#ebf5f0]">
+            <div className="text-primary flex h-10 w-10 items-center justify-center rounded-xl bg-pale-green">
               <FiGrid size={20} />
             </div>
             <div>
@@ -89,7 +89,7 @@ const Categories = () => {
               <select
                 value={orderBy}
                 onChange={(e) => setOrderBy(e.target.value)}
-                className="hover:border-primary/30 cursor-pointer appearance-none rounded-xl border border-[#e0f0e9] bg-white py-2 pr-9 pl-4 text-xs font-semibold text-[#5d8a7d] transition-all outline-none hover:bg-[#fcfdfc]"
+                className="hover:border-primary/30 cursor-pointer appearance-none rounded-xl border border-border-green bg-white py-2 pr-9 pl-4 text-xs font-semibold text-muted-green transition-all outline-none hover:bg-panel-green"
               >
                 <option value="Default">Order By: Default</option>
                 <option value="Name">Name: A–Z</option>
@@ -104,7 +104,7 @@ const Categories = () => {
         </div>
 
         {/* Content */}
-        <div className="divide-y divide-[#f0f7f3] bg-[#fafcfb] p-2 lg:p-4">
+        <div className="divide-y divide-soft-green bg-card-green p-2 lg:p-4">
           {isFetchingCategories ? (
             <div className="space-y-3">
                {Array.from({ length: 5 }).map((_, i) => (
@@ -127,7 +127,7 @@ const Categories = () => {
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center py-24 text-center">
-              <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-[#f0f7f3] text-light-green">
+              <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-soft-green text-light-green">
                 <HiOutlineViewGridAdd size={40} className="opacity-40" />
               </div>
               <h3 className="text-lg font-bold text-deep-green">

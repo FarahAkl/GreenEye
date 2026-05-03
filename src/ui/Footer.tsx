@@ -7,7 +7,7 @@ const Footer = () => {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-dark shadow-[0_-2px_10px_rgba(0,0,0,0.12)]">
+    <footer className="bg-dark shadow-footer">
       <ScrollToHash />
       <div className="grid grid-cols-1 justify-between gap-10 px-8 py-16 md:grid-cols-3 md:gap-0 md:px-12 lg:px-24">
         <ul className="flex flex-col items-center gap-4 md:items-start">
@@ -25,18 +25,18 @@ const Footer = () => {
           <li className="flex gap-4 sm:gap-6">
             <Link
               to={"https://www.facebook.com/share/17xzZxXDMG/"}
-              className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/20 text-[#F8FCFB]"
+              className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/20 text-footer-text"
             >
               <FaFacebookF size={20} />
             </Link>
 
-            <div className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/20 text-[#F8FCFB]">
+            <div className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/20 text-footer-text">
               <FaTwitter size={20} />
             </div>
 
             <Link
               to={"https://www.linkedin.com/company/greeneyee/"}
-              className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/20 text-[#F8FCFB]"
+              className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/20 text-footer-text"
             >
               <FaLinkedin size={20} />
             </Link>

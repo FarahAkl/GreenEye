@@ -70,7 +70,7 @@ const EditCategoryForm = ({
             />
 
             <div className="flex flex-col gap-1.5">
-              <label className="text-sm font-semibold text-[#5d8a7d]">
+              <label className="text-sm font-semibold text-muted-green">
                 Description
               </label>
               <textarea

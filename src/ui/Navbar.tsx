@@ -88,7 +88,7 @@ const Navbar = () => {
   const userAvatar = profileData?.data?.profileImageUrl || '';
 
   return (
-    <header className="sticky top-0 left-0 z-1000 border-b border-gray-300/60 bg-gray-200/50 px-4 shadow-[0_10px_40px_rgba(0,47,32,0.1)] backdrop-blur-2xl sm:px-6 md:px-10 lg:px-16">
+    <header className="sticky top-0 left-0 z-1000 border-b border-gray-300/60 bg-gray-200/50 px-4 shadow-navbar backdrop-blur-2xl sm:px-6 md:px-10 lg:px-16">
       <ScrollToHash />
 
       <div className="mx-auto flex h-18 max-w-7xl items-center justify-between gap-3">
@@ -103,8 +103,8 @@ const Navbar = () => {
           <img src="/images/logo.png" alt="logo" className="h-12 shrink-0" />
           <div className="flex flex-col items-start">
             <div className="text-lg leading-none font-bold">
-              <span className="text-[#04591B]">Green</span>
-              <span className="text-[#79C010]">Eye</span>
+              <span className="text-brand-green">Green</span>
+              <span className="text-brand-lime">Eye</span>
             </div>
           </div>
         </button>
@@ -133,7 +133,7 @@ const Navbar = () => {
               </button>
               <button
                 onClick={() => navigate("/profile")}
-                className="group relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-full border border-[#e0f0e9] bg-white transition-all hover:border-primary/50"
+                className="group relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-full border border-border-green bg-white transition-all hover:border-primary/50"
                 aria-label="Profile"
               >
                 {userAvatar && !imgError ? (
@@ -169,7 +169,7 @@ const Navbar = () => {
                 variant="filled"
                 onClick={() => navigate("/signup")}
                 btnLabel="Sign up"
-                className="rounded-full px-5 shadow-[0_12px_24px_rgba(55,155,137,0.18)]"
+                className="rounded-full px-5 shadow-primary-button"
               />
             </div>
           )}
@@ -186,7 +186,7 @@ const Navbar = () => {
           {open && (
             <>
               <div className="bg-dark/20 fixed inset-0 top-18 z-40 backdrop-blur-[2px] md:hidden" />
-              <div className="absolute top-14 right-0 z-50 w-[min(22rem,calc(100vw-2rem))] overflow-hidden rounded-3xl border border-white/70 bg-white/95 p-4 shadow-[0_24px_60px_rgba(0,47,32,0.18)] backdrop-blur-xl md:hidden">
+              <div className="absolute top-14 right-0 z-50 w-[min(22rem,calc(100vw-2rem))] overflow-hidden rounded-3xl border border-white/70 bg-white/95 p-4 shadow-mobile-menu backdrop-blur-xl md:hidden">
                 <div className="flex flex-col gap-2">
                   {navItems.map((item) => (
                     <Link
@@ -194,8 +194,8 @@ const Navbar = () => {
                       to={item.to}
                       className={`rounded-2xl px-4 py-3 text-sm font-medium transition-all duration-200 ${
                         activeItem === item.label
-                          ? "bg-primary text-white shadow-[0_10px_24px_rgba(55,155,137,0.2)]"
-                          : "bg-[#f4f9f6] text-[#355a4d] hover:bg-[#ebf5f0]"
+                          ? "bg-primary text-white shadow-mobile-active"
+                          : "bg-page-green text-nav-green hover:bg-pale-green"
                       }`}
                       onClick={closeMenu}
                     >
@@ -211,7 +211,7 @@ const Navbar = () => {
                         navigate("/cart");
                         closeMenu();
                       }}
-                      className="flex h-12 cursor-pointer items-center justify-center gap-2 rounded-2xl bg-[#f4f9f6] text-sm font-semibold text-[#355a4d] transition-all hover:bg-[#ebf5f0]"
+                      className="flex h-12 cursor-pointer items-center justify-center gap-2 rounded-2xl bg-page-green text-sm font-semibold text-nav-green transition-all hover:bg-pale-green"
                     >
                       <TiShoppingCart size={20} />
                       Cart
@@ -221,7 +221,7 @@ const Navbar = () => {
                         navigate("/profile");
                         closeMenu();
                       }}
-                      className="flex h-12 cursor-pointer items-center justify-center gap-2 rounded-2xl bg-[#f4f9f6] text-sm font-semibold text-[#355a4d] transition-all hover:bg-[#ebf5f0]"
+                      className="flex h-12 cursor-pointer items-center justify-center gap-2 rounded-2xl bg-page-green text-sm font-semibold text-nav-green transition-all hover:bg-pale-green"
                     >
                       <LuUser size={20} />
                       Profile
@@ -254,7 +254,7 @@ const Navbar = () => {
                         closeMenu();
                       }}
                       btnLabel="Sign up"
-                      className="w-full rounded-2xl shadow-[0_12px_24px_rgba(55,155,137,0.18)]"
+                      className="w-full rounded-2xl shadow-primary-button"
                     />
                   </div>
                 )}
