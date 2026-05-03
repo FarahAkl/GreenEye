@@ -216,7 +216,7 @@ const DashboardLayout = () => {
               <span className="text-lg leading-none font-bold text-[#04591B]">
                 GreenEye
               </span>
-              <span className="text-[10px] font-medium tracking-wider text-[#7a9e8e] uppercase">
+              <span className="text-[10px] font-medium tracking-wider text-light-green uppercase">
                 {dashboardLabel}
               </span>
             </div>
@@ -237,7 +237,7 @@ const DashboardLayout = () => {
         <div className="border-t border-[#e0f0e9] p-4">
           <button
             onClick={handleLogout}
-            className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-[#7a9e8e] transition-all duration-200 hover:bg-red-50 hover:text-red-500"
+            className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-light-green transition-all duration-200 hover:bg-red-50 hover:text-red-500"
           >
             <LuLogOut size={20} />
             Logout
@@ -264,10 +264,10 @@ const DashboardLayout = () => {
         {/* Top bar - Desktop */}
         <header className="hidden h-16 items-center justify-between border-b border-[#e0f0e9] bg-white px-8 lg:flex">
           <div className="flex flex-col">
-            <h2 className="text-lg font-bold text-[#1a3a2e]">
+            <h2 className="text-lg font-bold text-deep-green">
               {dashboardLabel}
             </h2>
-            <p className="text-xs text-[#7a9e8e]">
+            <p className="text-xs text-light-green">
               Welcome back to your dashboard
             </p>
           </div>

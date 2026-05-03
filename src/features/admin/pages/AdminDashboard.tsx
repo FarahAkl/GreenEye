@@ -65,10 +65,10 @@ const AdminDashboard = () => {
 
       {/* Header */}
       <div className="mb-10">
-        <h1 className="mb-2 text-3xl font-bold text-[#1a3a2e]">
+        <h1 className="mb-2 text-3xl font-bold text-deep-green">
           Admin Overview
         </h1>
-        <p className="text-[#7a9e8e]">
+        <p className="text-light-green">
           Welcome back! Here's what needs your attention today.
         </p>
       </div>
@@ -116,10 +116,10 @@ const AdminDashboard = () => {
             >
               <card.icon size={24} style={{ color: card.color }} />
             </div>
-            <h2 className="mb-1 text-lg font-bold text-[#1a3a2e]">
+            <h2 className="mb-1 text-lg font-bold text-deep-green">
               {card.title}
             </h2>
-            <p className="text-sm leading-relaxed text-[#7a9e8e]">
+            <p className="text-sm leading-relaxed text-light-green">
               {card.description}
             </p>
             <button

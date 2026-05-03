@@ -110,7 +110,7 @@ const MyOrders = () => {
 
           {/* Error */}
           {isError && (
-            <div className="mt-16 text-center text-[#7a9e8e]">
+            <div className="mt-16 text-center text-light-green">
               <p className="mb-3 text-4xl">⚠️</p>
               <p className="text-base">
                 Something went wrong loading your orders.
@@ -120,7 +120,7 @@ const MyOrders = () => {
 
           {/* Empty state */}
           {!isFetchingOrders && !isError && displayed.length === 0 && (
-            <div className="mt-16 text-center text-[#7a9e8e]">
+            <div className="mt-16 text-center text-light-green">
               <p className="mb-3 text-4xl">🌱</p>
               <p className="text-base">
                 No {tab === "ongoing" ? "ongoing" : "past"} orders yet.

@@ -47,7 +47,7 @@ const Categories = () => {
       {/* Header & Toolbar */}
       <div className="mb-8 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-[#1a3a2e]">Categories</h1>
+          <h1 className="text-3xl font-bold text-deep-green">Categories</h1>
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
@@ -73,11 +73,11 @@ const Categories = () => {
               <FiGrid size={20} />
             </div>
             <div>
-              <span className="text-sm font-bold text-[#1a3a2e]">
+              <span className="text-sm font-bold text-deep-green">
                 All Categories
               </span>
               {categories && (
-                <p className="text-[11px] font-medium text-[#7a9e8e]">
+                <p className="text-[11px] font-medium text-light-green">
                   {categories.data.length} Total Categories
                 </p>
               )}
@@ -97,7 +97,7 @@ const Categories = () => {
               </select>
               <FiChevronDown
                 size={12}
-                className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-[#7a9e8e]"
+                className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-light-green"
               />
             </div>
           </div>
@@ -127,13 +127,13 @@ const Categories = () => {
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center py-24 text-center">
-              <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-[#f0f7f3] text-[#7a9e8e]">
+              <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-[#f0f7f3] text-light-green">
                 <HiOutlineViewGridAdd size={40} className="opacity-40" />
               </div>
-              <h3 className="text-lg font-bold text-[#1a3a2e]">
+              <h3 className="text-lg font-bold text-deep-green">
                 No Categories Found
               </h3>
-              <p className="mt-2 max-w-xs text-sm text-[#7a9e8e]">
+              <p className="mt-2 max-w-xs text-sm text-light-green">
                 No categories have been created yet.
               </p>
               <Button

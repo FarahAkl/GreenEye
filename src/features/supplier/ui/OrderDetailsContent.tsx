@@ -22,13 +22,13 @@ const OrderDetailsContent = ({
     <div className="mt-6 flex w-full max-w-2xl min-w-[320px] flex-col gap-6 md:min-w-170">
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <div className="rounded-2xl border border-[#e0f0e9] bg-[#fafcfb] p-4">
-          <p className="text-xs font-medium tracking-wide text-[#7a9e8e] uppercase">
+          <p className="text-xs font-medium tracking-wide text-light-green uppercase">
             Order ID
           </p>
-          <p className="mt-2 text-base font-bold text-[#1a3a2e]">#{order.id}</p>
+          <p className="mt-2 text-base font-bold text-deep-green">#{order.id}</p>
         </div>
         <div className="rounded-2xl border border-[#e0f0e9] bg-[#fafcfb] p-4">
-          <p className="text-xs font-medium tracking-wide text-[#7a9e8e] uppercase">
+          <p className="text-xs font-medium tracking-wide text-light-green uppercase">
             Status
           </p>
           <span
@@ -38,18 +38,18 @@ const OrderDetailsContent = ({
           </span>
         </div>
         <div className="rounded-2xl border border-[#e0f0e9] bg-[#fafcfb] p-4">
-          <p className="text-xs font-medium tracking-wide text-[#7a9e8e] uppercase">
+          <p className="text-xs font-medium tracking-wide text-light-green uppercase">
             Delivery
           </p>
-          <p className="mt-2 text-base font-bold text-[#1a3a2e]">
+          <p className="mt-2 text-base font-bold text-deep-green">
             {order.deliveryStatus}
           </p>
         </div>
         <div className="rounded-2xl border border-[#e0f0e9] bg-[#fafcfb] p-4">
-          <p className="text-xs font-medium tracking-wide text-[#7a9e8e] uppercase">
+          <p className="text-xs font-medium tracking-wide text-light-green uppercase">
             Total
           </p>
-          <p className="mt-2 text-base font-bold text-[#1a3a2e]">
+          <p className="mt-2 text-base font-bold text-deep-green">
             {order.totalPrice.toLocaleString()} EGP
           </p>
         </div>
@@ -57,10 +57,10 @@ const OrderDetailsContent = ({
 
       <div className="grid gap-4 md:grid-cols-2">
         <div className="rounded-2xl border border-[#e0f0e9] bg-white p-4 shadow-sm">
-          <p className="text-xs font-semibold tracking-wide text-[#7a9e8e] uppercase">
+          <p className="text-xs font-semibold tracking-wide text-light-green uppercase">
             Timeline
           </p>
-          <div className="mt-3 space-y-3 text-sm text-[#1a3a2e]">
+          <div className="mt-3 space-y-3 text-sm text-deep-green">
             <div className="flex items-center justify-between gap-3">
               <span className="font-medium text-[#5d8a7d]">Created At</span>
               <span>{formatDate(order.createdAt, "en-GB")}</span>
@@ -76,10 +76,10 @@ const OrderDetailsContent = ({
         </div>
 
         <div className="rounded-2xl border border-[#e0f0e9] bg-white p-4 shadow-sm">
-          <p className="text-xs font-semibold tracking-wide text-[#7a9e8e] uppercase">
+          <p className="text-xs font-semibold tracking-wide text-light-green uppercase">
             Totals
           </p>
-          <div className="mt-3 space-y-3 text-sm text-[#1a3a2e]">
+          <div className="mt-3 space-y-3 text-sm text-deep-green">
             <div className="flex items-center justify-between gap-3">
               <span className="font-medium text-[#5d8a7d]">Subtotal</span>
               <span>{order.subTotal.toLocaleString()} EGP</span>
@@ -97,7 +97,7 @@ const OrderDetailsContent = ({
       </div>
 
       <div className="rounded-2xl border border-[#e0f0e9] bg-white p-4 shadow-sm">
-        <p className="text-xs font-semibold tracking-wide text-[#7a9e8e] uppercase">
+        <p className="text-xs font-semibold tracking-wide text-light-green uppercase">
           Ordered Products
         </p>
 
@@ -109,22 +109,22 @@ const OrderDetailsContent = ({
                 className="flex flex-col gap-2 rounded-2xl border border-[#eef6f2] bg-[#fafcfb] px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
               >
                 <div>
-                  <p className="font-semibold text-[#1a3a2e]">
+                  <p className="font-semibold text-deep-green">
                     {item.productName || "Unnamed product"}
                   </p>
-                  <p className="text-sm text-[#7a9e8e]">
+                  <p className="text-sm text-light-green">
                     Qty: {item.quantity}
                     {item.userName ? ` . Customer: ${item.userName}` : ""}
                   </p>
                 </div>
-                <p className="text-sm font-bold text-[#1a3a2e]">
+                <p className="text-sm font-bold text-deep-green">
                   {item.totalPrice.toLocaleString()} EGP
                 </p>
               </div>
             ))}
           </div>
         ) : (
-          <div className="mt-4 rounded-2xl border border-dashed border-[#d4e8de] bg-[#fcfdfc] px-6 py-8 text-center text-sm text-[#7a9e8e]">
+          <div className="mt-4 rounded-2xl border border-dashed border-[#d4e8de] bg-[#fcfdfc] px-6 py-8 text-center text-sm text-light-green">
             No order items were returned for this order.
           </div>
         )}

@@ -158,7 +158,7 @@ const SupplierActivity = () => {
                 <h3 className="text-dark text-lg font-bold">
                   Product Inventory
                 </h3>
-                <p className="text-sm text-[#7a9e8e]">
+                <p className="text-sm text-light-green">
                   Items listed by this supplier
                 </p>
               </div>
@@ -229,14 +229,14 @@ const SupplierActivity = () => {
                 <table className="w-full text-left text-sm whitespace-nowrap">
                   <thead className="bg-[#fafcfb] text-gray-600">
                     <tr className="border-b border-[#e0f0e9]">
-                      <th className="px-6 py-4 font-bold text-[#1a3a2e]">
+                      <th className="px-6 py-4 font-bold text-deep-green">
                         Product
                       </th>
-                      <th className="px-6 py-4 font-bold text-[#1a3a2e]">ID</th>
-                      <th className="px-6 py-4 font-bold text-[#1a3a2e]">
+                      <th className="px-6 py-4 font-bold text-deep-green">ID</th>
+                      <th className="px-6 py-4 font-bold text-deep-green">
                         Price
                       </th>
-                      <th className="px-6 py-4 font-bold text-[#1a3a2e]">
+                      <th className="px-6 py-4 font-bold text-deep-green">
                         Stock
                       </th>
                     </tr>
@@ -268,7 +268,7 @@ const SupplierActivity = () => {
                             </span>
                           </div>
                         </td>
-                        <td className="px-6 py-4 font-medium text-[#7a9e8e]">
+                        <td className="px-6 py-4 font-medium text-light-green">
                           #{product.productId}
                         </td>
                         <td className="text-primary px-6 py-4 font-black">

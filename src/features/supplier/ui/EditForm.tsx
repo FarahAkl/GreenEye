@@ -175,7 +175,7 @@ const EditForm = ({
               setValue={setValue}
               hint="JPG, PNG or WEBP · will replace old image"
             />
-            <p className="mt-2 text-xs text-[#7a9e8e]">
+            <p className="mt-2 text-xs text-light-green">
               If you don't select an image, the current product image will be
               kept.
             </p>

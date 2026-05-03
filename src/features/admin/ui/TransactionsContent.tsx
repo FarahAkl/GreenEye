@@ -44,18 +44,18 @@ const TransactionsContent = ({
       <div className="max-h-[70vh] overflow-y-auto pr-1">
         <div className="grid gap-3 sm:grid-cols-2">
           <div className="rounded-2xl border border-[#e0f0e9] bg-[#fafcfb] p-4">
-            <p className="text-xs font-medium tracking-wide text-[#7a9e8e] uppercase">
+            <p className="text-xs font-medium tracking-wide text-light-green uppercase">
               Supplier
             </p>
-            <p className="mt-2 text-base font-bold text-[#1a3a2e]">
+            <p className="mt-2 text-base font-bold text-deep-green">
               {supplierName}
             </p>
           </div>
           <div className="rounded-2xl border border-[#e0f0e9] bg-[#fafcfb] p-4">
-            <p className="text-xs font-medium tracking-wide text-[#7a9e8e] uppercase">
+            <p className="text-xs font-medium tracking-wide text-light-green uppercase">
               Transactions
             </p>
-            <p className="mt-2 text-base font-bold text-[#1a3a2e]">
+            <p className="mt-2 text-base font-bold text-deep-green">
               {transactions.length}
             </p>
           </div>
@@ -68,10 +68,10 @@ const TransactionsContent = ({
             </div>
           ) : transactions.length === 0 ? (
             <div className="rounded-2xl border border-dashed border-[#d4e8de] bg-[#fcfdfc] px-6 py-10 text-center">
-              <p className="font-semibold text-[#1a3a2e]">
+              <p className="font-semibold text-deep-green">
                 No transactions found
               </p>
-              <p className="mt-2 text-sm text-[#7a9e8e]">
+              <p className="mt-2 text-sm text-light-green">
                 This wallet does not have any transaction history yet.
               </p>
             </div>
@@ -90,17 +90,17 @@ const TransactionsContent = ({
                         >
                           {transaction.type}
                         </span>
-                        <span className="text-sm font-bold text-[#1a3a2e]">
+                        <span className="text-sm font-bold text-deep-green">
                           {transaction.amount.toLocaleString()} EGP
                         </span>
                       </div>
-                      <p className="mt-3 text-sm font-semibold text-[#1a3a2e]">
+                      <p className="mt-3 text-sm font-semibold text-deep-green">
                         {transaction.description}
                       </p>
                       <div className="mt-3 grid gap-2 text-sm text-[#5d8a7d]">
                         <p>
                           Order:{" "}
-                          <span className="font-medium text-[#1a3a2e]">
+                          <span className="font-medium text-deep-green">
                             {transaction.orderId
                               ? `#${transaction.orderId}`
                               : "N/A"}
@@ -108,7 +108,7 @@ const TransactionsContent = ({
                         </p>
                         <p>
                           Created:{" "}
-                          <span className="font-medium text-[#1a3a2e]">
+                          <span className="font-medium text-deep-green">
                             {formatDate(transaction.createdAt, "en-GB")}
                           </span>
                         </p>
@@ -143,18 +143,18 @@ const TransactionsContent = ({
                               {transaction.type}
                             </span>
                           </td>
-                          <td className="px-4 py-3 text-[#1a3a2e]">
+                          <td className="px-4 py-3 text-deep-green">
                             {transaction.description}
                           </td>
-                          <td className="px-4 py-3 font-medium text-[#1a3a2e]">
+                          <td className="px-4 py-3 font-medium text-deep-green">
                             {transaction.orderId
                               ? `#${transaction.orderId}`
                               : "N/A"}
                           </td>
-                          <td className="px-4 py-3 font-bold text-[#1a3a2e]">
+                          <td className="px-4 py-3 font-bold text-deep-green">
                             {transaction.amount.toLocaleString()} EGP
                           </td>
-                          <td className="px-4 py-3 text-[#1a3a2e]">
+                          <td className="px-4 py-3 text-deep-green">
                             {formatDate(transaction.createdAt, "en-GB")}
                           </td>
                         </tr>

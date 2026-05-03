@@ -141,7 +141,7 @@ const UserActivity = () => {
                 <h3 className="text-dark text-lg font-bold">
                   Purchase History
                 </h3>
-                <p className="text-sm text-[#7a9e8e]">
+                <p className="text-sm text-light-green">
                   Recent orders placed by this user
                 </p>
               </div>
@@ -171,10 +171,10 @@ const UserActivity = () => {
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div>
-                        <p className="text-base font-bold text-[#1a3a2e]">
+                        <p className="text-base font-bold text-deep-green">
                           Order #{order.id}
                         </p>
-                        <p className="text-xs text-[#7a9e8e]">
+                        <p className="text-xs text-light-green">
                           {formatDate(order.createdAt)}
                         </p>
                       </div>
@@ -203,7 +203,7 @@ const UserActivity = () => {
                         <span className="text-[10px] font-bold tracking-widest text-gray-400 uppercase">
                           Delivery
                         </span>
-                        <p className="text-xs font-bold text-[#1a3a2e]">
+                        <p className="text-xs font-bold text-deep-green">
                           {order.deliveryStatus}
                         </p>
                       </div>
@@ -217,19 +217,19 @@ const UserActivity = () => {
                 <table className="w-full text-left text-sm whitespace-nowrap">
                   <thead className="bg-[#fafcfb] text-gray-600">
                     <tr className="border-b border-[#e0f0e9]">
-                      <th className="px-6 py-4 font-bold text-[#1a3a2e]">
+                      <th className="px-6 py-4 font-bold text-deep-green">
                         Order ID
                       </th>
-                      <th className="px-6 py-4 font-bold text-[#1a3a2e]">
+                      <th className="px-6 py-4 font-bold text-deep-green">
                         Date
                       </th>
-                      <th className="px-6 py-4 font-bold text-[#1a3a2e]">
+                      <th className="px-6 py-4 font-bold text-deep-green">
                         Status
                       </th>
-                      <th className="px-6 py-4 font-bold text-[#1a3a2e]">
+                      <th className="px-6 py-4 font-bold text-deep-green">
                         Delivery
                       </th>
-                      <th className="px-6 py-4 font-bold text-[#1a3a2e]">
+                      <th className="px-6 py-4 font-bold text-deep-green">
                         Total Price
                       </th>
                     </tr>
@@ -240,10 +240,10 @@ const UserActivity = () => {
                         key={order.id}
                         className="transition-colors hover:bg-[#fcfdfc]"
                       >
-                        <td className="px-6 py-4 font-bold text-[#1a3a2e]">
+                        <td className="px-6 py-4 font-bold text-deep-green">
                           #{order.id}
                         </td>
-                        <td className="px-6 py-4 text-[#7a9e8e]">
+                        <td className="px-6 py-4 text-light-green">
                           {formatDate(order.createdAt)}
                         </td>
                         <td className="px-6 py-4">
@@ -269,7 +269,7 @@ const UserActivity = () => {
                           </span>
                         </td>
                         <td className="px-6 py-4">
-                          <span className="font-semibold text-[#1a3a2e]">
+                          <span className="font-semibold text-deep-green">
                             {order.deliveryStatus}
                           </span>
                         </td>

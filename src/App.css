@@ -3,6 +3,8 @@
 @theme {
   --color-primary: #379b89;
   --color-secondary: #009566;
+  --color-light-green: #7a9e8e;
+  --color-deep-green: #1a3a2e;
   --color-dark: #002f20;
   --color-bg: #f0f6f2;
 }
@@ -60,7 +62,7 @@
 }
 
 .react-datepicker__day-name {
-  color: #7a9e8e !important;
+  color: var(--color-light-green) !important;
   font-weight: 600 !important;
 }
 

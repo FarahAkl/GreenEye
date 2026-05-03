@@ -31,7 +31,7 @@ const WithdrawalForm = ({ onCloseModal }: { onCloseModal?: () => void }) => {
       className="mt-6 flex w-[min(92vw,30rem)] flex-col gap-4"
     >
       <div className="space-y-2">
-        <label className="text-sm font-medium text-[#1a3a2e]">Amount</label>
+        <label className="text-sm font-medium text-deep-green">Amount</label>
         <input
           type="number"
           min={1}
@@ -45,7 +45,7 @@ const WithdrawalForm = ({ onCloseModal }: { onCloseModal?: () => void }) => {
       </div>
 
       <div className="space-y-2">
-        <label className="text-sm font-medium text-[#1a3a2e]">
+        <label className="text-sm font-medium text-deep-green">
           Bank Account
         </label>
         <input

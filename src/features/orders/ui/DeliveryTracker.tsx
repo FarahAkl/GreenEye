@@ -78,7 +78,7 @@ const DeliveryTracker = ({
                 />
                 <span
                   className={`text-[11px] font-semibold tracking-wide uppercase transition-colors duration-500 ${
-                    filled ? "text-[#1a3a2e]" : "text-[#b0c9bc]"
+                    filled ? "text-deep-green" : "text-[#b0c9bc]"
                   }`}
                 >
                   {step.label}

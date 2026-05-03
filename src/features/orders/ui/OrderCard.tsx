@@ -43,14 +43,14 @@ const OrderCard = ({
       {/* Header */}
       <div className="flex items-start justify-between px-5 pt-4 pb-3">
         <div className="flex flex-col gap-0.5">
-          <h3 className="text-[17px] font-bold text-[#1a3a2e]">
+          <h3 className="text-[17px] font-bold text-deep-green">
             OrderID: #{order.id}
           </h3>
-          <p className="text-[13px] text-[#7a9e8e]">
+          <p className="text-[13px] text-light-green">
             Initiated:{" "}
             {formatDate(order.createdAt, "en-GB")}
           </p>
-          <p className="flex items-center gap-1.5 text-[13px] font-semibold text-[#7a9e8e]">
+          <p className="flex items-center gap-1.5 text-[13px] font-semibold text-light-green">
             <span
               className={`inline-block h-2 w-2 rounded-full ${
                 isCancelledStatus ? "bg-red-400" : "bg-primary"
@@ -104,10 +104,10 @@ const OrderCard = ({
                     />
                   </div>
                   <div className="flex flex-1 flex-col gap-0.5">
-                    <h4 className="text-sm font-bold text-[#1a3a2e]">
+                    <h4 className="text-sm font-bold text-deep-green">
                       {item.productName}
                     </h4>
-                    <p className="text-xs text-[#7a9e8e]">
+                    <p className="text-xs text-light-green">
                       Qty: {item.quantity} × {item.unitPrice.toLocaleString()} EGP
                     </p>
                   </div>
@@ -124,8 +124,8 @@ const OrderCard = ({
       {/* Price + Tracker */}
       <div className="px-5 pt-4 pb-3">
         <div className="mb-4 flex items-baseline gap-2">
-          <span className="text-[13px] text-[#7a9e8e]">Total Price:</span>
-          <span className="text-base font-bold text-[#1a3a2e]">
+          <span className="text-[13px] text-light-green">Total Price:</span>
+          <span className="text-base font-bold text-deep-green">
             {order.totalPrice.toLocaleString()} EGP
           </span>
         </div>

@@ -91,10 +91,10 @@ const Profile = () => {
       <div className="mx-auto max-w-5xl">
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-[#1a3a2e]">
+            <h1 className="text-3xl font-bold text-deep-green">
               Profile Settings
             </h1>
-            <p className="mt-1 text-[#7a9e8e]">
+            <p className="mt-1 text-light-green">
               Manage your account information and how others see you.
             </p>
           </div>
@@ -165,10 +165,10 @@ const Profile = () => {
                 )}
               </div>
               <div className="mt-6 text-center">
-                <h3 className="text-xl font-bold text-[#1a3a2e]">
+                <h3 className="text-xl font-bold text-deep-green">
                   {profileData?.data.name}
                 </h3>
-                <p className="text-sm text-[#7a9e8e]">
+                <p className="text-sm text-light-green">
                   {profileData?.data.email}
                 </p>
                 <div className="mt-4 inline-flex items-center rounded-full bg-[#e9f2ee] px-4 py-1 text-xs font-semibold tracking-wider text-[#3b8768] uppercase">
@@ -181,7 +181,7 @@ const Profile = () => {
           {/* Right Column - Form Fields */}
           <div className="space-y-8 lg:col-span-2">
             <div className="rounded-3xl border border-[#e0f0e9] bg-white p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
-              <h2 className="mb-6 text-xl font-bold text-[#1a3a2e]">
+              <h2 className="mb-6 text-xl font-bold text-deep-green">
                 Personal Information
               </h2>
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">

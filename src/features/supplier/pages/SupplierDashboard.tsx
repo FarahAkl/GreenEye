@@ -77,8 +77,8 @@ const SupplierDashboard = () => {
       {/* Header & Filters */}
       <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
         <div>
-          <h1 className="mb-2 text-3xl font-bold text-[#1a3a2e]">Supplier Overview</h1>
-          <p className="text-[#7a9e8e]">
+          <h1 className="mb-2 text-3xl font-bold text-deep-green">Supplier Overview</h1>
+          <p className="text-light-green">
             Welcome back! Manage your business activities here.
           </p>
         </div>
@@ -86,7 +86,7 @@ const SupplierDashboard = () => {
         {/* Date Filters */}
         <div className="flex items-center gap-3">
           <div className="flex flex-col gap-1.5 w-36">
-            <label className="text-xs font-semibold text-[#7a9e8e] ml-1">Month</label>
+            <label className="text-xs font-semibold text-light-green ml-1">Month</label>
             <CustomSelect
               options={monthOptions}
               value={selectedMonth.toString()}
@@ -94,7 +94,7 @@ const SupplierDashboard = () => {
             />
           </div>
           <div className="flex flex-col gap-1.5 w-32">
-            <label className="text-xs font-semibold text-[#7a9e8e] ml-1">Year</label>
+            <label className="text-xs font-semibold text-light-green ml-1">Year</label>
             <CustomSelect
               options={yearOptions}
               value={selectedYear.toString()}
@@ -147,10 +147,10 @@ const SupplierDashboard = () => {
             >
               <card.icon size={24} style={{ color: card.color }} />
             </div>
-            <h2 className="mb-1 text-lg font-bold text-[#1a3a2e]">
+            <h2 className="mb-1 text-lg font-bold text-deep-green">
               {card.title}
             </h2>
-            <p className="text-sm leading-relaxed text-[#7a9e8e]">
+            <p className="text-sm leading-relaxed text-light-green">
               {card.description}
             </p>
             <Link to={card.to} className="mt-4 text-xs font-semibold text-primary hover:underline">
