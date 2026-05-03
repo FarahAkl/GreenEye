@@ -117,7 +117,6 @@ const SidebarItem = ({
   );
 };
 
-
 const DashboardLayout = () => {
   const { roles, isAuthenticated } = useAuth();
   const navigate = useNavigate();
@@ -207,7 +206,7 @@ const DashboardLayout = () => {
     <div className="flex h-screen bg-[#f4f9f6]">
       {/* Sidebar - Desktop */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-64 transform border-r border-[#e0f0e9] bg-white transition-transform duration-300 lg:static lg:translate-x-0 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
+        className={`no-scrollbar fixed inset-y-0 left-0 z-50 w-64 transform overflow-y-scroll border-r border-[#e0f0e9] bg-white transition-transform duration-300 lg:static lg:translate-x-0 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
         <div className="flex h-16 items-center border-b border-[#e0f0e9] px-6">
           <div className="flex items-center gap-2">
@@ -216,7 +215,7 @@ const DashboardLayout = () => {
               <span className="text-lg leading-none font-bold text-[#04591B]">
                 GreenEye
               </span>
-              <span className="text-[10px] font-medium tracking-wider text-light-green uppercase">
+              <span className="text-light-green text-[10px] font-medium tracking-wider uppercase">
                 {dashboardLabel}
               </span>
             </div>
@@ -237,7 +236,7 @@ const DashboardLayout = () => {
         <div className="border-t border-[#e0f0e9] p-4">
           <button
             onClick={handleLogout}
-            className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-light-green transition-all duration-200 hover:bg-red-50 hover:text-red-500"
+            className="text-light-green flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-200 hover:bg-red-50 hover:text-red-500"
           >
             <LuLogOut size={20} />
             Logout
@@ -264,18 +263,24 @@ const DashboardLayout = () => {
         {/* Top bar - Desktop */}
         <header className="hidden h-16 items-center justify-between border-b border-[#e0f0e9] bg-white px-8 lg:flex">
           <div className="flex flex-col">
-            <h2 className="text-lg font-bold text-deep-green">
+            <h2 className="text-deep-green text-lg font-bold">
               {dashboardLabel}
             </h2>
-            <p className="text-xs text-light-green">
+            <p className="text-light-green text-xs">
               Welcome back to your dashboard
             </p>
           </div>
 
           <div className="flex items-center gap-4">
             <button
-              onClick={() => navigate(isAdmin ? "/admin-dashboard/profile" : "/supplier-dashboard/profile")}
-              className="group relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-[#e0f0e9] bg-white transition-all hover:border-primary/50"
+              onClick={() =>
+                navigate(
+                  isAdmin
+                    ? "/admin-dashboard/profile"
+                    : "/supplier-dashboard/profile",
+                )
+              }
+              className="group hover:border-primary/50 relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-[#e0f0e9] bg-white transition-all"
               title="Profile"
             >
               {userAvatar && !imgError ? (
