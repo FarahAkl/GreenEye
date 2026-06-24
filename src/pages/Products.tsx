@@ -30,7 +30,7 @@ const Products = () => {
   const categoryId = searchParams.get("categoryId") || "";
   const sortOrder = (searchParams.get("sort") || "") as SortOrder;
   const pageNumber = Math.max(1, Number(searchParams.get("page")) || 1);
-  const pageSize = 8;
+  const pageSize = 10;
 
   const { products, isFetchingProducts } = useProducts({
     pageNumber,
@@ -153,10 +153,13 @@ const Products = () => {
 
   return (
     <div className="relative flex flex-col gap-8 px-4 py-20 sm:px-8 md:px-16">
-      <SEO title={activeCategory ? activeCategory.name : "Products"} description="Shop sustainable, fresh, and organic agricultural products directly from trusted farmers." />
+      <SEO
+        title={activeCategory ? activeCategory.name : "Products"}
+        description="Shop sustainable, fresh, and organic agricultural products directly from trusted farmers."
+      />
       {/* Background */}
       <img
-        src="/images/productsBg.png"
+        src="/images/productsBg.webp"
         alt=""
         className="absolute inset-0 -z-1000 h-full w-full object-cover opacity-6"
       />

@@ -85,10 +85,10 @@ const Navbar = () => {
     logout();
   };
 
-  const userAvatar = profileData?.data?.profileImageUrl || '';
+  const userAvatar = profileData?.data?.profileImageUrl || "";
 
   return (
-    <header className="sticky top-0 left-0 z-1000 border-b border-gray-300/60 bg-gray-200/50 px-4 shadow-navbar backdrop-blur-2xl sm:px-6 md:px-10 lg:px-16">
+    <header className="shadow-navbar sticky top-0 left-0 z-1000 border-b border-gray-300/60 bg-gray-200/50 px-4 backdrop-blur-2xl sm:px-6 md:px-10 lg:px-16">
       <ScrollToHash />
 
       <div className="mx-auto flex h-18 max-w-7xl items-center justify-between gap-3">
@@ -100,7 +100,7 @@ const Navbar = () => {
             navigate("/");
           }}
         >
-          <img src="/images/logo.png" alt="logo" className="h-12 shrink-0" />
+          <img src="/images/logo.webp" alt="logo" className="h-12 shrink-0" />
           <div className="flex flex-col items-start">
             <div className="text-lg leading-none font-bold">
               <span className="text-brand-green">Green</span>
@@ -133,18 +133,21 @@ const Navbar = () => {
               </button>
               <button
                 onClick={() => navigate("/profile")}
-                className="group relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-full border border-border-green bg-white transition-all hover:border-primary/50"
+                className="group border-border-green hover:border-primary/50 relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-full border bg-white transition-all"
                 aria-label="Profile"
               >
                 {userAvatar && !imgError ? (
-                  <img 
-                    src={`${BASE_URL}${userAvatar}`} 
-                    alt="Profile" 
-                    className="h-full w-full object-cover" 
+                  <img
+                    src={`${BASE_URL}${userAvatar}`}
+                    alt="Profile"
+                    className="h-full w-full object-cover"
                     onError={() => setImgError(true)}
                   />
                 ) : (
-                  <LuUser size={24} className="text-gray-600 transition-colors group-hover:text-primary" />
+                  <LuUser
+                    size={24}
+                    className="group-hover:text-primary text-gray-600 transition-colors"
+                  />
                 )}
               </button>
               <button
@@ -169,7 +172,7 @@ const Navbar = () => {
                 variant="filled"
                 onClick={() => navigate("/signup")}
                 btnLabel="Sign up"
-                className="rounded-full px-5 shadow-primary-button"
+                className="shadow-primary-button rounded-full px-5"
               />
             </div>
           )}
@@ -186,7 +189,7 @@ const Navbar = () => {
           {open && (
             <>
               <div className="bg-dark/20 fixed inset-0 top-18 z-40 backdrop-blur-[2px] md:hidden" />
-              <div className="absolute top-14 right-0 z-50 w-[min(22rem,calc(100vw-2rem))] overflow-hidden rounded-3xl border border-white/70 bg-white/95 p-4 shadow-mobile-menu backdrop-blur-xl md:hidden">
+              <div className="shadow-mobile-menu absolute top-14 right-0 z-50 w-[min(22rem,calc(100vw-2rem))] overflow-hidden rounded-3xl border border-white/70 bg-white/95 p-4 backdrop-blur-xl md:hidden">
                 <div className="flex flex-col gap-2">
                   {navItems.map((item) => (
                     <Link
@@ -194,7 +197,7 @@ const Navbar = () => {
                       to={item.to}
                       className={`rounded-2xl px-4 py-3 text-sm font-medium transition-all duration-200 ${
                         activeItem === item.label
-                          ? "bg-primary text-white shadow-mobile-active"
+                          ? "bg-primary shadow-mobile-active text-white"
                           : "bg-page-green text-nav-green hover:bg-pale-green"
                       }`}
                       onClick={closeMenu}
@@ -211,7 +214,7 @@ const Navbar = () => {
                         navigate("/cart");
                         closeMenu();
                       }}
-                      className="flex h-12 cursor-pointer items-center justify-center gap-2 rounded-2xl bg-page-green text-sm font-semibold text-nav-green transition-all hover:bg-pale-green"
+                      className="bg-page-green text-nav-green hover:bg-pale-green flex h-12 cursor-pointer items-center justify-center gap-2 rounded-2xl text-sm font-semibold transition-all"
                     >
                       <TiShoppingCart size={20} />
                       Cart
@@ -221,7 +224,7 @@ const Navbar = () => {
                         navigate("/profile");
                         closeMenu();
                       }}
-                      className="flex h-12 cursor-pointer items-center justify-center gap-2 rounded-2xl bg-page-green text-sm font-semibold text-nav-green transition-all hover:bg-pale-green"
+                      className="bg-page-green text-nav-green hover:bg-pale-green flex h-12 cursor-pointer items-center justify-center gap-2 rounded-2xl text-sm font-semibold transition-all"
                     >
                       <LuUser size={20} />
                       Profile
@@ -254,7 +257,7 @@ const Navbar = () => {
                         closeMenu();
                       }}
                       btnLabel="Sign up"
-                      className="w-full rounded-2xl shadow-primary-button"
+                      className="shadow-primary-button w-full rounded-2xl"
                     />
                   </div>
                 )}

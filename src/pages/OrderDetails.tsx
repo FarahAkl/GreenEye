@@ -53,7 +53,7 @@ const OrderDetails = () => {
     return (
       <div className="flex min-h-[70vh] flex-col items-center justify-center gap-4 px-6 text-center">
         <p className="text-dark text-xl font-semibold">Order not found</p>
-        <p className="max-w-md text-sm text-muted-green-2">
+        <p className="text-muted-green-2 max-w-md text-sm">
           We could not load the order details right now. Please try again from
           your orders page.
         </p>
@@ -97,7 +97,7 @@ const OrderDetails = () => {
       />
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-[url('/images/productsBg.png')] bg-repeat opacity-6"
+        className="absolute inset-0 -z-10 bg-[url('/images/productsBg.webp')] bg-repeat opacity-6"
       />
 
       <div className="mx-auto max-w-6xl">
@@ -105,7 +105,7 @@ const OrderDetails = () => {
           <button
             type="button"
             onClick={() => navigate("/orders")}
-            className="mb-4 flex cursor-pointer items-center gap-2 font-semibold text-muted-green transition-colors hover:text-hover-green"
+            className="text-muted-green hover:text-hover-green mb-4 flex cursor-pointer items-center gap-2 font-semibold transition-colors"
           >
             <FiArrowLeft size={16} />
             Back
@@ -117,33 +117,33 @@ const OrderDetails = () => {
         </div>
 
         <div className="grid gap-6">
-          <div className="rounded-[28px] border border-gray-300 p-6 shadow-order-panel backdrop-blur-lg">
+          <div className="shadow-order-panel rounded-[28px] border border-gray-300 p-6 backdrop-blur-lg">
             <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
               <div>
-                <p className="mb-2 text-3xl font-semibold text-heading-green">
+                <p className="text-heading-green mb-2 text-3xl font-semibold">
                   Order Information
                 </p>
-                <div className="space-y-1 text-sm text-muted-green">
+                <div className="text-muted-green space-y-1 text-sm">
                   <p>
-                    <span className="font-semibold text-hover-green">
+                    <span className="text-hover-green font-semibold">
                       OrderID:
                     </span>{" "}
                     #{orderData.id}
                   </p>
                   <p>
-                    <span className="font-semibold text-hover-green">
+                    <span className="text-hover-green font-semibold">
                       Initiated:
                     </span>{" "}
                     {formatDate(orderData.createdAt, "en-GB")}
                   </p>
                   <p>
-                    <span className="font-semibold text-hover-green">
+                    <span className="text-hover-green font-semibold">
                       Status:
                     </span>{" "}
                     <span className="text-primary">{orderData.status}</span>
                   </p>
                   <p>
-                    <span className="font-semibold text-hover-green">
+                    <span className="text-hover-green font-semibold">
                       Delivery Status:
                     </span>{" "}
                     <span className="text-primary">
@@ -155,9 +155,7 @@ const OrderDetails = () => {
 
               <div className="w-full max-w-3xl rounded-3xl px-4 py-5">
                 <DeliveryTracker
-                  deliveryStatus={
-                    orderData.deliveryStatus 
-                  }
+                  deliveryStatus={orderData.deliveryStatus}
                   createdAt={shippingInfo?.deliveredAt || orderData.createdAt}
                 />
               </div>
@@ -165,7 +163,7 @@ const OrderDetails = () => {
 
             <div className="grid gap-6 lg:grid-cols-[1.2fr_0.9fr]">
               <div className="rounded-[28px] p-5">
-                <p className="mb-5 text-3xl font-semibold text-heading-green">
+                <p className="text-heading-green mb-5 text-3xl font-semibold">
                   Shipping & Payment Details
                 </p>
 
@@ -197,10 +195,10 @@ const OrderDetails = () => {
 
               <div className="flex flex-col gap-4">
                 <div className="rounded-[28px] p-5 shadow-sm">
-                  <p className="mb-3 font-semibold text-hover-green">
+                  <p className="text-hover-green mb-3 font-semibold">
                     Tracking Number
                   </p>
-                  <p className="text-sm text-muted-green-2">
+                  <p className="text-muted-green-2 text-sm">
                     {shippingInfo?.trackingNumber ||
                       orderData.trackingNumber ||
                       "Tracking number will appear once the shipment is generated."}
@@ -210,7 +208,7 @@ const OrderDetails = () => {
             </div>
           </div>
 
-          <div className="rounded-[28px] border border-gray-300 p-6 shadow-order-panel backdrop-blur-lg">
+          <div className="shadow-order-panel rounded-[28px] border border-gray-300 p-6 backdrop-blur-lg">
             <OrderSummary
               items={orderItems}
               subtotal={orderData.subTotal}

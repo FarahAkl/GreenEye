@@ -34,7 +34,7 @@ const Order = () => {
   const stepFromUrl = (searchParams.get("step") as "1" | "2" | "3") || "1";
   const orderIdFromUrl = searchParams.get("orderId");
   const shouldRestoreCheckout = searchParams.has("step") || !!orderIdFromUrl;
-  
+
   const [currentStep, setCurrentStep] = useState<CheckoutStep>(
     shouldRestoreCheckout ? (parseInt(stepFromUrl) as CheckoutStep) : 1,
   );
@@ -73,8 +73,11 @@ const Order = () => {
 
   const activeOrderId = orderId ? String(orderId) : orderIdFromUrl;
   const derivedPhase: Phase = activeOrderId ? "payment" : "checkout";
-  const { order, isFetchingOrder } = useGetOrderById({ orderId: activeOrderId || "" });
-  const resolvedClientSecret = clientSecret ?? order?.data?.clientSecret ?? null;
+  const { order, isFetchingOrder } = useGetOrderById({
+    orderId: activeOrderId || "",
+  });
+  const resolvedClientSecret =
+    clientSecret ?? order?.data?.clientSecret ?? null;
 
   useEffect(() => {
     const hasCheckoutStep = searchParams.has("step");
@@ -100,7 +103,6 @@ const Order = () => {
       setSearchParams(nextParams, { replace: true });
     }
   }, [activeOrderId, currentStep, derivedPhase, searchParams, setSearchParams]);
-
 
   const steps = ["Your Information", "Shipment Details", "Confirmation"];
 
@@ -157,7 +159,10 @@ const Order = () => {
     localStorage.removeItem("checkoutSelectedRate");
 
     await Promise.all([
-      queryClient.invalidateQueries({ queryKey: ["orders"], refetchType: "all" }),
+      queryClient.invalidateQueries({
+        queryKey: ["orders"],
+        refetchType: "all",
+      }),
       queryClient.invalidateQueries({
         queryKey: ["order", String(createdOrderId)],
         refetchType: "all",
@@ -183,7 +188,13 @@ const Order = () => {
     }
   };
 
-  if (isLoading || (derivedPhase === "payment" && activeOrderId && isFetchingOrder && !clientSecret)) {
+  if (
+    isLoading ||
+    (derivedPhase === "payment" &&
+      activeOrderId &&
+      isFetchingOrder &&
+      !clientSecret)
+  ) {
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <Spinner />
@@ -195,7 +206,10 @@ const Order = () => {
 
   return (
     <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-      <SEO title="Checkout" description="Complete your order to receive your fresh, sustainable agricultural products." />
+      <SEO
+        title="Checkout"
+        description="Complete your order to receive your fresh, sustainable agricultural products."
+      />
       {/* Left side */}
       <div className="flex flex-col gap-4 px-14 py-12">
         <div
@@ -217,7 +231,7 @@ const Order = () => {
       {/* Right side */}
       <div className="bg-primary/10 relative px-10 py-12 lg:px-14">
         <img
-          src="/images/productsBg.png"
+          src="/images/productsBg.webp"
           alt=""
           className="absolute inset-0 -z-1000 h-full w-full object-cover opacity-4"
         />
@@ -272,18 +286,24 @@ const Order = () => {
             )}
 
           {/* Payment phase — outside the stepper */}
-          {derivedPhase === "payment" && activeOrderId && resolvedClientSecret && (
-            <PaymentForm
-              orderId={Number(activeOrderId)}
-              clientSecret={resolvedClientSecret}
-              onSuccess={handlePaymentSuccess}
-            />
-          )}
-          {derivedPhase === "payment" && activeOrderId && !isFetchingOrder && !resolvedClientSecret && (
-            <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
-              Unable to start payment for this order right now. Please try again from your orders page.
-            </div>
-          )}
+          {derivedPhase === "payment" &&
+            activeOrderId &&
+            resolvedClientSecret && (
+              <PaymentForm
+                orderId={Number(activeOrderId)}
+                clientSecret={resolvedClientSecret}
+                onSuccess={handlePaymentSuccess}
+              />
+            )}
+          {derivedPhase === "payment" &&
+            activeOrderId &&
+            !isFetchingOrder &&
+            !resolvedClientSecret && (
+              <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
+                Unable to start payment for this order right now. Please try
+                again from your orders page.
+              </div>
+            )}
         </div>
       </div>
     </div>

@@ -1,7 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import {
-  FiCheckCircle,
-} from "react-icons/fi";
+import { FiCheckCircle } from "react-icons/fi";
 import Spinner from "../../../ui/Spinner";
 import useGetOrderById from "../hooks/useGetOrderById";
 import OrderSummary from "./OrderSummary";
@@ -41,7 +39,10 @@ const OrderConfirmation = () => {
 
   return (
     <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-      <SEO title="Order Confirmed" description="Thank you for your order! Your sustainable products are on their way." />
+      <SEO
+        title="Order Confirmed"
+        description="Thank you for your order! Your sustainable products are on their way."
+      />
       <div className="flex flex-col gap-4 px-14 py-12">
         <OrderSummary
           items={data.items ?? []}
@@ -54,7 +55,7 @@ const OrderConfirmation = () => {
 
       <div className="bg-primary/10 relative px-10 py-12 lg:px-14">
         <img
-          src="/images/productsBg.png"
+          src="/images/productsBg.webp"
           alt=""
           className="absolute inset-0 -z-1000 h-full w-full object-cover opacity-4"
         />

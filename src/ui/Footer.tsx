@@ -13,7 +13,7 @@ const Footer = () => {
         <ul className="flex flex-col items-center gap-4 md:items-start">
           <li className="mb-7">
             <div className="flex items-center gap-1">
-              <img src="/images/logo.png" alt="logo" className="h-12" />
+              <img src="/images/logo.webp" alt="logo" className="h-12" />
               <div className="flex text-2xl font-bold text-white">GreenEye</div>
             </div>
           </li>
@@ -25,18 +25,18 @@ const Footer = () => {
           <li className="flex gap-4 sm:gap-6">
             <Link
               to={"https://www.facebook.com/share/17xzZxXDMG/"}
-              className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/20 text-footer-text"
+              className="text-footer-text flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/20"
             >
               <FaFacebookF size={20} />
             </Link>
 
-            <div className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/20 text-footer-text">
+            <div className="text-footer-text flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/20">
               <FaTwitter size={20} />
             </div>
 
             <Link
               to={"https://www.linkedin.com/company/greeneyee/"}
-              className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/20 text-footer-text"
+              className="text-footer-text flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/20"
             >
               <FaLinkedin size={20} />
             </Link>

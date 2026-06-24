@@ -61,7 +61,7 @@ const HeroSec = () => {
           initial={{ scale: 1.1 }}
           animate={{ scale: 1 }}
           transition={{ duration: 1.5, ease: "easeOut" }}
-          src="/images/plantHologrampng.png"
+          src="/images/plantHologrampng.webp"
           alt="Plant Hologram"
           className="inset-0 h-full w-full object-cover md:absolute"
         />

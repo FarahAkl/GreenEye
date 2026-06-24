@@ -93,7 +93,7 @@ const ProductDetails = () => {
     <div className="flex flex-col gap-10 px-8 py-20 md:px-12 lg:px-24">
       <SEO title={name} description={description} />
       <img
-        src="/images/productsBg.png"
+        src="/images/productsBg.webp"
         alt=""
         className="absolute inset-0 -z-1000 h-full w-full object-cover opacity-6"
       />

@@ -78,9 +78,9 @@ const SidebarItem = ({
     <div className="space-y-1">
       <button
         onClick={() => setIsUserToggled(!isOpen)}
-        className={`flex w-full items-center gap-2 rounded-xl px-2 py-3 text-[15px] font-semibold text-gray-muted transition-all duration-200 hover:bg-soft-green-3 hover:text-accent-green`}
+        className={`text-gray-muted hover:bg-soft-green-3 hover:text-accent-green flex w-full items-center gap-2 rounded-xl px-2 py-3 text-[15px] font-semibold transition-all duration-200`}
       >
-        <span className="flex w-4 justify-center text-gray-soft">
+        <span className="text-gray-soft flex w-4 justify-center">
           {isOpen ? <LuChevronDown size={16} /> : <LuChevronRight size={16} />}
         </span>
         <item.icon size={22} />
@@ -203,16 +203,16 @@ const DashboardLayout = () => {
   const userAvatar = profileData?.data?.profileImageUrl;
 
   return (
-    <div className="flex h-screen bg-page-green">
+    <div className="bg-page-green flex h-screen">
       {/* Sidebar - Desktop */}
       <aside
-        className={`no-scrollbar fixed inset-y-0 left-0 z-50 w-64 transform overflow-y-scroll border-r border-border-green bg-white transition-transform duration-300 lg:static lg:translate-x-0 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
+        className={`no-scrollbar border-border-green fixed inset-y-0 left-0 z-50 w-64 transform overflow-y-scroll border-r bg-white transition-transform duration-300 lg:static lg:translate-x-0 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
-        <div className="flex h-16 items-center border-b border-border-green px-6">
+        <div className="border-border-green flex h-16 items-center border-b px-6">
           <div className="flex items-center gap-2">
-            <img src="/images/logo.png" alt="logo" className="h-8 shrink-0" />
+            <img src="/images/logo.webp" alt="logo" className="h-8 shrink-0" />
             <div className="flex flex-col">
-              <span className="text-lg leading-none font-bold text-brand-green">
+              <span className="text-brand-green text-lg leading-none font-bold">
                 GreenEye
               </span>
               <span className="text-light-green text-[10px] font-medium tracking-wider uppercase">
@@ -233,7 +233,7 @@ const DashboardLayout = () => {
           ))}
         </nav>
 
-        <div className="border-t border-border-green p-4">
+        <div className="border-border-green border-t p-4">
           <button
             onClick={handleLogout}
             className="text-light-green flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-200 hover:bg-red-50 hover:text-red-500"
@@ -247,21 +247,21 @@ const DashboardLayout = () => {
       {/* Main Content Area */}
       <div className="flex flex-1 flex-col overflow-hidden">
         {/* Mobile Header */}
-        <header className="flex h-16 items-center justify-between border-b border-border-green bg-white px-4 lg:hidden">
+        <header className="border-border-green flex h-16 items-center justify-between border-b bg-white px-4 lg:hidden">
           <div className="flex items-center gap-2">
-            <img src="/images/logo.png" alt="logo" className="h-8 shrink-0" />
-            <span className="font-bold text-brand-green">GreenEye</span>
+            <img src="/images/logo.webp" alt="logo" className="h-8 shrink-0" />
+            <span className="text-brand-green font-bold">GreenEye</span>
           </div>
           <button
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="rounded-lg p-2 text-muted-green hover:bg-pale-green"
+            className="text-muted-green hover:bg-pale-green rounded-lg p-2"
           >
             {isSidebarOpen ? <HiX size={24} /> : <HiMenu size={24} />}
           </button>
         </header>
 
         {/* Top bar - Desktop */}
-        <header className="hidden h-16 items-center justify-between border-b border-border-green bg-white px-8 lg:flex">
+        <header className="border-border-green hidden h-16 items-center justify-between border-b bg-white px-8 lg:flex">
           <div className="flex flex-col">
             <h2 className="text-deep-green text-lg font-bold">
               {dashboardLabel}
@@ -280,7 +280,7 @@ const DashboardLayout = () => {
                     : "/supplier-dashboard/profile",
                 )
               }
-              className="group hover:border-primary/50 relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-border-green bg-white transition-all"
+              className="group hover:border-primary/50 border-border-green relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border bg-white transition-all"
               title="Profile"
             >
               {userAvatar && !imgError ? (
