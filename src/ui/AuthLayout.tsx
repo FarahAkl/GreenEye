@@ -10,7 +10,7 @@ const AuthLayout = () => {
 
       <div className="relative flex flex-1 items-center justify-center">
         <img
-          src="/images/authBg.webp"
+          src="/images/authBG.webp"
           alt="background"
           className="absolute inset-0 h-full w-full object-cover"
         />
