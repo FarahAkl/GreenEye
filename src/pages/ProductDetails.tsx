@@ -13,6 +13,7 @@ import {
   type addItemToCartT,
 } from "../schemas/cartSchema";
 import SEO from "../ui/SEO";
+import ReviewsCount from "../ui/ReviewCount";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 const formatApiDate = (value?: string | null) => {
@@ -42,6 +43,7 @@ const ProductDetails = () => {
     categoryName,
     userName,
     averageRating,
+    reviewCount,
   } = productData;
 
   const { control, handleSubmit } = useForm<addItemToCartT>({
@@ -185,6 +187,7 @@ const ProductDetails = () => {
           <p className="text-lg text-gray-600">{formatApiDate(expiryDate)}</p>
         </div>
       </div>
+      <ReviewsCount totalReviews={reviewCount} averageRating={averageRating} />
     </div>
   );
 };
