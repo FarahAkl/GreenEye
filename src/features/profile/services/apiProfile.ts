@@ -27,7 +27,7 @@ export const updateProfile = async (data: updateProfileT) => {
 
 export const deleteProfile = async () => {
   try {
-    const res = await axiosInstance.delete("/api/Profile/delete");
+    const res = await axiosInstance.delete("/api/Profile/delete-account");
     return res.data;
   } catch (err) {
     if (isAxiosError(err)) {
