@@ -2,6 +2,15 @@ import Button from "./Button";
 import { motion } from "framer-motion";
 
 const AppSec = () => {
+  const handleDownloadApp = () => {
+    const link = document.createElement("a");
+    link.href = "/app-release.apk";
+    link.download = "GreenEye.apk";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const appSteps = [
     {
       icon: "/svg/plantStages1.svg",
@@ -35,16 +44,16 @@ const AppSec = () => {
     },
   ];
   return (
-    <section className="px-8 py-20 shadow-section-green md:px-12 lg:px-24">
+    <section className="shadow-section-green px-8 py-20 md:px-12 lg:px-24">
       <div className="grid items-center gap-12 lg:grid-cols-2">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, staggerChildren: 0.15 }}
           className="flex flex-col gap-4"
         >
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -52,7 +61,7 @@ const AppSec = () => {
           >
             The GreenEye App
           </motion.p>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -62,20 +71,20 @@ const AppSec = () => {
             and decision-makers can access powerful insights through a clear
             visual interface — without technical complexity.
           </motion.p>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-2xl text-dark-green"
+            className="text-dark-green text-2xl"
           >
             What you can do:
           </motion.p>
           {appSteps.map((step) => (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="flex flex-col gap-3" 
+              className="flex flex-col gap-3"
               key={step.label}
             >
               <div className="flex items-end gap-2">
@@ -86,7 +95,7 @@ const AppSec = () => {
             </motion.div>
           ))}
         </motion.div>
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.9, x: 50 }}
           whileInView={{ opacity: 1, scale: 1, x: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -101,7 +110,11 @@ const AppSec = () => {
           viewport={{ once: true }}
           transition={{ delay: 0.5 }}
         >
-          <Button btnLabel="Download App" className="md:w-1/2" />
+          <Button
+            btnLabel="Download App"
+            className="md:w-1/2"
+            onClick={handleDownloadApp}
+          />
         </motion.div>
       </div>
     </section>
