@@ -8,14 +8,16 @@ import {
   type verifyOtpT,
 } from "../../../schemas/authSchema";
 import axiosInstance from "../../../services/axiosInstance";
+import { objectToFormData } from "../../../utils/objectToFormData";
 
 export const veriftOTP = async (data: verifyOtpT) => {
   const validatedRequest = verifyOtpSchema.parse(data);
+      const formData = objectToFormData(validatedRequest);
 
   try {
     const res = await axiosInstance.post(
       "/api/Authentication/verify-otp",
-      validatedRequest,
+      formData,
     );
     const validatedResponse = loginSuccessResponseSchema.parse(res.data);
     return validatedResponse;
