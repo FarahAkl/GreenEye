@@ -204,6 +204,24 @@ const OrderDetails = () => {
                       "Tracking number will appear once the shipment is generated."}
                   </p>
                 </div>
+
+                {shippingInfo?.labelUrl && (
+                  <div className="rounded-[28px] p-5 shadow-sm">
+                    <p className="text-hover-green mb-3 font-semibold">
+                      Receipt Label
+                    </p>
+                    <a
+                      href={shippingInfo.labelUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="rounded-2xl"
+                    >
+                      <span className="text-muted-green-2 px-4 py-3 text-sm font-medium underline">
+                        Open receipt label
+                      </span>
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
           </div>
